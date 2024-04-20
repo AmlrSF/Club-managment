@@ -37,9 +37,9 @@ export class InterestComponent implements OnInit {
           
           if(res.success ==  true) {
             this.profileId = res.customer._id
-            // if(res.customer.Identificated){
-            //   this.router.navigate(["/"] )
-            // }
+            if(res.customer.Identificated && res.customer.interests.length>0){
+              this.router.navigate(["/"] )
+            }
             console.log(this.profileId);
             
             
