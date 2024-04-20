@@ -10,7 +10,7 @@ export class FuncServicesService {
   public status:boolean = true;
 
   public addToggle():void {
-    //this.status = !this.status;
+    this.status = !this.status;
   }
 
 }
