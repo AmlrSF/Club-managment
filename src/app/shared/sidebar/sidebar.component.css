@@ -1,0 +1,29 @@
+/* Add this to your global styles or component-specific styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  list-style: none;
+  padding: 0;
+  transition: opacity 0.3s ease-in-out; /* Add a transition effect */
+  opacity: 0; /* Set initial opacity to 0 */
+}
+
+.dropdown.open .dropdown-menu {
+  display: block;
+  opacity: 1; /* Set opacity to 1 when open */
+}
+
+.dropdown-menu li {
+  padding: 8px;
+}
+                                                                                                                                                                                                                  

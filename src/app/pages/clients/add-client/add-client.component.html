@@ -1,0 +1,95 @@
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a routerLink="/admin">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a routerLink="/admin">Home</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">New</a>
+                </li>
+            </ul>
+        </div>
+        <a routerLink="../" class="btn-download">
+            <i class='bx bxs-cloud-download fa-solid fa-list '></i>
+            <span class="text">View Client List</span>
+        </a>
+    </div>
+
+
+    <div class="mt-12">
+        
+
+        <form [formGroup]="addClient" (ngSubmit)="submitForm()">
+            <div class="max-w-lg mx-auto">
+                <h1 class="text-3xl mb-7 text-center ">New Client</h1>
+                <div class="mb-5">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your name</label>
+                    <input type="text" id="name" formControlName="name"
+                        class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div class="mb-2">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                    <input type="email" id="email" formControlName="email"
+                        class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg
+                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div class="mb-2">
+                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone number</label>
+                    <input type="tel" id="phone" formControlName="phone"
+                        class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div class="mb-2">
+                    <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Your address</label>
+                    <input type="text" id="address" formControlName="address"
+                        class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div class="flex items-center justify-center gap-5">
+                    <div class="mb-2 flex-1">
+                        <label for="city" class="block mb-2 text-sm font-medium text-gray-900">City</label>
+                        <input type="text" id="city" formControlName="city"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+
+                    <div class="mb-2 flex-1">
+                        <label for="state" class="block mb-2 text-sm font-medium text-gray-900">State</label>
+                        <input type="text" id="state" formControlName="state"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center gap-3">
+                    <div class="mb-2 flex-1">
+                        <label for="zip" class="block mb-2 text-sm font-medium text-gray-900">ZIP Code</label>
+                        <input type="text" id="zip" formControlName="zip"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+
+                    <div class="mb-2 flex-1">
+                        <label for="country" class="block mb-2 text-sm font-medium text-gray-900">Country</label>
+                        <input type="text" id="country" formControlName="country"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="text-white w-full bg-blue-700 hover:bg-blue--2800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">New
+                    client</button>
+            </div>
+        </form>
+
+
+    </div>
+
+
+</main>

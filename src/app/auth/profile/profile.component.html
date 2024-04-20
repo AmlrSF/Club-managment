@@ -1,0 +1,78 @@
+<div class="max-w-xl mx-auto px-10">
+    <h1 class="text-3xl mb-7 mt-10 text-center">Profile details</h1>
+    <!-- Profile Image -->
+    <div class=" flex items-center justify-center">
+        <div class="form-group">
+            <!-- <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Profile Image </label> -->
+            <input type="file" id="image" formControlName="profileImage" (change)="onImageChange($event)"
+                accept="image/*"
+                class="bg-gray-50 hidden border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#321fdb] focus:border-[#321fdb] outline-none w-full p-3" />
+        </div>
+        <div (click)="openImage()" class="cursor-pointer relative h-[220px] w-full sm:w-[220px] 
+              border-2 border-gray-300 shadow-sm bg-gray-50  
+               text-gray-900 text-sm rounded-full
+                focus:ring-blue-600 focus:border-blue-600 block 
+                 p-2.5 focus:outline-none">
+            <ng-container *ngIf="imageUrl; else noImage">
+                <img [src]="imageUrl" [alt]="imageUrl" class="w-full h-full object-cover rounded-full" />
+            </ng-container>
+            <ng-template #noImage>
+                <img src="../../../assets/download.png" alt="preview"
+                    class=" w-full h-full object-contain opacity-40" />
+            </ng-template>
+        </div>
+    </div>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class=" grid-cols-6 gap-6">
+
+
+        <div class="flex flex-col gap-2">
+            <!-- Bio -->
+            <div class="">
+                <label for="bio" class="block mb-2 text-sm font-medium text-gray-900">Bio</label>
+                <textarea formControlName="bio" id="bio"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none"></textarea>
+            </div>
+            <!-- Phone Number -->
+            <div class="">
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                <input formControlName="phoneNumber" type="text" id="phone"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+
+            <!-- Facebook Link -->
+            <div class="">
+                <label for="facebook-link" class="block mb-2 text-sm font-medium text-gray-900">Facebook Link</label>
+                <input formControlName="facebookLink" type="text" id="facebook-link"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+            <!-- LinkedIn Link -->
+            <div class="">
+                <label for="linkedin-link" class="block mb-2 text-sm font-medium text-gray-900">LinkedIn Link</label>
+                <input formControlName="linkedinLink" type="text" id="linkedin-link"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+            <!-- Class -->
+            <div class="">
+                <label for="class" class="block mb-2 text-sm font-medium text-gray-900">Class</label>
+                <input formControlName="classe" type="text" id="class"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+            <!-- CV Attachment -->
+            <div class="">
+                <div class="form-group">
+                    <label for="cv-attachment" class="block mb-2 text-sm font-medium text-gray-900">CV
+                        Attachment</label>
+                    <input type="file" id="cv-attachment" formControlName="cvAttachment"
+                        (change)="onCVAttachmentChange($event)" accept=".pdf,.doc,.docx"
+                        class="bg-gray-50 hidden border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#321fdb] focus:border-[#321fdb] outline-none w-full p-3" />
+                </div>
+            </div>
+            <div class="">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {{ setLoading ? "Saving..." : "Next" }}
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

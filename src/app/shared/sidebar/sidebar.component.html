@@ -1,0 +1,23 @@
+<!-- sidebar.component.html -->
+<section id="sidebar" [ngClass]="functionsS.status ? 'hide' : ''">
+  <a class="brand ">
+    <i class="bx bxs-group fa-solid fa-house"></i>
+    <span class="text">Carthage Solutions</span>
+  </a>
+  <ul class="side-menu top">
+    <li [class.active]="isActive('/admin/home')">
+      <a (click)="navigateTo('/admin/home')">
+        <i class="bx bxs-group fa-solid fa-house"></i>
+        <span class="text">Dashboard</span>
+      </a>
+    </li>
+    <li [class.active]="isActive('/admin/clients')">
+      <a (click)="navigateTo('/admin/clients')">
+        <i class="bx bxs-group fa-solid fa-user"></i>
+        <span class="text">Clients</span>
+      </a>
+    </li>
+    
+
+  </ul>
+</section>
