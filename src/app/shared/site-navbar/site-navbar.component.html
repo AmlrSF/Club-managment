@@ -1,10 +1,10 @@
 <div class="header" id="header">
   <div class="container">
-    
+
     <div class="flex items-center gap-4">
       <i (click)="addToggle()" class='bx bx-menu text-2xl'><i class="bx bxs-group fa-solid fa-bars"></i></i>
       <a href="#" class="logo text-xl">UniClub</a>
-      
+
       <form>
         <div class="form-input">
           <input type="search" placeholder="Search...">
@@ -15,13 +15,18 @@
 
 
     <div *ngIf="customer; else notLoggedInMessage">
-      <button (click)="toggleDropdown()" type="button"
-        class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 " id="user-menu-button"
-        aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span class="sr-only">Open user menu</span>
-        <img class="w-12 h-12 rounded-full"
-          [src]="customer?.profileImage ? customer.profileImage  : '../../assets/download.png'" alt="user photo">
-      </button>
+      <div class="flex items-center gap-5">
+        <a (click)="navigateToGroupe()" class="h-12 w-12 rounded-full bg-[#eee] cursor-pointer flex justify-center items-center ">
+          <i class="fa-solid fa-plus text-3xl"></i>
+        </a>
+        <button (click)="toggleDropdown()" type="button"
+          class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 " id="user-menu-button"
+          aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <img class="w-12 h-12 rounded-full"
+            [src]="customer?.profileImage ? customer.profileImage  : '../../assets/download.png'" alt="user photo">
+        </button>
+      </div>
       <!-- Dropdown menu -->
       <div
         class="z-[101010101] hidden absolute right-[20px] top-[px]  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow "

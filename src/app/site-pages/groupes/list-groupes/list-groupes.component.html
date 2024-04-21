@@ -1,0 +1,70 @@
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">Clubs</a>
+                </li>
+            </ul>
+        </div>
+        <a routerLink="./new" class="btn-download">
+            <i class='bx bxs-cloud-download fa-solid fa-plus '></i>
+            <span class="text">Add Club</span>
+        </a>
+    </div>
+
+    <div class="mt-5">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <!-- Search bar -->
+            <!-- Implement the search bar here if needed -->
+
+            <!-- Table -->
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <!-- Column Headers -->
+                        <th scope="col" class="text-center p-4">Name</th>
+                        <th scope="col" class="text-center p-4">Description</th>
+                        <th scope="col" class="text-center p-4">Genre</th>
+
+                        <th scope="col" class="text-center p-4">Created At</th>
+                        <th scope="col" class="text-center p-4">Is Approved</th>
+                        <th scope="col" class="text-center p-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table Rows -->
+                    <tr *ngFor="let club of clubs" class="bg-white border-b hover:bg-gray-50">
+                        <td class="text-center p-4">{{ club.clubName }}</td>
+                        <td class="text-center p-4">{{ club.description }}</td>
+                        <td class="text-center p-4">{{ club.genre }}</td>
+
+
+                        <td class="text-center p-4">{{ formatReadableDate(club.createdAt) }}</td>
+                        <td class="text-center p-4">
+                            <div *ngIf="club.approved" class="flex items-center">
+                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Active
+                            </div>
+                            <div *ngIf="!club.approved" class="flex items-center">
+                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> Inactive
+                            </div>
+                        </td>
+                        <td class="text-center p-4 justify-center flex gap-3">
+                            <button class="p-2 rounded-lg bg-[#3C91E6]" (click)="viewClub(club)"><i
+                                    class="text-white font-bold fa-solid fa-eye"></i></button>
+                            <button class="p-2 rounded-lg bg-green-500" (click)="editClub(club)"><i
+                                    class="text-white font-bold fa-solid fa-pen"></i></button>
+                            <button class="p-2 rounded-lg bg-[#DB504A]" (click)="deleteClub(club)"><i
+                                    class="text-white font-bold fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

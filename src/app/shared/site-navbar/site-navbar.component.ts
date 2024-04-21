@@ -12,6 +12,7 @@ import { FuncServicesService } from 'src/app/services/func-services.service';
 })
 export class SiteNavbarComponent  implements OnInit{
 
+
   public customer:any = null;
 
   public constructor(private http:HttpClient, private auth:AuthUserService,private functionsS:FuncServicesService, private router:Router ){}
@@ -63,5 +64,7 @@ export class SiteNavbarComponent  implements OnInit{
     this.functionsS.addToggle(); 
   }
 
-
+  navigateToGroupe() {
+    this.router.navigate(["/Groupes/new"]);
+  }
 }
