@@ -1,0 +1,28 @@
+<!-- sidebar.component.html -->
+<section id="sidebar" [ngClass]="functionsS.status ? 'hide' : ''">
+    <a class="brand ">
+      <i class="bx bxs-group fa-solid fa-house"></i>
+      <span class="text">Carthage Solutions</span>
+    </a>
+    <ul class="side-menu top">
+      <li [class.active]="isActive('/groupes')">
+        <a (click)="navigateTo('/groupes')">
+          <i class="bx bxs-group fa-solid fa-house"></i>
+          <span class="text">Groupe</span>
+        </a>
+      </li>
+      <li [class.active]="isActive('/events')">
+        <a (click)="navigateTo('/events')">
+          <i class="bx bxs-group fa-solid fa-user"></i>
+          <span class="text">Events</span>
+        </a>
+      </li>
+      <li [class.active]="isActive('/saved')">
+        <a (click)="navigateTo('/saved')">
+          <i class="bx bxs-group fa-solid fa-bookmark"></i>
+          <span class="text">Saved</span>
+        </a>
+      </li>
+  
+    </ul>
+  </section>
