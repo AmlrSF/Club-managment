@@ -1,10 +1,13 @@
+<app-site-sidebar></app-site-sidebar>
 
-<app-site-navbar></app-site-navbar>
 
-<section id="content" [ngStyle]="getContentStyles()">
-    <app-site-sidebar></app-site-sidebar>
+<section id="content" [ngStyle]="getContentStyles()" >
+   
+    <app-site-navbar></app-site-navbar>
     <router-outlet></router-outlet>
+    <app-site-footer></app-site-footer>
 </section>
 
 
-<app-site-footer></app-site-footer>
+
+

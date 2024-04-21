@@ -6,6 +6,7 @@ import { NewGroupeComponent } from './new-groupe/new-groupe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListGroupesComponent } from './list-groupes/list-groupes.component';
 import { GroupeDetailsComponent } from './groupe-details/groupe-details.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { GroupeDetailsComponent } from './groupe-details/groupe-details.componen
     CommonModule,
     GroupesRoutingModule,
     ReactiveFormsModule,
+    MatTabsModule
      
   ]
 })

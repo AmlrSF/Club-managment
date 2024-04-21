@@ -1,0 +1,42 @@
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">Manage Club requests</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="flex justify-center items-center mt-10" *ngIf="setLoading; else elseBlock">
+        Loading.../
+    </div>
+
+    <ng-template #elseBlock>
+        <div class="club-list flex flex-col gap-3 pt-10">
+            <div *ngFor="let club of clubs"
+                class="club-card px-6 py-6  bg-[white] flex justify-between items-center   rounded-xl ">
+                <p class="text-xl">request to create a club by {{club.ownerId.lastName}} {{club.ownerId.firstName}} </p>
+
+                <div class="button-group flex items-center gap-3">
+                    <button class="p-2 rounded-lg bg-blue-600 text-white font-semibold" (click)="approveClub(club._id)"
+                        *ngIf="!club.approved">
+                        Approve</button>
+                    <button class="p-2 rounded-lg bg-[#DB504A] text-white font-semibold"
+                        (click)="deleteClub(club._id)">Delete</button>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+    <div *ngIf="setLoading">
+
+    </div>
+
+</main>

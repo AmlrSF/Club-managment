@@ -17,6 +17,12 @@
         <span class="text">Clients</span>
       </a>
     </li>
+    <li [class.active]="isActive('/admin/manage-requests')">
+      <a (click)="navigateTo('/admin/manage-requests')">
+        <i class="bx bxs-group fa-solid fa-user"></i>
+        <span class="text">manage-requests</span>
+      </a>
+    </li>
     
 
   </ul>

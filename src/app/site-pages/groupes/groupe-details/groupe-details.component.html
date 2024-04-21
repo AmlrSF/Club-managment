@@ -1,14 +1,23 @@
 <div class="w-full min-h-[70vh] p-4">
-    <div class="bg-[red] h-[250px] relative rounded-xl w-full">
-        <div class="h-[150px] w-[150px] absolute bottom-[-75px] left-[100px] bg-[#eee] p-4 rounded-full">
+    <div class="bg-[#2196f3] h-[250px] relative rounded-xl w-full">
+        <div class="h-[200px] w-[200px] absolute bottom-[-150px] left-[100px] bg-[#eee] p-4 rounded-full">
             <img class="h-full w-full rounded-full" [src]="club.profilePicture" alt="">
+            
         </div>
+        <div class="absolute left-[350px] bottom-[-80px]">
+            <p class="text-xl font-semibold ">{{club.clubName}} </p>
+            <p class="text-xl font-semibold ">{{club.members.length}} Memebers</p>
+         </div>
     </div>
-    <mat-tab-group>
-        <mat-tab label="First"> Content 1 </mat-tab>
-        <mat-tab label="Second"> Content 2 </mat-tab>
-        <mat-tab label="Third"> Content 3 </mat-tab>
-    </mat-tab-group>
+    <div class="mt-[150px]">
+        <mat-tab-group>
+            <mat-tab label="Posts"> Posts </mat-tab>
+            <mat-tab label="About Us "> About Us </mat-tab>
+            <mat-tab label="Manage events "> Manage events </mat-tab>
+            <mat-tab label=" Manage Requests"> Manage Requests </mat-tab>
+        </mat-tab-group>
+    </div>
+    
 
 
 </div>

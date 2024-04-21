@@ -15,6 +15,7 @@ export class ListClientsComponent implements OnInit {
   filteredClients: any[] = [];
   isDropdownOpen: boolean = false;
   private id:string = "";
+setLoading: any;
   ;
   filters = [
     { id: 'filter-radio-example-1', value: 'last-day', label: 'Last day' },

@@ -35,6 +35,11 @@ export class DashboardLayoutComponent implements OnInit {
           if(!res.success) {
             this.router.navigate(["Login"])
           }
+
+           
+          if(res.customer.role == 0) {
+            this.router.navigate(["Login"])
+          }
           
 
         },(err:any)=>{
