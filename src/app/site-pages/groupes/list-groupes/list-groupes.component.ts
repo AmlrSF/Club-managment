@@ -65,7 +65,8 @@ export class ListGroupesComponent implements OnInit {
 
 
   viewClub(club: any): void {
-    // Implement logic to view club details
+    
+    this.router.navigate([`/Groupes/${club._id}`])
   }
 
   editClub(club: any): void {

@@ -10,8 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SiteLayoutComponent } from './site/site-layout/site-layout.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
+
 import { HomePageComponent } from './site-pages/home-page/home-page.component';
 import { SiteNavbarComponent } from './shared/site-navbar/site-navbar.component';
 import { SiteFooterComponent } from './shared/site-footer/site-footer.component';
@@ -41,8 +40,9 @@ import { SiteSidebarComponent } from './shared/site-sidebar/site-sidebar.compone
     ClientsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatMenuModule,
-    MatButtonModule,
+  
+ 
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
