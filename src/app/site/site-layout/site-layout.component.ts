@@ -35,7 +35,7 @@ export class SiteLayoutComponent implements OnInit {
           if(!res.success) {
             this.router.navigate(["Login"])
           }
-          
+          localStorage.setItem("id",res.customer._id);
 
         },(err:any)=>{
           console.log(err);

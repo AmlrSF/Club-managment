@@ -39,12 +39,17 @@ export class AuthUserService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getId(): string | null {
+    return localStorage.getItem("id");
+  }
+
   setToken(token:any): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.clear();
     this.router.navigate(['Login'])
   }
 }

@@ -18,6 +18,10 @@ import { ProfileComponent } from './auth/profile/profile.component';
 import { InterestComponent } from './auth/interest/interest.component';
 import { SiteSidebarComponent } from './shared/site-sidebar/site-sidebar.component';
 import { ManageRequestsComponent } from './pages/manage-requests/manage-requests.component';
+import { GroupesPostsComponent } from './site-pages/groupes-posts/groupes-posts.component';
+import { GroupesAboutComponent } from './site-pages/groupes-about/groupes-about.component';
+import { GroupesManageRequestsComponent } from './site-pages/groupes-manage-requests/groupes-manage-requests.component';
+import { GroupesEventsComponent } from './site-pages/groupes-events/groupes-events.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import { ManageRequestsComponent } from './pages/manage-requests/manage-requests
     InterestComponent,
     SiteSidebarComponent,
     ManageRequestsComponent,
+    GroupesPostsComponent,
+    GroupesAboutComponent,
+    GroupesManageRequestsComponent,
+    GroupesEventsComponent,
     
   ],
   imports: [

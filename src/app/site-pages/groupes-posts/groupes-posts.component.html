@@ -1,0 +1,64 @@
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a href="#">Clubs</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">Posts</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div *ngIf="id==club?.ownerId" class="border-b-[1.5px]">
+        <form [formGroup]="addpost" (ngSubmit)="submitForm()">
+            <div class=" flex flex-col">
+                <h1 class="text-3xl  text-left mt-5 mb-5">New Post ?</h1>
+                <div class="h-[250pd] w-[250px]">
+                    <div *ngIf="imageUrl">
+                        <img [src]="imageUrl" [alt]="imageUrl" class="w-full h-full object-contain" />
+
+                    </div>
+                </div>
+                <textarea formControlName="content"
+                    class=" bg-transparent focus:outline-none text-sm rounded-lg  block w-full p-2.5 text-xl" placeholder="What is happening?!"></textarea>
+                <div class="form-group">
+                    <input type="file" id="image" formControlName="profileImage" (change)="onImageChange($event)"
+                        accept="image/*"
+                        class="bg-gray-50 hidden border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#321fdb] focus:border-[#321fdb] outline-none w-full p-3" />
+                </div>
+                <div (click)="openImage()">
+                    <i class="text-2xl font-bold fa-solid fa-image"></i>
+                </div>
+            </div>
+
+            <button type="submit"
+                class="text-white  bg-blue-700 hover:bg-blue--2800 focus:ring-4 focus:outline-
+                 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center
+                  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                {{setLoding ? "Posting..." : "new Post" }}</button>
+
+        </form>
+    </div>
+    <div class="flex flex-col">
+        <div *ngFor="let post of posts">
+            <div class="h-[250pd] w-[250px]">
+                <div *ngIf="post.imageUrl">
+                    <img [src]="imageUrl" [alt]="imageUrl" class="w-full h-full object-contain" />
+
+                </div>
+            </div>
+            {{post.content}}
+        </div>
+    </div>
+    <div>
+
+    </div>
+</main>

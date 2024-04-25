@@ -16,28 +16,11 @@ export class ListGroupesComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router,private auth:AuthUserService) { }
 
   ngOnInit(): void {
-    let token = {
-      token: this.auth.getToken()
-    };
-
-    console.log(token);
-
-    try {
-      this.http.post(`http://localhost:3000/api/v1/customers/profile`, token).subscribe(
-        (res: any) => {
-          if (!res.success) {
-            this.router.navigate(["Login"]);
-          }
-
-          
-          this.id = res.customer._id;
-        }, (err: any) => {
-          console.log(err);
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    this.id = this.auth.getId();
+    
+    console.log(this.id);
+    
+    
     this.fetchClubs();
   }
 
@@ -46,7 +29,7 @@ export class ListGroupesComponent implements OnInit {
       .subscribe(
         (response:any) => {
           console.log(response);
-          this.clubs = response.clubs;
+          this.clubs = response.clubs.filter(((item:any)=>item?.ownerId._id == this.id));
         },
         (error:any) => {
           console.error('Error fetching clubs:', error);

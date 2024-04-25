@@ -59,14 +59,11 @@
             </div>
             <!-- CV Attachment -->
             <div class="">
-                <div class="form-group">
-                    <label for="cv-attachment" class="block mb-2 text-sm font-medium text-gray-900">CV
-                        Attachment</label>
-                    <input type="file" id="cv-attachment" formControlName="cvAttachment"
-                        (change)="onCVAttachmentChange($event)" accept=".pdf,.doc,.docx"
-                        class="bg-gray-50 hidden border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#321fdb] focus:border-[#321fdb] outline-none w-full p-3" />
-                </div>
+                <label for="cvAttachment" class="block mb-2 text-sm font-medium text-gray-900">cvAttachment</label>
+                <input formControlName="cvAttachmente" type="text" id="cvAttachment"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
             </div>
+           
             <div class="">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {{ setLoading ? "Saving..." : "Next" }}
