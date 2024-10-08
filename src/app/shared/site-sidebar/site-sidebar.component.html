@@ -2,20 +2,37 @@
 <section id="sidebar" [ngClass]="functionsS.status ? 'hide' : ''">
     <a class="brand ">
       <i class="bx bxs-group fa-solid fa-house"></i>
-      <span class="text">UniClub</span>
+      <span class="text">Devspace</span>
     </a>
-    <ul class="side-menu top">
-      <li [class.active]="isActive('/Groupes')">
+    <ul class=" top">
+      <li [class.active]="isActive('/Groupes')" class="flew flex-col gap-2">
+
         <a (click)="navigateTo('/Groupes')">
           <i class="bx bxs-group fa-solid fa-house"></i>
-          <span class="text">Groupe</span>
+          <span class="text">myFeed</span>
         </a>
+        <ul>
+          <li># Technologies</li>
+        </ul>
+        <a href="">
+
+          <p>Custom feed</p>
+        </a>
+
       </li>
       <li [class.active]="isActive('/events')">
         <a (click)="navigateTo('/events')">
           <i class="bx bxs-group fa-solid fa-user"></i>
-          <span class="text">Events</span>
+          <span class="text">Public Squads</span>
         </a>
+        <ul>
+          <li># Squad</li>
+        </ul>
+        <a href="">
+
+          <p>New Squad</p>
+        </a>
+
       </li>
       <li [class.active]="isActive('/saved')">
         <a (click)="navigateTo('/saved')">

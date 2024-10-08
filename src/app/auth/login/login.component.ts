@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit{
             if(res.customer.role == 1){
               this.router.navigate(["admin"] )
             }else{
-              this.router.navigate(["/ProfileDetails"] )
+              this.router.navigate(["/Interests"] )
             }
             
           }
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit{
             if(response.customer.role == 1){
               this.router.navigate(["admin"] )
             }else{
-              this.router.navigate(["/ProfileDetails"] )
+              this.router.navigate(["/Interests"] )
             }
           }
         },

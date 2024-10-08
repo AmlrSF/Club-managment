@@ -37,7 +37,7 @@ export class InterestComponent implements OnInit {
           
           if(res.success ==  true) {
             this.profileId = res.customer._id
-            if(res.customer.Identificated && res.customer.interests.length>0){
+            if(res.customer.Identificated && res.customer.interests.length>0 ){
               this.router.navigate(["/"] )
             }
             console.log(this.profileId);
@@ -83,7 +83,7 @@ export class InterestComponent implements OnInit {
 
 
   navigateToHome() {
-    this.router.navigate(["/ProfileDetails"]);
+    this.router.navigate(["/"]);
   }
 
   onSubmit(): void {
@@ -98,6 +98,17 @@ export class InterestComponent implements OnInit {
         (response) => {
           console.log('Interests added successfully:', response);
           this.router.navigate(["/"]);
+
+          this.http.put(`http://localhost:3000/api/v1/customers/${this.profileId}`,{Identificated : true})
+          .subscribe(
+            (res:any)=>{
+              console.log(res);
+              if(res.success){
+                
+                this.router.navigate(["/"]);
+
+              
+              }})
         },
         (error) => {
           console.error('Error adding interests:', error);

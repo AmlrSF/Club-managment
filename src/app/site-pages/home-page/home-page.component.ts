@@ -10,14 +10,14 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 export class HomePageComponent implements OnInit{
   posts: any[]=[];
   id:any;
-  interests: any[]=[];
+  
 
  
   ngOnInit() {
     // Simulate fetching data from an API or other source
     this.id = this.auth.getId();
     this.fetchPosts();
-    this.getInterests();
+    
   }
 
   
@@ -48,18 +48,6 @@ export class HomePageComponent implements OnInit{
     return date.toLocaleString('en-US', options);
   }
 
-  getInterests(): void {
-    this.http.get<any[]>('http://localhost:3000/api/v1/interests')
-      .subscribe(
-        (response) => {
-          this.interests = response;
-        },
-        (error) => {
-          console.error('Error fetching interests:', error);
-          
-        }
-      );
-  }
 
 
   downVote(id:any) {

@@ -10,7 +10,7 @@ import { ClientsService } from 'src/app/services/clients/clients.service';
   styleUrls: ['./list-clients.component.css']
 })
 export class ListClientsComponent implements OnInit {
-  private apiUrl:string = "http://localhost:3000/api/v1/clients"
+  private apiUrl:string = "http://localhost:3000/api/v1/customers"
   clients: any[] = [];
   filteredClients: any[] = [];
   isDropdownOpen: boolean = false;
@@ -40,21 +40,17 @@ setLoading: any;
   ngOnInit(): void {
     this.getClients();
     this.addClient = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required],
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zip: ['', Validators.required],
-      country: ['', Validators.required],
+      role: ['', Validators.required],
     });
   }
 
   getClients(): void {
     this.http.get(this.apiUrl).subscribe(
       (clients: any) => {
-        this.clients = clients.clients;
+        this.clients = clients.customers;
         this.filteredClients = [...this.clients];
         console.log('Clients:', this.clients);
       },
@@ -86,14 +82,10 @@ setLoading: any;
   editClient(client: any): void {
      // Assuming you have a form group for editing (editClientForm)
      this.addClient.patchValue({
-      name: client.name,
-      email: client.email,
-      phone: client.phone,
-      address: client.address,
-      city: client.city,
-      state: client.state,
-      zip: client.zip,
-      country: client.country,
+      firstName:client.firstName,
+      lastName:client.lastName,
+      email:client.email,
+      role: client.role,
    });
 
    this.id = client._id;
@@ -109,7 +101,7 @@ setLoading: any;
 
   // Function to delete a client
   deleteClient(client: any): void {
-    this.http.delete(`${this.apiUrl}/Client/${client._id}`).subscribe((res:any)=>{
+    this.http.delete(`${this.apiUrl}/${client._id}`).subscribe((res:any)=>{
       console.log(res);
       this.getClients();
     })
@@ -120,7 +112,7 @@ setLoading: any;
       const formData = { ...this.addClient.value }; // Convert FormGroup to a plain object
   
       // Send formData to the server
-      this.http.put(`${this.apiUrl}/Client/${this.id}`, formData).subscribe(
+      this.http.put(`${this.apiUrl}/${this.id}`, formData).subscribe(
         (res: any) => {
           if(res.success){
             this.getClients();
@@ -138,14 +130,10 @@ setLoading: any;
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     this.filteredClients = this.clients.filter(client =>
-      client.name.toLowerCase().includes(filterValue) ||
+      client.firstName.toLowerCase().includes(filterValue) ||
+      client.lastName.toLowerCase().includes(filterValue) ||
       client.email.toLowerCase().includes(filterValue) ||
-      client.phone.includes(filterValue) ||
-      client.address.toLowerCase().includes(filterValue) ||
-      client.city.toLowerCase().includes(filterValue) ||
-      client.state.toLowerCase().includes(filterValue) ||
-      client.zip.includes(filterValue) ||
-      client.country.toLowerCase().includes(filterValue)
+      client.role.includes(filterValue) 
     );
   }
 }

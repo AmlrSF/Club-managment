@@ -2,7 +2,7 @@
 <section id="sidebar" [ngClass]="functionsS.status ? 'hide' : ''">
   <a class="brand ">
     <i class="bx bxs-group fa-solid fa-house"></i>
-    <span class="text">Carthage Solutions</span>
+    <span class="text">Tiddy's Room</span>
   </a>
   <ul class="side-menu top">
     <li [class.active]="isActive('/admin/home')">
@@ -14,16 +14,26 @@
     <li [class.active]="isActive('/admin/clients')">
       <a (click)="navigateTo('/admin/clients')">
         <i class="bx bxs-group fa-solid fa-user"></i>
-        <span class="text">Clients</span>
+        <span class="text">Users</span>
       </a>
     </li>
-    <li [class.active]="isActive('/admin/manage-requests')">
-      <a (click)="navigateTo('/admin/manage-requests')">
-        <i class="bx bxs-group fa-solid fa-user"></i>
-        <span class="text">manage-requests</span>
+    <li [class.active]="isActive('/admin/Squads')">
+      <a (click)="navigateTo('/admin/Squads')">
+        <i class="bx bxs-group fa-solid fa-users"></i>
+        <span class="text">Squads</span>
       </a>
     </li>
-    
-
+    <li [class.active]="isActive('/admin/Tags')">
+      <a (click)="navigateTo('/admin/Tags')">
+        <i class="bx bxs-group fa-solid fa-tag"></i>
+        <span class="text">Tags</span>
+      </a>
+    </li>
+    <li [class.active]="isActive('/admin/Topics')">
+      <a (click)="navigateTo('/admin/Topics')">
+        <i class="bx bxs-group fa-solid fa-"></i>
+        <span class="text">Topics</span>
+      </a>
+    </li>
   </ul>
 </section>
