@@ -1,0 +1,37 @@
+.site-sidebar li > div > div{
+    
+    padding: 0.25rem;
+}
+.site-sidebar li > div > div:hover{
+    background-color: #eee;
+    cursor: pointer;
+}
+
+
+
+#sidebar .sidemenudevspace li > div > div:hover {
+    background: var(--grey);
+    position: relative;
+  }
+  #sidebar .sidemenudevspace li > div > div:hover::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: -40px;
+    right: 0;
+    box-shadow: 20px 20px 0 var(--grey);
+    z-index: -1;
+  }
+  #sidebar .sidemenudevspace li > div > div:hover::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    bottom: -40px;
+    right: 0;
+    box-shadow: 20px -20px 0 var(--grey);
+    z-index: -1;
+  }

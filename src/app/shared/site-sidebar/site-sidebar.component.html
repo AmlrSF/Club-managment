@@ -1,45 +1,145 @@
 <!-- sidebar.component.html -->
 <section id="sidebar" [ngClass]="functionsS.status ? 'hide' : ''">
-    <a class="brand ">
-      <i class="bx bxs-group fa-solid fa-house"></i>
-      <span class="text">Devspace</span>
-    </a>
-    <ul class=" top">
-      <li [class.active]="isActive('/Groupes')" class="flew flex-col gap-2">
-
-        <a (click)="navigateTo('/Groupes')">
-          <i class="bx bxs-group fa-solid fa-house"></i>
-          <span class="text">myFeed</span>
-        </a>
-        <ul>
-          <li># Technologies</li>
-        </ul>
-        <a href="">
-
-          <p>Custom feed</p>
-        </a>
-
+  <a class="brand">
+    <i class="bx bxs-group fa-solid fa-house"></i>
+    <span class="text">Devspace</span>
+  </a>
+  <ul [ngClass]="functionsS.status ? 'hide  hidden' : ''" 
+  class="top site-sidebar sidemenudevspace">
+    <li class="flex mb-5 flex-col gap-2 ">
+      <div>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="bx bxs-group fa-solid fa-house"></i>
+          </span>
+          <p class="font-bold">myFeed</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid fa-hashtag text-[#342E37]"></i>
+          </span>
+          <p class="font-medium">Technologies</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid text-black fa-plus"></i>
+          </span>
+          <p class="font-medium">Custom feed</p>
+        </div>
+      </div>
+    </li>
+    <li class="flex mb-5 flex-col gap-2 ">
+      <div>
+        <span class="pl-2 text-xl mb-10">Squads</span>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="bx bxs-group fa-solid fa-house"></i>
+          </span>
+          <p class="font-bold">Public Squads</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid fa-hashtag text-[#342E37]"></i>
+          </span>
+          <p class="font-medium">Deep flutter</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid text-black fa-plus"></i>
+          </span>
+          <p class="font-medium">New Squad</p>
+        </div>
+      </div>
+    </li>
+    <li class="flex mb-5 flex-col gap-2">
+      <div>
+        <span class="pl-2 text-xl mb-10">Discover</span>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid fa-fire"></i>
+          </span>
+          <p class="font-medium">Explore</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid fa-message text-[#342E37]"></i>
+          </span>
+          <p class="font-medium">Discussions</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid text-black fa-tag"></i>
+          </span>
+          <p class="font-medium">Tags</p>
+        </div>
+      </div>
+    </li>
+    <li class="flex mb-5 flex-col gap-2">
+      <div>
+        <span class="pl-2 text-xl mb-10">Activity</span>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="bx bxs-group fa-solid fa-link"></i>
+          </span>
+          <p class="font-medium">Submit a link</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span
+            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid fa-bookmark text-[#342E37]"></i>
+          </span>
+          <p class="font-medium">Bookmarks</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div  [ngClass]="functionsS.status ? 'hide': ' hidden'"  class="top site-sidebar ">
+    <ul class="flex flex-col gap-10 justify-center items-center w-full">
+      <li class="flex flex-col items-center gap-2 cursor-pointer">
+        <span><i class="fa-solid fa-house-fire"></i></span>
+        <p>Home</p>
       </li>
-      <li [class.active]="isActive('/events')">
-        <a (click)="navigateTo('/events')">
-          <i class="bx bxs-group fa-solid fa-user"></i>
-          <span class="text">Public Squads</span>
-        </a>
-        <ul>
-          <li># Squad</li>
-        </ul>
-        <a href="">
-
-          <p>New Squad</p>
-        </a>
-
+      <li class="flex flex-col items-center gap-2 cursor-pointer">
+        <span><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+        <p>Explore</p>
       </li>
-      <li [class.active]="isActive('/saved')">
-        <a (click)="navigateTo('/saved')">
-          <i class="bx bxs-group fa-solid fa-bookmark"></i>
-          <span class="text">Saved</span>
+      <li class="flex flex-col items-center gap-2 cursor-pointer">
+        <span><i class="fa-solid fa-users"></i></span>
+        <p>Squads</p>
+      </li>
+      <li class="flex flex-col items-center gap-2 cursor-pointer">
+        <span><i class="fa-solid fa-user"></i></span>
+        <p>Profile</p>
+      </li>
+      <li class="flex flex-col items-center gap-2 cursor-pointer">
+        <a
+          class="h-12 w-12 rounded-full bg-[#eee]
+           cursor-pointer flex justify-center items-center"
+        >
+          <i class="fa-solid fa-plus text-xl"></i>
         </a>
       </li>
-  
     </ul>
-  </section>
+  </div>
+</section>

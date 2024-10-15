@@ -736,7 +736,7 @@
 }
 
 .discount .image {
-  background-image: url("../../../assets/imgs/discount-background1.jpg");
+  background-image: url("../../../../assets/imgs/discount-background1.jpg");
   background-size: cover;
   color: white;
   flex-basis: 50%;
@@ -844,7 +844,7 @@
   padding-top: var(--main-padding-top);
   padding-bottom: var(--main-padding-bottom);
   position: relative;
-  background-image: url("../../../assets/imgs/stats.jpg");
+  background-image: url("../../../../assets/imgs/stats.jpg");
   background-size: cover;
   min-height: 300px;
 }
@@ -1024,3 +1024,8 @@
 }
 
 /* End Services */
+.feed-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 8px;
+}

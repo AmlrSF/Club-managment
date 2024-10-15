@@ -13,10 +13,10 @@ const routes: Routes = [
   { path : "Interests", component : InterestComponent },
   {
     path: "admin",
-    loadChildren: () => import("./dashboard/dashboard.module").then(m => m.DashboardModule)
+    loadChildren: () => import("./admin/dashboard/dashboard.module").then(m => m.DashboardModule)
   },{
     path: "",
-    loadChildren: ()=>import("./site/site.module").then(m=>m.SiteModule)
+    loadChildren: ()=>import("./client/site/site.module").then(m=>m.SiteModule)
   }
   
 ];
