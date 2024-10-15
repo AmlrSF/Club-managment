@@ -54,6 +54,8 @@ export class SiteSidebarComponent {
     this.auth.logout();
   }
 
-
+  public navigateToSquads(){
+    this.router.navigate(['/squads/new'])
+  }
 
 }

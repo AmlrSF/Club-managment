@@ -226,13 +226,13 @@
 }
 
 .features .passion h2::after {
-  background-color: #03a9f4;
+  background-color: #9333ea;
 }
 
 .features .passion a {
-  color: #03a9f4;
-  border-color: #03a9f4;
-  background: linear-gradient(to right, #03a9f4 50%, white 50%);
+  color: #9333ea;
+  border-color: #9333ea;
+  background: linear-gradient(to right, #9333ea 50%, white 50%);
   background-size: 200% 100%;
   background-position: right bottom;
 }
@@ -422,13 +422,13 @@
 }
 
 .features .passion h2::after {
-  background-color: #03a9f4;
+  background-color: #9333ea;
 }
 
 .features .passion a {
-  color: #03a9f4;
-  border-color: #03a9f4;
-  background: linear-gradient(to right, #03a9f4 50%, white 50%);
+  color: #9333ea;
+  border-color: #9333ea;
+  background: linear-gradient(to right, #9333ea 50%, white 50%);
   background-size: 200% 100%;
   background-position: right bottom;
 }

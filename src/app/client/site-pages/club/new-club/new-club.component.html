@@ -1,1 +1,251 @@
-<p>new-club works!</p>
+<main>
+  <div
+    class="head-title border-b-[1.5px] flex justify-between items-center border-[rgba(0,0,0,0.2)]"
+  >
+    <div class="left">
+      <div class="flex flex-col gap-2 mb-10">
+        <h2 class="text-3xl font-bold">Create new Squad</h2>
+        <p class="text-gray-500">
+          Create a group where you can learn and interact privately with other
+          developers around topics that matter to you
+        </p>
+      </div>
+      <ul class="breadcrumb">
+        <li>
+          <a href="#">Dashboard</a>
+        </li>
+        <li>/</li>
+        <li>
+          <a href="#">Squads</a>
+        </li>
+        <li>/</li>
+        <li>
+          <a class="active">New</a>
+        </li>
+      </ul>
+    </div>
+    <div></div>
+  </div>
+  <div class="flex">
+    <div class="squads  flex flex-col gap-5 mt-10">
+      <p class="text-2xl font-bold">Squads Details</p>
+
+      <!-- Squad Name Input -->
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+        >
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 pointer-events-none text-purple-600"
+          >
+            <path
+              d="M4.87 20.001l-.234-.016-.108-.012c-.783-.122-1.395-.743-1.51-1.567l-.016-.147L3 18.143l.001-.3.005-.22c.097-2.215 1.478-4.174 3.636-5.143.166-.064.333-.121.5-.173l-.015-.007a3.958 3.958 0 014.005-6.825l.018-.023a4.222 4.222 0 017.409 2.77c0 1.392-.68 2.668-1.819 3.469l-.156.103.27.088.268.098.093.04.227.108c2.03 1.014 3.375 2.948 3.545 5.154l.013.237.004.236v.313L21 18.17l-.007.092-.012.103a1.926 1.926 0 01-1.633 1.61l-.15.014-.188.012H4.87zm4.823-6.803l-.053.05a4.865 4.865 0 00-.389-.015c-.72 0-1.44.138-2.162.414-1.601.72-2.673 2.175-2.82 3.83l-.014.2-.004.194-.001.275.002.081.012.085a.558.558 0 00.375.407l.082.02.056.003H7.8l-.042-.123a2.085 2.085 0 01-.07-.32l-.016-.157-.003-.123.001-.32.006-.235c.071-1.64.804-3.15 2.016-4.266zm4.645-.416c-.769 0-1.537.147-2.306.442-1.709.768-2.852 2.32-3.01 4.085l-.013.213-.005.207v.293l.002.087.013.09c.046.206.2.371.4.434l.087.02.059.005h9.549l.092-.012c.209-.046.374-.2.437-.4l.02-.087.008-.092v-.313l-.004-.21-.013-.215c-.138-1.633-1.121-3.084-2.61-3.905l-.197-.103-.203-.096-.288-.104a6.314 6.314 0 00-2.018-.339zM9.25 6.25a2.708 2.708 0 101.123 5.174l.167-.084.162-.095.138-.095c.092-.066.179-.138.261-.215a4.212 4.212 0 01-.987-2.713c0-.613.131-1.195.366-1.721l-.016.037A2.676 2.676 0 009.25 6.25zm5.087-.917a2.889 2.889 0 101.197 5.52l.18-.09.171-.102.148-.1a2.889 2.889 0 00-1.696-5.227z"
+              fill="currentcolor"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="squad-name"
+          class="bg-gray-50 border border-gray-300 
+          text-white-900 text-sm rounded-lg focus:purple-600 focus:border-blue-500 block w-full ps-10 p-2.5"
+          placeholder="Name your squad"
+        />
+      </div>
+
+      <!-- Squad Handle Input -->
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+        >
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 pointer-events-none text-purple-600 font-bold"
+          >
+            <path
+              d="M20.25 13.375a3.125 3.125 0 01-5.723 1.738A4 4 0 017.5 12.5v-1a4 4 0 016.501-3.122L14 8.25a.75.75 0 011.493-.102l.007.102v5.125a1.625 1.625 0 003.244.14l.006-.14V9.75a5.25 5.25 0 00-5.034-5.246L13.5 4.5h-3a5.25 5.25 0 00-5.246 5.034l-.004.216v4.5a5.25 5.25 0 005.034 5.246l.216.004h3a.75.75 0 01.102 1.493L13.5 21h-3a6.75 6.75 0 01-6.746-6.513l-.004-.237v-4.5a6.75 6.75 0 016.513-6.746L10.5 3h3a6.75 6.75 0 016.746 6.513l.004.237v3.625zM11.5 9A2.5 2.5 0 009 11.5v1a2.5 2.5 0 105 0v-1A2.5 2.5 0 0011.5 9z"
+              fill="currentcolor"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="squad-handle"
+          class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:purple-600 focus:border-blue-500 block w-full ps-10 p-2.5"
+          placeholder="Squad handle"
+        />
+      </div>
+
+      <!-- Squad Description Input -->
+      <div class="relative">
+        <textarea
+          id="squad-description"
+          class="bg-gray-50 border border-gray-300 text-white-900 text-sm rounded-lg focus:purple-600 focus:border-blue-500 block w-full ps-3 p-2.5"
+          rows="4"
+          placeholder="Squad description"
+        ></textarea>
+      </div>
+
+      <div class="squad-type-section mt-8">
+        <p class="text-xl font-semibold">Squad type</p>
+
+        <!-- Public Option -->
+        <div class="flex items-start mt-4">
+          <input
+            type="radio"
+            id="public-squad"
+            name="squad-type"
+            class="h-4 w-4 text-purple-600 
+            focus:ring-purple-500 border-gray-300"
+            checked
+          />
+          <label for="public-squad" class="ml-3 text-sm font-medium">
+            <span class="text-black">Public</span>
+            <p class="text-gray-400 font-normal">
+              Squad is searchable, publicly listed in our squad directory, and
+              open for everyone to join. It’s ideal for building a community or
+              for content creators.
+            </p>
+          </label>
+        </div>
+
+        <!-- Category Select for Public -->
+        <div class="ml-8 mt-4">
+          <select
+            id="category-select"
+            class="bg-white-900 border border-white-700 text-black
+             rounded-lg focus:ring-purple-600 focus:border-purple-600 block
+              w-full p-2.5"
+          >
+            <option selected>Select category</option>
+            <option value="community">Languages</option>
+            <option value="content">Web</option>
+            <option value="gaming">mobile</option>
+            <option value="sports">Devops & Cloud</option>
+            <option value="gaming">AI</option>
+            <option value="sports">Games</option>
+            <option value="gaming">DevTools</option>
+            <option value="sports">Career</option>
+            <option value="gaming">OpenSource</option>
+            <option value="sports">Fun</option>
+          </select>
+        </div>
+
+        <!-- Private Option -->
+        <div class="flex items-start mt-6">
+          <input
+            type="radio"
+            id="private-squad"
+            name="squad-type"
+            class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+          />
+          <label for="private-squad" class="ml-3">
+            <span class="text-black">Private</span>
+            <p class="text-gray-400 text-normal text-sm">
+              Squad is invite-only, hidden from the directory, and perfect for
+              teams and smaller groups of people who know each other and want to
+              collaborate privately.
+            </p>
+          </label>
+        </div>
+
+        <div
+          class="permissions-section mt-8 p-4 border border-purple-600 rounded-lg"
+        >
+          <div class="flex items-center pb-4 mb-4 border-b border-purple-600">
+            
+            <p class="text-xl font-semibold text-red-600"> 🔒 Permissions</p>
+          </div>
+
+          <!-- Post content permission -->
+          <div class="flex justify-between items-start mt-4">
+            <div>
+              <p class="text-sm font-semibold text-black">Post content</p>
+              <p class="text-gray-400 text-sm">
+                Choose who is allowed to post new content in this Squad.
+              </p>
+
+              <div class="mt-2">
+                <input
+                  type="radio"
+                  id="post-members"
+                  name="post-permission"
+                  class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                />
+                <label for="post-members" class="ml-2 text-sm text-black"
+                  >All members
+                  <span class="text-gray-500">(recommended)</span></label
+                >
+              </div>
+
+              <div class="mt-2">
+                <input
+                  type="radio"
+                  id="post-moderators"
+                  name="post-permission"
+                  class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                  checked
+                />
+                <label for="post-moderators" class="ml-2 text-sm text-black"
+                  >Only moderators</label
+                >
+              </div>
+            </div>
+
+            <!-- Invitation others permission -->
+            <div>
+              <p class="text-sm font-semibold text-black">Invitation others</p>
+              <p class="text-gray-400 text-sm">
+                Choose who is allowed to invite new members to this Squad.
+              </p>
+
+              <div class="mt-2">
+                <input
+                  type="radio"
+                  id="invite-members"
+                  name="invite-permission"
+                  class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                  checked
+                />
+                <label for="invite-members" class="ml-2 text-sm text-black"
+                  >All members
+                  <span class="text-gray-500">(recommended)</span></label
+                >
+              </div>
+
+              <div class="mt-2">
+                <input
+                  type="radio"
+                  id="invite-moderators"
+                  name="invite-permission"
+                  class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                />
+                <label
+                  for="invite-moderators"
+                  class="ml-2 text-sm text-black"
+                  >Only moderators</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+      <div class="mt-8">
+        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">
+          Create Squad
+        </button>
+      </div>
+    </div>
+  </div>
+</main>

@@ -15,7 +15,9 @@ export class SiteNavbarComponent  implements OnInit{
 
   public customer:any = null;
 
-  public constructor(private http:HttpClient, private auth:AuthUserService,private functionsS:FuncServicesService, private router:Router ){}
+  public constructor(private http:HttpClient, 
+    private auth:AuthUserService,private functionsS:FuncServicesService,
+     private router:Router ){}
 
 
   ngOnInit(): void {
@@ -65,6 +67,6 @@ export class SiteNavbarComponent  implements OnInit{
   }
 
   navigateToGroupe() {
-    this.router.navigate(["/Groupes/new"]);
+    this.router.navigate(["/posts/new"]);
   }
 }
