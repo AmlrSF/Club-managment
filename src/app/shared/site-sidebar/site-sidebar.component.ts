@@ -58,4 +58,7 @@ export class SiteSidebarComponent {
     this.router.navigate(['/squads/new'])
   }
 
+  public navigateToPublicSquads(){
+    this.router.navigate(['/squads'])
+  }
 }

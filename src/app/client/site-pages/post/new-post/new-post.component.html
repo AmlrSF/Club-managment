@@ -1,1 +1,59 @@
-<p>new-post works!</p>
+<main>
+  <div class="head-title border-b-[1.5px] flex justify-between items-center border-[rgba(0,0,0,0.2)]">
+    <div class="left">
+      <div class="flex flex-col gap-2 mb-10">
+        <h2 class="text-3xl font-bold">Create New Post</h2>
+        <p class="text-gray-500">
+          Create a post where you can engage and collaborate with other developers on topics that matter to you.
+        </p>
+      </div>
+      <ul class="breadcrumb">
+        <li><a href="#">Dashboard</a></li>
+        <li>/</li>
+        <li><a href="#">Posts</a></li>
+        <li>/</li>
+        <li><a class="active">New</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container mx-auto mt-5">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded-lg shadow-md">
+      <div class="mb-4">
+        <label for="content" class="block text-gray-700">Content</label>
+        <textarea
+          id="content"
+          formControlName="content"
+          class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+          rows="4"
+        ></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="image" class="block text-gray-700">Image Upload</label>
+        <input
+          type="file"
+          id="image"
+          (change)="onFileSelected($event)"
+          class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+          accept="image/*"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="postType" class="block text-gray-700">Post Type</label>
+        <select
+          id="postType"
+          formControlName="postType"
+          class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+        >
+          <option value="profile">Profile</option>
+          <option value="club">Club</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+      >
+        Create Post
+      </button>
+    </form>
+  </div>
+</main>

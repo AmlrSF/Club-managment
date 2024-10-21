@@ -4,7 +4,7 @@
   ></i>
   <form>
     <div class="form-input">
-      <input type="search" placeholder="Search..." />
+      <input class="sm:w-[350px] w-[150px]" type="search" placeholder="Search..." />
       <button type="button" class="search-btn">
         <i class="bx bxs-group fa-solid fa-magnifying-glass"></i>
       </button>
@@ -12,11 +12,14 @@
   </form>
 
   <div *ngIf="customer; else notLoggedInMessage">
-    <div class="flex items-center gap-5">
+    <div class="flex justify-between items-center 
+     gap-5">
       <button
         (click)="navigateToGroupe()"
        
-        class="w-full bg-purple-600 hover:bg-purple-700 text-center  text-white font-bold py-2 px-4 rounded-lg"
+        class="w-full bg-purple-600
+         hover:bg-purple-700 text-center 
+          text-white font-bold py-2 px-4 rounded-lg"
       >
       New
       </button>
@@ -24,26 +27,30 @@
         <i class="fa-solid fa-bell bx bxs-group"></i>
         <span class="num">8</span>
       </a>
-      <button
+      <div
         (click)="toggleDropdown()"
         type="button"
-        class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300"
+        class="  bg-[#9333ea] p-[3px]
+        flex items-center h-[45px] w-[100px]
+         justify-between
+        rounded-full focus:ring-4
+         focus:ring-gray-300"
         id="user-menu-button"
         aria-expanded="false"
         data-dropdown-toggle="user-dropdown"
         data-dropdown-placement="bottom"
       >
-        <span class="sr-only">Open user menu</span>
+        
         <img
-          class="w-12 h-12 rounded-full"
+          class=" w-full h-full rounded-full"
           [src]="
             customer?.profileImage
               ? customer.profileImage
-              : '../../assets/download.png'
+              : '../../assets/nouser.png'
           "
           alt="user photo"
         />
-      </button>
+      </div>
     </div>
     <!-- Dropdown menu -->
     <div

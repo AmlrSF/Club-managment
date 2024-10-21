@@ -18,11 +18,11 @@
     </div>
   </div>
 
-  <div class="flex">
+  
     <div class="feed-container mt-10">
       <div
         *ngFor="let post of posts"
-        class="bg-[#fff] p-3 rounded-xl flex flex-col gap-3"
+        class="bg-[#fff] p-3 rounded-xl justify-between flex flex-col gap-3"
       >
         <div class="flex justify-between gap-2 items-center">
           <img
@@ -41,7 +41,7 @@
           </span>
         </div>
         <div class="post-content">
-          <p class="text-xl font-bold">{{ post.content }}</p>
+          <p class="text-xl font-bold">{{ truncateText(post.content) }}</p>
           <p>Posted In {{ formatReadableDate(post.createdAt) }}</p>
         </div>
         <div class="post-image">
@@ -86,6 +86,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div></div>
+  
+  
 </main>
