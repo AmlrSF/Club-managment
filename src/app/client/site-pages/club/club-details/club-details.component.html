@@ -1,1 +1,114 @@
-<p>club-details works!</p>
+<main class="bg-gray-900 text-white p-6 rounded-lg shadow-lg">
+  <div class="flex flex-col items-center">
+    <!-- Squad Image -->
+    <div class="relative mb-4">
+      <img
+        class="w-24 h-24 rounded-full border-4 border-gray-700"
+        [src]="
+          squad?.profilePicture
+            ? squad.profilePicture
+            : '../../assets/nogroupe.png'
+        "
+        alt="Squad Photo"
+      />
+    </div>
+
+    <!-- Squad Information -->
+    <div class="text-center">
+      <h1 class="text-2xl font-bold">{{ squad.name }}</h1>
+      <div class="flex items-center justify-center text-sm text-gray-400 mt-1">
+        <span class="mr-2">&#64;{{ squad.clubname }}</span>
+        <span class="mx-2">•</span>
+        <span>Created {{ squad.createdAt | date : "MMM d, y" }}</span>
+        <span class="mx-2">•</span>
+        <span>{{ squad.genre }}</span>
+      </div>
+    </div>
+
+    <!-- Squad Statistics -->
+    <div class="mt-4 flex gap-4">
+      <div class="flex items-center gap-1">
+        <span class="text-lg font-semibold">149</span>
+        <span class="text-sm text-gray-400">Posts</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <span class="text-lg font-semibold">30.8K</span>
+        <span class="text-sm text-gray-400">Views</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <span class="text-lg font-semibold">1.9K</span>
+        <span class="text-sm text-gray-400">Upvotes</span>
+      </div>
+    </div>
+
+  
+    <!-- Moderators Section -->
+    <p class="mt-5 font-normal text-md text-gray-400">Moderated By</p>
+    <div class="mt-5 flex flex-wrap justify-center gap-4">
+      <div
+        class="flex gap-3 rounded-xl items-center border border-purple-600 p-2"
+      >
+        <img
+          class="w-12 h-12 rounded-xl border-2 border-gray-700"
+          [src]="
+            squad?.ownerId?.profilePicture
+              ? squad.pownerId?.rofilePicture
+              : '../../assets/nouser.png'
+          "
+          alt="squad.ownerId Photo"
+        />
+        <div class="flex items-center flex-col">
+          <span class="text-sm font-medium"
+            >{{ squad.ownerId.firstName }} {{ squad.ownerId.lastName }}</span
+          >
+        <div class="flex gap-2 items-center ">
+            <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 pointer-events-none"
+          >
+            <path
+              d="M12.535 3.649c.146.087.267.209.355.354l2.301 3.825c.145.24.382.413.656.476l4.349 1.007a1.039 1.039 0 01.55 1.693l-2.927 3.37c-.184.213-.274.491-.25.771l.386 4.447a1.039 1.039 0 01-1.44 1.046l-4.11-1.741a1.039 1.039 0 00-.81 0l-4.11 1.741a1.039 1.039 0 01-1.44-1.046l.386-4.447a1.039 1.039 0 00-.25-.77l-2.927-3.371a1.039 1.039 0 01.55-1.693l4.349-1.007c.274-.063.51-.235.655-.476l2.302-3.825c.296-.491.934-.65 1.425-.354z"
+              fill="currentcolor"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+          Admin
+        </div>
+        </div>
+      </div>
+      <div
+        *ngFor="let moderator of squad.moderators"
+        class="flex flex-col items-center"
+      >
+        <img
+          class="w-12 h-12 rounded-full border-2 border-gray-700"
+          [src]="moderator.photoUrl"
+          alt="Moderator Photo"
+        />
+        <span class="text-sm font-medium">{{ moderator.name }}</span>
+        <span
+          class="text-xs text-gray-400"
+          [ngClass]="{
+            'text-red-500': moderator.role === 'Admin',
+            'text-blue-400': moderator.role === 'Moderator'
+          }"
+        >
+          {{ moderator.role }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="squad.permissions.postPermission=='moderators'" class="border-gray-400 border text-gray-400 flex gap-5 px-4 py-2 mt-7">
+    
+    <svg width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 pointer-events-none"><path d="M12.037 3l.301.013.242.023c2.157.27 3.813 2.077 3.914 4.252l.005.211.001 2.256.313.109c.483.179.835.372 1.186.643.448.346.802.77 1.064 1.289l.106.228.078.197.06.185.062.223c.044.188.075.385.097.62l.015.183.016.34.004.366v1.725l-.006.395-.016.322a5.04 5.04 0 01-.066.548l-.058.278-.075.258-.127.332a3.7 3.7 0 01-.99 1.342l-.198.162-.175.126c-.224.153-.46.28-.755.403l-.233.092-.342.117-.509.15-.546.151c-2.086.576-4.29.612-6.39.108l-.419-.108-.748-.207-.195-.059-.194-.061-.295-.104a4.481 4.481 0 01-.802-.386l-.19-.124-.17-.124a3.72 3.72 0 01-1.063-1.289l-.107-.227-.078-.198-.06-.185-.061-.223a4.492 4.492 0 01-.098-.62l-.015-.183-.016-.373-.003-2.243.005-.21.016-.322a5.04 5.04 0 01.066-.547l.059-.279.074-.257.127-.333a3.715 3.715 0 011.154-1.478 4.276 4.276 0 011.202-.65l.295-.1.002-2.295.01-.284.017-.215c.213-2.057 1.892-3.697 3.995-3.935l.219-.02.187-.007h.108zm-.036 7.482c-1.42 0-2.841.255-4.262.765a2.7 2.7 0 00-.779.418c-.259.2-.463.44-.613.719l-.083.172-.061.154-.027.079-.047.169a3.024 3.024 0 00-.062.386l-.014.157-.014.29-.003.166v2.067l.003.166.014.29c.012.166.029.305.051.426l.025.117.047.17.027.079.061.153c.128.296.31.55.547.767l.15.124.135.1c.13.088.275.168.468.25l.155.061.26.09.15.048.343.099.546.15a11.23 11.23 0 005.574.101l.392-.1.546-.151.42-.123.332-.114c.22-.082.383-.162.522-.247l.101-.065.136-.099c.26-.2.463-.439.613-.719l.083-.172.062-.153.027-.08.046-.169c.027-.112.048-.237.063-.386l.013-.157.014-.29.005-.347v-1.705l-.005-.346-.014-.29a3.782 3.782 0 00-.051-.427l-.025-.117-.046-.17-.027-.078-.062-.154a2.227 2.227 0 00-.696-.891 2.7 2.7 0 00-.778-.418 12.54 12.54 0 00-4.262-.765zm0 2.018a1.5 1.5 0 01.87 2.723l-.119.076v1.451l-.006.087a.75.75 0 01-1.488.015l-.007-.102V15.3a1.5 1.5 0 01.75-2.8zm-.013-8l-.187.007c-1.386.092-2.537 1.128-2.758 2.438l-.023.172-.014.18L9 7.5 9 9.194l.448-.073a17.263 17.263 0 014.596-.068l.509.068.447.074-.001-1.695a3 3 0 00-2.43-2.948l-.175-.027-.192-.018-.214-.007z" fill="currentcolor" fill-rule="evenodd"></path></svg>
+    Only admins and moderators can post
+  </div>
+</main>
+<!-- 
+{
+  "postPermission": "moderators",
+  "invitePermission": "all"
+} -->

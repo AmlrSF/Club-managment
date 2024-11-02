@@ -9,8 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-club.component.css'],
 })
 export class ListClubComponent implements OnInit {
+  navigateto(id: any) {
+    this.router.navigate([`/squads/squad/${id}`]);
+  }
   customer: any;
-  
+
   clubs: any[] = []; // Array to hold the list of clubs
 
   constructor(
