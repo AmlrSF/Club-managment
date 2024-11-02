@@ -7,61 +7,59 @@ import { FuncServicesService } from 'src/app/services/func-services.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  constructor(
+    private functionsS: FuncServicesService,
+    private auth: AuthUserService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
-  constructor(private functionsS:FuncServicesService , private auth: AuthUserService, private router : Router, private http: HttpClient){}
-
-  public customer :any;
-
+  public customer: any;
 
   ngOnInit(): void {
     let token = {
-      token: this.auth.getToken()
+      token: this.auth.getToken(),
     };
 
     //console.log(token);
 
     try {
-      this.http.post(`http://localhost:3000/api/v1/customers/profile`, token).subscribe(
-        (res: any) => {
-          if (!res.success) {
-            this.router.navigate(["Login"]);
+      this.http
+        .post(`http://localhost:3000/api/v1/customers/profile`, token)
+        .subscribe(
+          (res: any) => {
+            if (!res.success) {
+              this.router.navigate(['Login']);
+            }
+
+            this.customer = res.customer;
+          },
+          (err: any) => {
+            console.log(err);
           }
-
-          this.customer = res.customer;
-
-
-          
-        }, (err: any) => {
-          console.log(err);
-        }
-      );
+        );
     } catch (error) {
       console.log(error);
     }
   }
 
-  public logout(){
+  public logout() {
     this.toggleDropdown();
     return this.auth.logout();
   }
-  
+
   public toggleDropdown() {
     document.getElementById('user-dropdown')?.classList.toggle('hidden');
   }
 
   public navigateTo(item: string) {
-
     this.router.navigate([item]);
-
-  }
-  
-  
-  public addToggle(){
-    this.functionsS.addToggle(); 
   }
 
-  
+  public addToggle() {
+    this.functionsS.addToggle();
+  }
 }
