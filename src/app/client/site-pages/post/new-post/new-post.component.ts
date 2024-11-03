@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 
 @Component({
@@ -11,43 +11,51 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 })
 export class NewPostComponent implements OnInit {
   postForm!: FormGroup; // Define the form group
-  public customer:any = null;
+  public customer: any = null;
+  squadID: any;
+  club: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private auth:AuthUserService
+    private auth: AuthUserService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     let token = {
-      token: this.auth.getToken()
+      token: this.auth.getToken(),
     };
 
     console.log(token);
 
     try {
-      this.http.post(`http://localhost:3000/api/v1/customers/profile`, token).subscribe(
-        (res: any) => {
-          
-
-         
-          this.customer = res.customer;
-          console.log(this.customer);
-          
-
-        }, (err: any) => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(`http://localhost:3000/api/v1/customers/profile`, token)
+        .subscribe(
+          (res: any) => {
+            this.customer = res.customer;
+            console.log(this.customer);
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
     } catch (error) {
       console.log(error);
     }
+
+    this.route.queryParams.subscribe((params) => {
+      this.squadID = params['squadID'];
+
+      this.club = params['squad'] == 'squad' ? 'club' : null;
+    });
+    //localhost:4200/posts/new?squadID=6716bde5a766814a48f5bc18&posttype=squad
+
     // Initialize the form with form controls and validation
-    this.postForm = this.fb.group({
+    http: this.postForm = this.fb.group({
       content: ['', Validators.required],
       imageUrl: ['', [Validators.required]],
-      postType: ['profile', Validators.required],
     });
   }
 
@@ -68,32 +76,29 @@ export class NewPostComponent implements OnInit {
     reader.readAsDataURL(file); // Read file as data URL
   }
 
-
   onSubmit(): void {
     console.log(this.postForm.value);
-    
+
     if (this.postForm.valid) {
-      
-        let auth={
-          author:this.customer._id
-        }
-        this.http.post('http://localhost:3000/api/v1/posts',
-          {
-           ...this.postForm.value,
-           ...auth,
-           club:"6716bde5a766814a48f5bc18"
-          }).subscribe(
-         (response) => {
-           console.log('Post created successfully:', response);
-           this.router.navigate(['/']); // Redirect to the posts page
-           
-         },
-         (error) => {
-           console.error('Error creating post:', error);
-         }
-       );
-   
- 
+      let auth = {
+        author: this.customer._id,
+      };
+      this.http
+        .post('http://localhost:3000/api/v1/posts', {
+          ...this.postForm.value,
+          ...auth,
+          club: this.squadID != null ? this.squadID : null,
+          postType: this.club != null ? 'club' : 'profile',
+        })
+        .subscribe(
+          (response) => {
+            console.log('Post created successfully:', response);
+            this.router.navigate(['/']); // Redirect to the posts page
+          },
+          (error) => {
+            console.error('Error creating post:', error);
+          }
+        );
     }
   }
 }

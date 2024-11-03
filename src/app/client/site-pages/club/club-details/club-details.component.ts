@@ -69,4 +69,12 @@ export class ClubDetailsComponent implements OnInit {
       console.error('No squad ID provided in the route');
     }
   }
+
+
+  public navigateToPostForm(id: string) {
+    this.router.navigate(['/posts/new'], {
+      queryParams: { squadID: id, posttype: 'squad' }
+    });
+  }
+  
 }

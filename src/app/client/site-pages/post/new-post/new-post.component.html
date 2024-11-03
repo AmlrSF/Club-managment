@@ -18,12 +18,13 @@
   </div>
   <div class="container mx-auto mt-5">
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded-lg shadow-md">
-      <div class="mb-4">
-        <label for="content" class="block text-gray-700">Content</label>
+      <div class="mb-4 flex flex-col items-start">
+        <label for="cont" class="block text-gray-700">Content</label>
         <textarea
-          id="content"
+          id="cont"
           formControlName="content"
-          class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+          class="w-full p-2 border rounded-lg focus:outline-none
+           focus:ring focus:ring-blue-500"
           rows="4"
         ></textarea>
       </div>
@@ -37,17 +38,7 @@
           accept="image/*"
         />
       </div>
-      <div class="mb-4">
-        <label for="postType" class="block text-gray-700">Post Type</label>
-        <select
-          id="postType"
-          formControlName="postType"
-          class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
-        >
-          <option value="profile">Profile</option>
-          <option value="club">Club</option>
-        </select>
-      </div>
+      
       <button
         type="submit"
         class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
