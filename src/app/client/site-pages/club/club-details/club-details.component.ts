@@ -11,7 +11,9 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 export class ClubDetailsComponent implements OnInit {
   public customer: any;
   public squad: any; // Variable to store the squad details
-  
+  posts: any[] = [];
+  id: any;
+
   constructor(
     private auth: AuthUserService,
     private router: Router,
@@ -21,6 +23,7 @@ export class ClubDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     let token = { token: this.auth.getToken() };
+    this.id = this.auth.getId();
 
     // Check if user is authenticated
     this.http
@@ -37,9 +40,72 @@ export class ClubDetailsComponent implements OnInit {
         }
       );
 
+    this.fetchPosts();
+
     // Fetch single squad details
     this.fetchSingleSquad();
   }
+
+  truncateText(text: string, maxLength: number = 100): string {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  }
+  
+
+  fetchPosts(): void {
+    try {
+      // console.log(this.club)
+      this.http.get(`http://localhost:3000/api/v1/posts`)
+        .subscribe((res: any) => {
+          console.log(res);
+          this.posts = res.posts;
+          console.log(this.posts);
+          
+        }, (err: any) => {
+          console.error(err);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  public formatReadableDate(dateString: any) {
+    const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    const date = new Date(dateString);
+
+    return date.toLocaleString('en-US', options);
+  }
+
+
+
+  downVote(id:any) {
+    try {
+      this.http.patch(`http://localhost:3000/api/v1/posts/${id}/downvote`,{id:this.id})
+      .subscribe((res: any) => {
+        console.log(res);
+        this.fetchPosts();
+      }, (err: any) => {
+        console.log(err)
+      })
+    } catch (error) {
+      
+    }
+  }
+  upVote(id:any) {
+    try {
+      this.http.patch(`http://localhost:3000/api/v1/posts/${id}/upvote`,{id:this.id})
+      .subscribe((res: any) => {
+        console.log(res);
+        this.fetchPosts();
+      }, (err: any) => {
+        console.log(err)
+      })
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
 
   // Method to fetch a single squad by ID
   public fetchSingleSquad() {
@@ -47,34 +113,30 @@ export class ClubDetailsComponent implements OnInit {
     const squadId = this.route.snapshot.paramMap.get('id');
 
     if (squadId) {
-      this.http
-        .get(`http://localhost:3000/api/v1/clubs/${squadId}`)
-        .subscribe(
-          (res: any) => {
-            if (res.success) {
-              // console.log(res);
-              
-              this.squad = res.club; 
-              console.log(this.squad);
-              // Assign the squad details to the variable
-            } else {
-              console.error('Failed to fetch squad details');
-            }
-          },
-          (err: any) => {
-            console.error('Error fetching squad details:', err);
+      this.http.get(`http://localhost:3000/api/v1/clubs/${squadId}`).subscribe(
+        (res: any) => {
+          if (res.success) {
+            // console.log(res);
+
+            this.squad = res.club;
+            console.log(this.squad);
+            // Assign the squad details to the variable
+          } else {
+            console.error('Failed to fetch squad details');
           }
-        );
+        },
+        (err: any) => {
+          console.error('Error fetching squad details:', err);
+        }
+      );
     } else {
       console.error('No squad ID provided in the route');
     }
   }
 
-
   public navigateToPostForm(id: string) {
     this.router.navigate(['/posts/new'], {
-      queryParams: { squadID: id, posttype: 'squad' }
+      queryParams: { squadID: id, posttype: 'squad' },
     });
   }
-  
 }

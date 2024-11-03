@@ -123,19 +123,97 @@
     </svg>
     Only admins and moderators can post
   </div>
-  <div class="flex mt-10 border-t py-4 
-  border-b border-gray-400 justify-between items-center">
-    <div class="flex flex-col gap-2 ">
+  <div
+    class="flex-col sm:flex justify-center items-center mt-10 
+    border-t py-4 border-b gap-10 border-gray-400"
+  >
+    <div class="flex flex-col gap-2">
       <h2 class="text-2xl font-bold">Create New Post</h2>
       <p class="text-gray-500 w-[500px]">
-        Create a post where you can engage and collaborate with other developers on topics that matter to you.
+        Create a post where you can engage and collaborate with other developers
+        on topics that matter to you.
       </p>
     </div>
-    <div (click)="navigateToPostForm(squad._id)"
-     class="px-4 py-2 rounded-xl 
-    cursor-pointer text-white font-bold bg-purple-600 ">
+    <div
+      (click)="navigateToPostForm(squad._id)"
+      class="px-4 py-2 rounded-xl cursor-pointer text-center text-white font-bold bg-purple-600"
+    >
       Create Post
     </div>
   </div>
-</main>
 
+  <div class="feed-container mt-10">
+    <div
+      *ngFor="let post of posts"
+      class="bg-[#fff] p-3 rounded-xl justify-between flex flex-col gap-3"
+    >
+      <div class="flex justify-between gap-2 items-center">
+        <img
+          class="w-8 h-8 rounded-full"
+          [src]="
+            post?.author?.profileImage
+              ? post?.author?.profileImage
+              : '../../assets/download.png'
+          "
+          alt="user photo"
+        />
+        <span
+          class="cursor-pointer h-[25px] w-[25px] flex justify-center p-2 items-center rounded-full hover:bg-[#eee]"
+        >
+          <i class="fa-solid text-black fa-ellipsis-vertical"></i>
+        </span>
+      </div>
+      <div class="post-content">
+        <p class="text-xl font-bold text-black">
+          {{ truncateText(post.content) }}
+        </p>
+        <p class="text-gray-500">
+          Posted In {{ formatReadableDate(post.createdAt) }}
+        </p>
+      </div>
+      <div class="post-image">
+        <img
+          [src]="post.imageUrl"
+          alt="image"
+          class="w-full h-[250px] rounded-xl object-cover"
+        />
+      </div>
+      <div class="flex items-center justify-between gap-2">
+        <div class="cursor-pointer flex items-center rounded-xl bg-[#eee]">
+          <span
+            (click)="upVote(post._id)"
+            class="rounded-s-xl hover:bg-[#1ddc6f3d] border-gray-500 p-2 flex items-center"
+            [ngClass]="{ 'gap-2': post.upvotes.length > 0 }"
+          >
+            <i
+              class="fa-solid hover:text-[#15ce5c] text-gray-500 fa-up-long"
+            ></i>
+            <p class="hover:text-[#15ce5c] border-r-2 text-md font-bold">
+              {{ post.upvotes.length > 0 ? post.upvotes.length : "" }}
+            </p>
+          </span>
+          <span (click)="downVote(post._id)" class="p-2 hover:bg-[#d52b2014]">
+            <i
+              class="fa-solid fa-down-long text-gray-500 hover:text-[#c72017]"
+            ></i>
+          </span>
+        </div>
+        <div
+          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+        >
+          <i class="fa-solid text-gray-500 fa-comment"></i>
+        </div>
+        <div
+          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+        >
+          <i class="fa-solid text-gray-500 fa-bookmark"></i>
+        </div>
+        <div
+          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+        >
+          <i class="fa-solid text-gray-500 fa-share"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
