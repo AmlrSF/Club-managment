@@ -58,10 +58,7 @@ export class ClubDetailsComponent implements OnInit {
       this.http.get(`http://localhost:3000/api/v1/posts`).subscribe(
         (res: any) => {
           console.log(res);
-          this.posts = res.posts;
-          console.log(this.posts);
-
-          this.posts = this.posts.filter((item: any) => item.club != this.squad?._id);
+          this.posts = res.posts.filter((item: any) => item.club != this.squad?._id);
         },
         (err: any) => {
           console.error(err);
