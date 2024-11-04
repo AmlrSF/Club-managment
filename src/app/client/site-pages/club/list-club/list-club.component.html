@@ -1,56 +1,85 @@
 <main>
-    <div
-      class="head-title border-b-[1.5px] flex justify-between items-center border-[rgba(0,0,0,0.2)]"
-    >
-      <div class="left">
-        <div class="flex flex-col gap-2 mb-10">
-          <h2 class="text-3xl font-bold">Create new Squad</h2>
-          <p class="text-gray-500">
-            Create a group where you can learn and interact privately with other
-            developers around topics that matter to you
-          </p>
-        </div>
-        <ul class="breadcrumb">
-          <li>
-            <a href="#">Dashboard</a>
-          </li>
-          <li>/</li>
-          <li>
-            <a class="active" href="#">Squads</a>
-          </li>
-        </ul>
+  <div
+    class="head-title border-b-[1.5px] flex justify-between items-center border-[rgba(0,0,0,0.2)]"
+  >
+    <div class="left">
+      <div class="flex flex-col gap-2 mb-10">
+        <h2 class="text-3xl font-bold">Create new Squad</h2>
+        <p class="text-gray-500">
+          Create a group where you can learn and interact privately with other
+          developers around topics that matter to you
+        </p>
       </div>
-      <div></div>
+      <ul class="breadcrumb">
+        <li>
+          <a href="#">Dashboard</a>
+        </li>
+        <li>/</li>
+        <li>
+          <a class="active" href="#">Squads</a>
+        </li>
+      </ul>
     </div>
-    
-    <div class="flex flex-col mt-5 gap-10">
-      <div *ngFor="let genre of getGenres()">
-        <h3 class="text-2xl font-semibold mb-2">{{ genre }}</h3>
-        <div class="container-squads">
-          <div *ngFor="let club of getClubsByGenre(genre)">
-            <div class="club-card bg-white p-2 shadow-sm  rounded-xl">
-              <div class="flex items-center justify-between">
-                <img
-                  class="w-[50px] h-[50px] rounded-full"
-                  [src]="club?.profilePicture ? club.profilePicture : '../../assets/nogroupe.png'"
-                  alt="user photo"
-                />
-                <button class="px-4 py-2 border  bg-[#9333ea] rounded-xl
-                 text-white" (click)="joinSquad(club._id)">Join Squads</button>
-              </div>
-              <div class="flex flex-col mt-2">
-                <span class="text-xl font-bold hover:underline" (click)="navigateto(club._id)">{{ club.name }}</span>
-                <p class="text-md text-gray-500">{{ club.description }}</p>
-                <div class="flex items-center justify-between mt-2">
-                  <span>&#64;{{ club.clubname }}</span>
-                  
-                  <span class="font-bold flex ">{{ club.members.length }} members</span>
-                </div>
+    <div></div>
+  </div>
+
+  <div class="flex flex-col mt-5 gap-10">
+    <div *ngFor="let genre of getGenres()">
+      <h3 class="text-2xl font-semibold mb-2">{{ genre }}</h3>
+      <div class="container-squads">
+        <div *ngFor="let club of getClubsByGenre(genre)">
+          <div class="club-card bg-white p-2 shadow-sm rounded-xl">
+            <div class="flex items-center justify-between">
+              <img
+                class="w-[50px] h-[50px] rounded-full"
+                [src]="
+                  club?.profilePicture
+                    ? club.profilePicture
+                    : '../../assets/nogroupe.png'
+                "
+                alt="user photo"
+              />
+              <button
+                class="px-4 py-2 border bg-[#9333ea] rounded-xl text-white"
+                (click)="joinSquad(club._id)"
+                [disabled]="
+                  club.ownerId === customer._id ||
+                  club.members.includes(customer._id)
+                "
+              >
+                <ng-container
+                  *ngIf="club.ownerId === customer._id; else notOwned"
+                >
+                  Owned
+                </ng-container>
+                <ng-template #notOwned>
+                  <ng-container
+                    *ngIf="club.members.includes(customer._id); else notInSquad"
+                  >
+                    Already In Squad
+                  </ng-container>
+                  <ng-template #notInSquad> Join Squad </ng-template>
+                </ng-template>
+              </button>
+            </div>
+            <div class="flex flex-col mt-2">
+              <span
+                class="text-xl font-bold hover:underline"
+                (click)="navigateto(club._id)"
+                >{{ club.name }}</span
+              >
+              <p class="text-md text-gray-500">{{ club.description }}</p>
+              <div class="flex items-center justify-between mt-2">
+                <span>&#64;{{ club.clubname }}</span>
+
+                <span class="font-bold flex"
+                  >{{ club.members.length }} members</span
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </main>
-  
+  </div>
+</main>

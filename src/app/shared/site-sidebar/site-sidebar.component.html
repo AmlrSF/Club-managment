@@ -8,7 +8,7 @@
   class="top site-sidebar sidemenudevspace">
     <li class="flex mb-5 flex-col gap-2 ">
       <div>
-        <div class="flex items-center gap-2">
+        <div routerLink="/" class="flex items-center gap-2">
           <span
             class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
           >
@@ -116,7 +116,7 @@
   </ul>
   <div  [ngClass]="functionsS.status ? 'hide': ' hidden'"  class="top site-sidebar ">
     <ul class="flex flex-col gap-10 justify-center items-center w-full">
-      <li class="flex flex-col items-center gap-2 cursor-pointer">
+      <li routerLink="/" class="flex flex-col items-center gap-2 cursor-pointer">
         <span><i class="fa-solid fa-house-fire"></i></span>
         <p>Home</p>
       </li>

@@ -47,22 +47,26 @@ export class ClubDetailsComponent implements OnInit {
   }
 
   truncateText(text: string, maxLength: number = 100): string {
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + '...'
+      : text;
   }
-  
 
   fetchPosts(): void {
     try {
       // console.log(this.club)
-      this.http.get(`http://localhost:3000/api/v1/posts`)
-        .subscribe((res: any) => {
+      this.http.get(`http://localhost:3000/api/v1/posts`).subscribe(
+        (res: any) => {
           console.log(res);
           this.posts = res.posts;
           console.log(this.posts);
-          
-        }, (err: any) => {
+
+          this.posts = this.posts.filter((item: any) => item.club != this.squad?._id);
+        },
+        (err: any) => {
           console.error(err);
-        });
+        }
+      );
     } catch (error) {
       console.error(error);
     }
@@ -76,36 +80,42 @@ export class ClubDetailsComponent implements OnInit {
     return date.toLocaleString('en-US', options);
   }
 
-
-
-  downVote(id:any) {
+  downVote(id: any) {
     try {
-      this.http.patch(`http://localhost:3000/api/v1/posts/${id}/downvote`,{id:this.id})
-      .subscribe((res: any) => {
-        console.log(res);
-        this.fetchPosts();
-      }, (err: any) => {
-        console.log(err)
-      })
-    } catch (error) {
-      
-    }
+      this.http
+        .patch(`http://localhost:3000/api/v1/posts/${id}/downvote`, {
+          id: this.id,
+        })
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            this.fetchPosts();
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+    } catch (error) {}
   }
-  upVote(id:any) {
+  upVote(id: any) {
     try {
-      this.http.patch(`http://localhost:3000/api/v1/posts/${id}/upvote`,{id:this.id})
-      .subscribe((res: any) => {
-        console.log(res);
-        this.fetchPosts();
-      }, (err: any) => {
-        console.log(err)
-      })
+      this.http
+        .patch(`http://localhost:3000/api/v1/posts/${id}/upvote`, {
+          id: this.id,
+        })
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            this.fetchPosts();
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
     } catch (error) {
       console.log(error);
-      
     }
   }
-
 
   // Method to fetch a single squad by ID
   public fetchSingleSquad() {

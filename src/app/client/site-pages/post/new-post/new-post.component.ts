@@ -83,12 +83,16 @@ export class NewPostComponent implements OnInit {
       let auth = {
         author: this.customer._id,
       };
-      this.http
-        .post('http://localhost:3000/api/v1/posts', {
-          ...this.postForm.value,
+      let body = {
+        ...this.postForm.value,
           ...auth,
           club: this.squadID != null ? this.squadID : null,
           postType: this.club != null ? 'club' : 'profile',
+      }
+      console.log(body);
+      this.http
+        .post('http://localhost:3000/api/v1/posts', {
+          ...body
         })
         .subscribe(
           (response) => {
