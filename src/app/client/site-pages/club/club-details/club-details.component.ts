@@ -40,10 +40,10 @@ export class ClubDetailsComponent implements OnInit {
         }
       );
 
-    this.fetchPosts();
-
     // Fetch single squad details
     this.fetchSingleSquad();
+
+    this.fetchPosts();
   }
 
   truncateText(text: string, maxLength: number = 100): string {
@@ -57,8 +57,12 @@ export class ClubDetailsComponent implements OnInit {
       // console.log(this.club)
       this.http.get(`http://localhost:3000/api/v1/posts`).subscribe(
         (res: any) => {
-          console.log(res);
-          this.posts = res.posts.filter((item: any) => item.club != this.squad?._id);
+          this.posts = res.posts
+            .filter((item: any) => item?.club)
+
+            .filter((item: any) => {
+              return item?.club._id == this.squad._id;
+            });
         },
         (err: any) => {
           console.error(err);
