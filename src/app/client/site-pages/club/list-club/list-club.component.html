@@ -52,7 +52,7 @@
                 "
               >
                 <ng-container
-                  *ngIf="club.ownerId === customer._id; else notOwned"
+                  *ngIf="club.ownerId._id === customer._id; else notOwned"
                 >
                   Owned
                 </ng-container>

@@ -6,6 +6,7 @@ import { ListClubComponent } from './list-club/list-club.component';
 import { NewClubComponent } from './new-club/new-club.component';
 import { ClubDetailsComponent } from './club-details/club-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClubMemebrsListComponent } from './club-memebrs-list/club-memebrs-list.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListClubComponent,
     NewClubComponent,
     ClubDetailsComponent,
+    ClubMemebrsListComponent,
 
   ],
   imports: [

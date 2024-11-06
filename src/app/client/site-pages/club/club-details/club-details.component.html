@@ -32,8 +32,8 @@
         <span class="text-sm text-gray-400">Posts</span>
       </div>
       <div class="flex items-center gap-1">
-        <span class="text-lg font-semibold">30.8K</span>
-        <span class="text-sm text-gray-400">Views</span>
+        <span class="text-lg font-semibold">{{squad.members.length}}</span>
+        <span class="text-sm text-gray-400">members</span>
       </div>
       <div class="flex items-center gap-1">
         <span class="text-lg font-semibold">1.9K</span>
@@ -97,6 +97,10 @@
         >
           {{ moderator.role }}
         </span>
+      </div>
+      <div (click)="navigateToManage(squad)" class="bg-purple-600 flex justify-center items-center 
+       font-bold text-white rounded-xl px-6 py-2 cursor-pointer" *ngIf="squad.ownerId._id==customer._id">
+        Manage Squad
       </div>
     </div>
   </div>

@@ -150,4 +150,8 @@ export class ClubDetailsComponent implements OnInit {
       queryParams: { squadID: id, posttype: 'squad' },
     });
   }
+
+  public navigateToManage(squad:any){
+    this.router.navigate([`/squad-details/${squad._id}`])
+  }
 }
