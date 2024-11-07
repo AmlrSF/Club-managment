@@ -12,6 +12,8 @@ const routes: Routes = [
   {path:"squad/:id" ,component:ClubDetailsComponent}
 ];
 
+
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

@@ -152,6 +152,6 @@ export class ClubDetailsComponent implements OnInit {
   }
 
   public navigateToManage(squad:any){
-    this.router.navigate([`/squad-details/${squad._id}`])
+    this.router.navigate([`/squads/squad-details/${squad._id}`])
   }
 }

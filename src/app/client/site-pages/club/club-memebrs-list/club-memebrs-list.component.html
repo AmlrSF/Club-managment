@@ -1,29 +1,151 @@
 <main>
-    <div
-      class="head-title border-b-[1.5px] flex justify-between
-       items-center border-[rgba(0,0,0,0.2)]"
-    >
-      <div class="left">
-        <div class="flex flex-col gap-2 mb-10">
-          <h2 class="text-3xl font-bold">Create new Squad</h2>
-          <p class="text-gray-500">
-            Create a group where you can learn and interact privately with other
-            developers around topics that matter to you
-          </p>
-        </div>
-        <ul class="breadcrumb">
-          <li>
-            <a href="#">Dashboard</a>
-          </li>
-          <li>/</li>
-          <li>
-            <a class="active" href="#">Squads</a>
-          </li>
-        </ul>
+  <div
+    class="head-title py-2 border-b-[1.5px] flex justify-between items-center border-[rgba(0,0,0,0.2)]"
+  >
+    <div class="left">
+      <div class="flex flex-col gap-2 mb-10">
+        <h2 class="text-3xl font-bold">Squad list members</h2>
+        <p class="text-gray-500">
+          Create a group where you can learn and interact privately with other
+          developers around topics that matter to you
+        </p>
       </div>
-      <div>
-        <button routerLink="/squads/new" class="bg-purple-600 px-4 py-2 text-white rounded-xl font-bold">New Squad</button>
-      </div>
-  
+      <ul class="breadcrumb">
+        <li>
+          <a href="#">Dashboard</a>
+        </li>
+        <li>/</li>
+        <li>
+          <a class="active" href="#">Squads</a>
+        </li>
+      </ul>
     </div>
+  </div>
+  <div>
+    <ul class="box-info">
+      <li>
+        <i class="fa-solid fa-user bx bxs-calendar-check"></i>
+        <span class="text">
+          <h3>{{ squad.members.length }}</h3>
+          <p>Clients</p>
+        </span>
+      </li>
+      <li>
+        <i class="fa-solid fa-user-shield bx bxs-group"></i>
+        <span class="text">
+          <h3>{{ squad.moderators.length }}</h3>
+          <p>Moderators</p>
+        </span>
+      </li>
+      <li>
+        <i class="bx bxs-dollar-circle fa-solid fa-fire"></i>
+        <span class="text">
+          <h3>{{posts.length}}</h3>
+          <p>Posts</p>
+        </span>
+      </li>
+      <li>
+        <i class="fa-solid fa-arrow-up bx bxs-group"></i>
+        <span class="text">
+          <h3>{{ caculalUpvotes() }}</h3>
+          <p>UpVotes</p>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-6">
+    <h3 class="text-xl font-semibold mb-4">Members</h3>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="text-center p-4">First Name</th>
+          <th scope="col" class="text-center p-4">Last Name</th>
+          <th scope="col" class="text-center p-4">Email</th>
+          <th scope="col" class="text-center p-4">Role</th>
+          <th scope="col" class="text-center p-4">Registration Date</th>
+          <th scope="col" class="text-center p-4">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let member of squad.members"
+          class="bg-white border-b hover:bg-gray-50"
+        >
+          <td class="text-center p-4">{{ member.firstName }}</td>
+          <td class="text-center p-4">{{ member.lastName }}</td>
+          <td class="text-center p-4">{{ member.email }}</td>
+          <td class="text-center p-4">
+            {{ member.role === 0 ? "User" : "Admin" }}
+          </td>
+          <td class="text-center p-4">
+            {{ formatReadableDate(member.registrationDate) }}
+          </td>
+          <td class="text-center p-4 flex justify-center gap-3">
+         
+            <button
+              class="p-2 rounded-lg bg-green-500"
+              (click)="editMember(member)"
+            >
+              <i class="text-white font-bold fa-solid fa-pen"></i>
+            </button>
+            <button
+              class="p-2 rounded-lg bg-[#DB504A]"
+              (click)="deleteMember(member)"
+            >
+              <i class="text-white font-bold fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Moderators Table -->
+  <div class="mt-10">
+    <h3 class="text-xl font-semibold mb-4">Moderators</h3>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="text-center p-4">First Name</th>
+          <th scope="col" class="text-center p-4">Last Name</th>
+          <th scope="col" class="text-center p-4">Email</th>
+          <th scope="col" class="text-center p-4">Role</th>
+          <th scope="col" class="text-center p-4">Registration Date</th>
+          <th scope="col" class="text-center p-4">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let moderator of squad.moderators"
+          class="bg-white border-b hover:bg-gray-50"
+        >
+          <td class="text-center p-4">{{ moderator.firstName }}</td>
+          <td class="text-center p-4">{{ moderator.lastName }}</td>
+          <td class="text-center p-4">{{ moderator.email }}</td>
+          <td class="text-center p-4">
+            {{ moderator.role === 0 ? "User" : "Admin" }}
+          </td>
+          <td class="text-center p-4">
+            {{ formatReadableDate(moderator.registrationDate) }}
+          </td>
+          <td class="text-center p-4 flex justify-center gap-3">
+           
+            <button
+              class="p-2 rounded-lg bg-green-500"
+              (click)="editModerator(moderator)"
+            >
+              <i class="text-white font-bold fa-solid fa-pen"></i>
+            </button>
+            <button
+              class="p-2 rounded-lg bg-[#DB504A]"
+              (click)="deleteModerator(moderator)"
+            >
+              <i class="text-white font-bold fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
