@@ -105,19 +105,31 @@ export class ClubMemebrsListComponent implements OnInit {
     return this.posts.map((item:any)=>item.upvotes.length).reduce((a:any,b:any)=>a+b,0); 
   }
 
-  deleteModerator(_t70: any) {
-    throw new Error('Method not implemented.');
+  deleteUser(id: any) {
+    this.http.put(`http://localhost:3000/api/v1/clubs/banuser/${this.squad._id}`,{userId:id})
+    .subscribe((res:any)=>{
+      this.fetchSingleSquad();
+    },(err:any)=>{
+      console.log(err);
+      
+    })  }
+  editModerator(id: any) {
+    this.http.put(`http://localhost:3000/api/v1/clubs/downgrade/${this.squad._id}`,{userId:id})
+    .subscribe((res:any)=>{
+      this.fetchSingleSquad();
+    },(err:any)=>{
+      console.log(err);
+      
+    })
   }
-  editModerator(_t70: any) {
-    throw new Error('Method not implemented.');
-  }
-  viewModerator(_t70: any) {
-    throw new Error('Method not implemented.');
-  }
-  deleteMember(_t44: any) {
-    throw new Error('Method not implemented.');
-  }
-  editMember(_t44: any) {
-    throw new Error('Method not implemented.');
+
+  editMember(id: any) {
+    this.http.put(`http://localhost:3000/api/v1/clubs/upgrade/${this.squad._id}`,{userId:id})
+    .subscribe((res:any)=>{
+      this.fetchSingleSquad();
+    },(err:any)=>{
+      console.log(err);
+      
+    })
   }
 }

@@ -12,6 +12,10 @@ export class ListClubComponent implements OnInit {
   navigateto(id: any) {
     this.router.navigate([`/squads/squad/${id}`]);
   }
+
+  public navigateToManagementSquad(id:any){
+    this.router.navigate([`/squads/squad-details/${id}`])
+  }
   customer: any;
 
   clubs: any[] = []; // Array to hold the list of clubs

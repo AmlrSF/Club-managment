@@ -62,7 +62,7 @@
           <th scope="col" class="text-center p-4">First Name</th>
           <th scope="col" class="text-center p-4">Last Name</th>
           <th scope="col" class="text-center p-4">Email</th>
-          <th scope="col" class="text-center p-4">Role</th>
+         
           <th scope="col" class="text-center p-4">Registration Date</th>
           <th scope="col" class="text-center p-4">Action</th>
         </tr>
@@ -75,24 +75,24 @@
           <td class="text-center p-4">{{ member.firstName }}</td>
           <td class="text-center p-4">{{ member.lastName }}</td>
           <td class="text-center p-4">{{ member.email }}</td>
-          <td class="text-center p-4">
-            {{ member.role === 0 ? "User" : "Admin" }}
-          </td>
+      
           <td class="text-center p-4">
             {{ formatReadableDate(member.registrationDate) }}
           </td>
           <td class="text-center p-4 flex justify-center gap-3">
          
             <button
-              class="p-2 rounded-lg bg-green-500"
-              (click)="editMember(member)"
+              class="p-2 rounded-lg flex items-center gap-2 text-white bg-green-500"
+              (click)="editMember(member._id)"
             >
+            upgrade
               <i class="text-white font-bold fa-solid fa-pen"></i>
             </button>
             <button
-              class="p-2 rounded-lg bg-[#DB504A]"
-              (click)="deleteMember(member)"
+              class="p-2 rounded-lg flex items-center gap-2 text-white bg-[#DB504A]"
+              (click)="deleteUser(member._id)"
             >
+            ban
               <i class="text-white font-bold fa-solid fa-trash"></i>
             </button>
           </td>
@@ -110,7 +110,7 @@
           <th scope="col" class="text-center p-4">First Name</th>
           <th scope="col" class="text-center p-4">Last Name</th>
           <th scope="col" class="text-center p-4">Email</th>
-          <th scope="col" class="text-center p-4">Role</th>
+         
           <th scope="col" class="text-center p-4">Registration Date</th>
           <th scope="col" class="text-center p-4">Action</th>
         </tr>
@@ -123,24 +123,25 @@
           <td class="text-center p-4">{{ moderator.firstName }}</td>
           <td class="text-center p-4">{{ moderator.lastName }}</td>
           <td class="text-center p-4">{{ moderator.email }}</td>
-          <td class="text-center p-4">
-            {{ moderator.role === 0 ? "User" : "Admin" }}
-          </td>
+
           <td class="text-center p-4">
             {{ formatReadableDate(moderator.registrationDate) }}
           </td>
           <td class="text-center p-4 flex justify-center gap-3">
            
             <button
-              class="p-2 rounded-lg bg-green-500"
-              (click)="editModerator(moderator)"
+              class="p-2 rounded-lg flex items-center gap-2 text-white bg-green-500"
+              
+              (click)="editModerator(moderator._id)"
             >
+              downgrade
               <i class="text-white font-bold fa-solid fa-pen"></i>
             </button>
             <button
-              class="p-2 rounded-lg bg-[#DB504A]"
-              (click)="deleteModerator(moderator)"
+              class="p-2 rounded-lg flex items-center gap-2 text-white bg-[#DB504A]"
+              (click)="deleteUser(moderator._id)"
             >
+              ban
               <i class="text-white font-bold fa-solid fa-trash"></i>
             </button>
           </td>

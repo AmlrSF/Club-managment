@@ -1,10 +1,9 @@
 <main>
   <div
-    class="head-title border-b-[1.5px] flex justify-between
-     items-center border-[rgba(0,0,0,0.2)]"
+    class="head-title py-2 border-b-[1.5px] flex justify-between items-center border-[rgba(0,0,0,0.2)]"
   >
     <div class="left">
-      <div class="flex flex-col gap-2 mb-10">
+      <div class="flex flex-col gap-2 mb-5">
         <h2 class="text-3xl font-bold">Create new Squad</h2>
         <p class="text-gray-500">
           Create a group where you can learn and interact privately with other
@@ -22,9 +21,13 @@
       </ul>
     </div>
     <div>
-      <button routerLink="/squads/new" class="bg-purple-600 px-4 py-2 text-white rounded-xl font-bold">New Squad</button>
+      <button
+        routerLink="/squads/new"
+        class="bg-purple-600 px-4 py-2 text-white rounded-xl font-bold"
+      >
+        New Squad
+      </button>
     </div>
-
   </div>
 
   <div class="flex flex-col mt-5 gap-10">
@@ -43,27 +46,38 @@
                 "
                 alt="user photo"
               />
+              <!-- Button for users who are neither owners nor members -->
               <button
+                *ngIf="
+                  club.ownerId._id !== customer._id &&
+                  !club.members.includes(customer._id)
+                "
                 class="px-4 py-2 border bg-[#9333ea] rounded-xl text-white"
                 (click)="joinSquad(club._id)"
-                [disabled]="
-                  club.ownerId === customer._id ||
-                  club.members.includes(customer._id)
-                "
               >
-                <ng-container
-                  *ngIf="club.ownerId._id === customer._id; else notOwned"
-                >
-                  Owned
-                </ng-container>
-                <ng-template #notOwned>
-                  <ng-container
-                    *ngIf="club.members.includes(customer._id); else notInSquad"
-                  >
-                    Already In Squad
-                  </ng-container>
-                  <ng-template #notInSquad> Join Squad </ng-template>
-                </ng-template>
+                Join Squad
+              </button>
+
+              <!-- Button for the owner of the squad -->
+              <button
+                *ngIf="club.ownerId._id === customer._id||club.moderators.includes(customer._id)"
+                (click)="navigateToManagementSquad(club._id)"
+                class="px-4 py-2 border bg-purple-600 rounded-xl text-white cursor-not-allowed"
+                
+              >
+                Manage
+              </button>
+
+              <!-- Button for users who are already in the squad -->
+              <button
+                *ngIf="
+                  club.members.includes(customer._id) ||
+                  club.ownerId._id !== customer._id
+                "
+                class="px-4 py-2 border bg-green-500 rounded-xl text-white cursor-not-allowed"
+                disabled
+              >
+                Already in Squad
               </button>
             </div>
             <div class="flex flex-col mt-2">
