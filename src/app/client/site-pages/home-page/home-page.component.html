@@ -41,7 +41,7 @@
           </span>
         </div>
         <div class="post-content">
-          <p class="text-xl font-bold">{{ truncateText(post.content) }}</p>
+          <p (click)="navigateToPostDetail(post._id)" class="hover:underline text-xl font-bold">{{ truncateText(post.content) }}</p>
           <p>Posted In {{ formatReadableDate(post.createdAt) }}</p>
         </div>
         <div class="post-image">
