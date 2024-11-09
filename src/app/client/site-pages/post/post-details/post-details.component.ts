@@ -7,9 +7,10 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',
-  styleUrls: ['./post-details.component.css']
+  styleUrls: ['./post-details.component.css'],
 })
 export class PostDetailsComponent implements OnInit {
+
   public customer: any;
   public squad: any; // Variable to store the squad details
   post: any;
@@ -21,7 +22,7 @@ export class PostDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute, // Inject ActivatedRoute
     private http: HttpClient,
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class PostDetailsComponent implements OnInit {
     this.id = this.auth.getId();
 
     this.commentForm = this.fb.group({
-      content: ['', [Validators.required, Validators.minLength(1)]]
+      content: ['', [Validators.required, Validators.minLength(1)]],
     });
 
     // Check if user is authenticated
@@ -47,15 +48,32 @@ export class PostDetailsComponent implements OnInit {
         }
       );
 
-
     this.fetchPost();
+    
   }
+
 
   onSubmit(): void {
     if (this.commentForm.valid) {
-      const commentContent = this.commentForm.value.content;
-      console.log('Comment submitted:', commentContent);
-      this.commentForm.reset();  // Clear the form after submission
+      let comment = {
+        content: this.commentForm.value.content,
+        author: this.customer._id,
+        replyTo: null,
+      };
+      this.http
+        .post(
+          `http://localhost:3000/api/v1/posts/${this.post._id}/comment`,
+          comment
+        )
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            this.commentForm.reset();
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
     }
   }
 
@@ -71,9 +89,8 @@ export class PostDetailsComponent implements OnInit {
       // console.log(this.club)
       this.http.get(`http://localhost:3000/api/v1/Posts/${squadId}`).subscribe(
         (res: any) => {
-          this.post = res.post
+          this.post = res.post;
           console.log(res);
-          
         },
         (err: any) => {
           console.error(err);
@@ -95,7 +112,7 @@ export class PostDetailsComponent implements OnInit {
   downVote(id: any) {
     try {
       this.http
-        .patch(`http://localhost:3000/api/v1/Post/${id}/downvote`, {
+        .patch(`http://localhost:3000/api/v1/posts/${id}/downvote`, {
           id: this.id,
         })
         .subscribe(
@@ -112,7 +129,7 @@ export class PostDetailsComponent implements OnInit {
   upVote(id: any) {
     try {
       this.http
-        .patch(`http://localhost:3000/api/v1/Post/${id}/upvote`, {
+        .patch(`http://localhost:3000/api/v1/posts/${id}/upvote`, {
           id: this.id,
         })
         .subscribe(
@@ -129,10 +146,31 @@ export class PostDetailsComponent implements OnInit {
     }
   }
 
-
-
-
-  public navigateToManage(squad:any){
-    this.router.navigate([`/squads/squad-details/${squad._id}`])
+  public navigateToManage(squad: any) {
+    this.router.navigate([`/squads/squad-details/${squad._id}`]);
   }
+
+  replyToComment(id: any) {
+    throw new Error('Method not implemented.');
+  }
+   public likeComment(id: any) {
+    try {
+      this.http
+        .post(`http://localhost:3000/api/v1/posts/${this.post._id}/comments/${id}/like`, {
+          id: this.id,
+        })
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            this.fetchPost();
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 }

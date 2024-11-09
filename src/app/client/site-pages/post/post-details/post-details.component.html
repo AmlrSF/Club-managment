@@ -17,9 +17,9 @@
       </ul>
     </div>
   </div>
-  <div class="bg-[#fff] mt-5 p-3 rounded-xl justify-between flex flex-col gap-3">
-    
-
+  <div
+    class="bg-[#fff] shadow-md mt-5 p-3 rounded-xl justify-between flex flex-col gap-3"
+  >
     <div class="post-image">
       <img
         [src]="post.imageUrl"
@@ -28,27 +28,27 @@
       />
     </div>
     <div class="flex justify-between gap-2 items-center">
-        <img
-          class="w-8 h-8 rounded-full"
-          [src]="
-            post?.author?.profileImage
-              ? post?.author?.profileImage
-              : '../../assets/download.png'
-          "
-          alt="user photo"
-        />
-        <span
-          class="cursor-pointer h-[25px] w-[25px] flex justify-center p-2 items-center rounded-full hover:bg-[#eee]"
-        >
-          <i class="fa-solid text-black fa-ellipsis-vertical"></i>
-        </span>
-      </div>
-      <div class="post-content">
-        <p class="hover:underline text-xl font-bold">
-          {{ post.content }}
-        </p>
-        <p>Posted In {{ formatReadableDate(post.createdAt) }}</p>
-      </div>
+      <img
+        class="w-8 h-8 rounded-full"
+        [src]="
+          post?.author?.profileImage
+            ? post?.author?.profileImage
+            : '../../assets/download.png'
+        "
+        alt="user photo"
+      />
+      <span
+        class="cursor-pointer h-[25px] w-[25px] flex justify-center p-2 items-center rounded-full hover:bg-[#eee]"
+      >
+        <i class="fa-solid text-black fa-ellipsis-vertical"></i>
+      </span>
+    </div>
+    <div class="post-content">
+      <p class="hover:underline text-xl font-bold">
+        {{ post.content }}
+      </p>
+      <p>Posted In {{ formatReadableDate(post.createdAt) }}</p>
+    </div>
     <div class="flex items-center justify-between gap-2">
       <div class="cursor-pointer flex items-center rounded-xl bg-[#eee]">
         <span
@@ -84,11 +84,10 @@
       </div>
     </div>
   </div>
-  <div class="bg-white mt-5 p-3 rounded-xl  shadow-md">
-    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()"
-     >
-        <label for="cont" class="block text-gray-700">Comment</label>
-        <div class="mb-4 flex flex-col items-start">
+  <div class="bg-white mt-5 p-3 rounded-xl shadow-md">
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <label for="cont" class="block text-gray-700">Comment</label>
+      <div class="mb-4 flex flex-col items-start">
         <textarea
           id="cont"
           formControlName="content"
@@ -99,12 +98,61 @@
       </div>
       <button
         type="submit"
-        class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        class="bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-600"
         [disabled]="commentForm.invalid"
       >
         Submit
       </button>
     </form>
   </div>
-  
+  <div class="flex shadow-lg flex-col gap-4 mt-5 bg-white p-2 rounded-md">
+    <div
+      *ngFor="let comment of post.comments"
+      class="flex items-start gap-3 p-3 rounded-lg"
+    >
+      <img
+        [src]="comment?.author?.profileImage || '../../assets/nouser.png'"
+        alt="comment author photo"
+        class="w-10 h-10 rounded-full"
+      />
+      <div class="w-full">
+        <p class="font-semibold">{{ comment.author.name }}</p>
+        <div
+          *ngIf="customer._id == comment.author"
+          class="flex justify-between items-center w-full"
+        >
+          <p class="text-sm text-gray-500">
+            {{ formatReadableDate(comment.commentDate) }}
+          </p>
+
+          <span
+            class="cursor-pointer h-[25px] w-[25px] flex justify-center p-2 items-center rounded-full hover:bg-[#eee]"
+          >
+            <i class="fa-solid text-black fa-ellipsis-vertical"></i>
+          </span>
+        </div>
+        <p class="mt-1">{{ comment.content }}</p>
+        <div class="flex gap-4 mt-2">
+          <!-- Like Button -->
+          <button
+            (click)="likeComment(comment._id)"
+            class="flex items-center text-gray-500 "
+            [ngClass]="{'text-purple-600':comment.likes?.includes(customer._id)}"
+          >
+            <i class="fa-solid text-xl fa-thumbs-up"></i>
+            <span class="ml-1">{{ comment.likes?.length || 0 }}</span>
+          </button>
+
+          <!-- Reply Button -->
+          <button
+            (click)="replyToComment(comment.author)"
+            class="flex items-center text-gray-600 hover:text-gray-800"
+          >
+            <i class="fa-solid text-xl fa-reply"></i>
+            <span class="ml-1 text-md">Reply</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
