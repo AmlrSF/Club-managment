@@ -10,7 +10,6 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
   styleUrls: ['./post-details.component.css'],
 })
 export class PostDetailsComponent implements OnInit {
-
   public customer: any;
   public squad: any; // Variable to store the squad details
   post: any;
@@ -49,32 +48,6 @@ export class PostDetailsComponent implements OnInit {
       );
 
     this.fetchPost();
-    
-  }
-
-
-  onSubmit(): void {
-    if (this.commentForm.valid) {
-      let comment = {
-        content: this.commentForm.value.content,
-        author: this.customer._id,
-        replyTo: null,
-      };
-      this.http
-        .post(
-          `http://localhost:3000/api/v1/posts/${this.post._id}/comment`,
-          comment
-        )
-        .subscribe(
-          (res: any) => {
-            console.log(res);
-            this.commentForm.reset();
-          },
-          (err: any) => {
-            console.log(err);
-          }
-        );
-    }
   }
 
   truncateText(text: string, maxLength: number = 100): string {
@@ -150,15 +123,90 @@ export class PostDetailsComponent implements OnInit {
     this.router.navigate([`/squads/squad-details/${squad._id}`]);
   }
 
-  replyToComment(id: any) {
-    throw new Error('Method not implemented.');
+  replyContent: string = '';
+  replyToAuthorId: string | null = null;
+
+  replyToComment(comment: any) {
+    const taggedUsername = `@${comment.author.firstName}${comment.author.lastName}`;
+
+    this.replyContent = `${this.replyContent} ${taggedUsername} `;
+    this.replyToAuthorId = comment.author._id;
+  
   }
-   public likeComment(id: any) {
+
+
+  cancel(){
+    this.replyContent="";
+    this.replyToAuthorId="";
+  }
+
+  iseditComment = false;
+  editingCommentId: any = null; 
+
+  editComment(comment: any) {
+    this.iseditComment = true;
+    this.editingCommentId = comment._id;
+    this.commentForm.patchValue({
+      content: comment.content 
+    });  }
+
+  onSubmit(): void {
+    if (this.commentForm.valid) {
+      const comment = {
+        content: this.commentForm.value.content,
+        author: this.customer._id,
+        replyTo: this.replyToAuthorId || null,
+      };
+  
+      if (this.iseditComment && this.editingCommentId) {
+        // Update comment if in edit mode
+        this.http
+          .post(
+            `http://localhost:3000/api/v1/posts/${this.post._id}/comments/${this.editingCommentId}/edit`,
+            comment
+          )
+          .subscribe(
+            (res: any) => {
+              console.log(res);
+              this.fetchPost(); // Refresh post data
+              this.commentForm.reset();
+              this.iseditComment = false;
+              this.editingCommentId = null;
+            },
+            (err: any) => {
+              console.log(err);
+            }
+          );
+      } else {
+        // Create a new comment if not in edit mode
+        this.http
+          .post(
+            `http://localhost:3000/api/v1/posts/${this.post._id}/comment`,
+            comment
+          )
+          .subscribe(
+            (res: any) => {
+              console.log(res);
+              this.fetchPost(); // Refresh post data
+              this.commentForm.reset();
+            },
+            (err: any) => {
+              console.log(err);
+            }
+          );
+      }
+    }
+  }
+
+  public likeComment(id: any) {
     try {
       this.http
-        .post(`http://localhost:3000/api/v1/posts/${this.post._id}/comments/${id}/like`, {
-          id: this.id,
-        })
+        .post(
+          `http://localhost:3000/api/v1/posts/${this.post._id}/comments/${id}/like`,
+          {
+            id: this.id,
+          }
+        )
         .subscribe(
           (res: any) => {
             console.log(res);
@@ -173,4 +221,24 @@ export class PostDetailsComponent implements OnInit {
     }
   }
 
+  deleteComment(comment: any) {
+    try {
+      this.http
+        .delete(
+          `http://localhost:3000/api/v1/posts/${this.post._id}/comments/${comment._id}`)
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            this.fetchPost();
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
 }

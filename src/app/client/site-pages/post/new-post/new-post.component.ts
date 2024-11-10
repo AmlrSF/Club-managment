@@ -45,6 +45,8 @@ export class NewPostComponent implements OnInit {
       console.log(error);
     }
 
+    this.getInterests();
+
     this.route.queryParams.subscribe((params) => {
       this.squadID = params['squadID'];
 
@@ -56,6 +58,7 @@ export class NewPostComponent implements OnInit {
     http: this.postForm = this.fb.group({
       content: ['', Validators.required],
       imageUrl: ['', [Validators.required]],
+      genre:['', [Validators.required]]
     });
   }
 
@@ -74,6 +77,22 @@ export class NewPostComponent implements OnInit {
       this.postForm.patchValue({ imageUrl: base64String }); // Update the form with base64 string
     };
     reader.readAsDataURL(file); // Read file as data URL
+  }
+  interests: any[] = [];
+
+
+  getInterests(): void {
+    this.http.get<any[]>('http://localhost:3000/api/v1/interests').subscribe(
+      (response) => {
+        this.interests = response.map((interest) => ({
+          ...interest,
+          selected: false,
+        }));
+      },
+      (error) => {
+        console.error('Error fetching interests:', error);
+      }
+    );
   }
 
   onSubmit(): void {
@@ -106,3 +125,19 @@ export class NewPostComponent implements OnInit {
     }
   }
 }
+
+// Artificial Intelligence (AI)
+// Machine Learning
+// Web Development
+// Backend Development
+// Data Science
+// Cybersecurity
+// Cloud Computing
+// Blockchain
+// Mobile App Development
+// Internet of Things (IoT)
+// DevOps
+// AR/VR
+// Big Data
+// Quantum Computing
+// UI/UX Design
