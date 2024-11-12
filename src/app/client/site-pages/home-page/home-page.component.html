@@ -69,9 +69,13 @@
             </span>
           </div>
           <div
-            class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+            class="cursor-pointer h-[35px] w-[35px] flex justify-center gap-2 p-2 items-center rounded-xl bg-[#eee]"
           >
+         
             <i class="fa-solid text-gray-500 fa-comment"></i>
+            <p class="hover:text-[#15ce5c] border-r-2  text-md font-bold" >
+              {{ post.comments.length > 0 ? post.comments.length : ""  }}
+            </p>
           </div>
           <div
             class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"

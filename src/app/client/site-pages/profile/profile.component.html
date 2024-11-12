@@ -1,0 +1,75 @@
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-3xl mb-7 mt-10 text-center ">Profile details</h1>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="grid grid-cols-6 gap-6">
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="last-name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                <input formControlName="firstName" type="text" id="last-name"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="last-name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                <input formControlName="lastName" type="text" id="last-name"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                <input formControlName="email" type="email" id="email"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                <input formControlName="phoneNumber" type="text" id="phone"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
+            </div>
+
+            <div class=" col-span-6 sm:col-span-3 ">
+                <div class="form-group">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Profile Image </label>
+                    <input type="file" id="image" formControlName="profileImage" (change)="onImageChange($event)"
+                        accept="image/*"
+                        class="bg-gray-50 hidden border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#321fdb] focus:border-[#321fdb] outline-none w-full p-3" />
+                </div>
+                <div (click)="openImage()"
+                    class="cursor-pointer relative h-[250px] w-full sm:w-[250px]  border-2 border-gray-300 shadow-sm bg-gray-50   text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block  p-2.5 focus:outline-none">
+                    <ng-container *ngIf="imageUrl; else noImage">
+                        <img [src]="imageUrl" [alt]="imageUrl" class="w-full h-full object-contain" />
+                    </ng-container>
+                    <ng-template #noImage>
+                        <img src="../../assets/download.png" alt="preview"
+                            class=" w-full h-full object-contain opacity-40" />
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="bio" class="block mb-2 text-sm font-medium text-gray-900">Bio</label>
+                <textarea formControlName="bio" id="bio"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none"></textarea>
+            </div>
+
+            <!-- Add more form controls for new customer attributes as needed -->
+
+            <div class="col-span-6">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {{setLoading ? "Saving..." : "Save"}}
+                </button>
+            </div>
+        </form>
+    </div>
+
+</main>

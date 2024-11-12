@@ -17,6 +17,8 @@ import { SiteFooterComponent } from './shared/site-footer/site-footer.component'
 
 import { InterestComponent } from './auth/interest/interest.component';
 import { SiteSidebarComponent } from './shared/site-sidebar/site-sidebar.component';
+import { ProfileComponent } from './client/site-pages/profile/profile.component';
+import { SettingsComponent } from './client/site-pages/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { SiteSidebarComponent } from './shared/site-sidebar/site-sidebar.compone
     SiteFooterComponent,
     InterestComponent,
     SiteSidebarComponent,
+    ProfileComponent,
+    SettingsComponent,
   
   ],
   imports: [
