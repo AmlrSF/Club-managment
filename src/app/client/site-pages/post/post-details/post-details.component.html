@@ -169,6 +169,9 @@
             [ngClass]="{
               'text-purple-600': comment.likes?.includes(customer._id)
             }"
+            [ngClass]="{
+              'bg-[#1ddc6f3d]': post.upvotes.includes(customer._id)
+            }"
           >
             <i class="fa-solid text-xl fa-thumbs-up"></i>
             <span class="ml-1">{{ comment.likes?.length || 0 }}</span>

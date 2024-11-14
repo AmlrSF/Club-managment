@@ -59,9 +59,10 @@
               (click)="upVote(post._id)"
               class="rounded-s-xl hover:bg-[#1ddc6f3d]
                 border-gray-500 p-2 flex items-center"
-              [ngClass]="{ 'gap-2': post.upvotes.length > 0 }"
+              [ngClass]="{ 'gap-2': post.upvotes.length > 0 } "
+              [ngClass]="{ 'bg-[#1ddc6f3d]': post.upvotes.includes(customer._id) } "
             >
-              <i class="fa-solid  hover:text-[#15ce5c] text-gray-500 fa-up-long"></i>
+              <i class="fa-solid mr-1 hover:text-[#15ce5c] text-gray-500 fa-up-long"></i>
               <p class="hover:text-[#15ce5c] border-r-2  text-md font-bold">{{ post.upvotes.length > 0 ? post.upvotes.length : "" }}</p>
             </span>
             <span (click)="downVote(post._id)" class="p-2 hover:bg-[#d52b2014] ">

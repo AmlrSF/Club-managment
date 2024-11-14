@@ -11,10 +11,36 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 export class HomePageComponent implements OnInit{
   posts: any[]=[];
   id:any;
-  
+  public customer: any;
+
 
  
   ngOnInit() {
+    let token = {
+      token: this.auth.getToken()
+    };
+
+    console.log(token);
+
+    try {
+      this.http.post(`http://localhost:3000/api/v1/customers/profile`, token).subscribe(
+        (res: any) => {
+          if (!res.success) {
+            this.router.navigate(["Login"]);
+          }
+
+     ;
+
+          this.customer = res.customer;
+
+       
+        }, (err: any) => {
+          console.log(err);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
     // Simulate fetching data from an API or other source
     this.id = this.auth.getId();
     this.fetchPosts();
