@@ -1,0 +1,52 @@
+<div class="p-6 max-w-md mx-auto bg-white rounded-lg border border-gray-200 shadow-md">
+    <h1 class="text-2xl font-semibold text-gray-900 mb-4">Create Your Feed</h1>
+  
+    <!-- Reactive Form -->
+    <form [formGroup]="feedForm" (ngSubmit)="onSubmit()">
+      <!-- Feed Name Input -->
+      <div class="mb-4">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">
+          Feed Name
+        </label>
+        <input
+          formControlName="name"
+          type="text"
+          id="name"
+          placeholder="Enter feed name"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none"
+        />
+        <!-- Validation Error Message -->
+        <div *ngIf="feedForm.get('name')?.invalid && feedForm.get('name')?.touched" class="text-red-500 text-sm">
+          Feed name is required.
+        </div>
+      </div>
+  
+      <!-- Interests List -->
+      <div class="mb-4">
+        <h2 class="text-lg font-medium text-gray-900 mb-2">Select Interests</h2>
+        <div *ngFor="let interest of interests" class="flex items-center mb-2">
+          <input
+            type="checkbox"
+            [checked]="interest.selected"
+            (change)="toggleInterestSelection(interest)"
+            id="{{ interest._id }}"
+            class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label for="{{ interest._id }}" class="ml-2 text-sm font-medium text-gray-900">
+            {{ interest.name }}
+          </label>
+        </div>
+      </div>
+  
+      <!-- Flex Layout for Submit Button -->
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  

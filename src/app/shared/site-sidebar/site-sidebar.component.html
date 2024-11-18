@@ -16,15 +16,15 @@
           </span>
           <p class="font-bold">myFeed</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div *ngFor="let item of feeds" class="flex items-center gap-2">
           <span
             class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
           >
             <i class="fa-solid fa-hashtag text-[#342E37]"></i>
           </span>
-          <p class="font-medium">Technologies</p>
+          <p class="font-medium">{{item.name}}</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div routerLink="/feed" class="flex items-center gap-2">
           <span
             class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
           >
@@ -45,13 +45,13 @@
           </span>
           <p class="font-bold">Public Squads</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div *ngFor="let item of squads" class="flex items-center gap-2">
           <span
             class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
           >
             <i class="fa-solid fa-hashtag text-[#342E37]"></i>
           </span>
-          <p class="font-medium">Deep flutter</p>
+          <p class="font-medium">{{item.name}}</p>
         </div>
         <div class="flex items-center gap-2" (click)="navigateToSquads()">
           <span

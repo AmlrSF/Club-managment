@@ -10,6 +10,7 @@ import { FuncServicesService } from 'src/app/services/func-services.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  public interests: any[] = [];
   constructor(
     private functionsS: FuncServicesService,
     private auth: AuthUserService,
@@ -44,7 +45,35 @@ export class NavbarComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+
+    this.getClubs();
+    this.getInterests();
   }
+
+
+  getInterests(): void {
+    this.http.get<any[]>('http://localhost:3000/api/v1/feeds').subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error('Error fetching interests:', error);
+      }
+    );
+  }
+
+  getClubs(): void {
+    this.http.get<any[]>('http://localhost:3000/api/v1/clubs').subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error('Error fetching interests:', error);
+      }
+    );
+  }
+
+
 
   public logout() {
     this.toggleDropdown();

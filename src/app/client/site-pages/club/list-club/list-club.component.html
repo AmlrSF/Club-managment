@@ -46,39 +46,40 @@
                 "
                 alt="user photo"
               />
-              <!-- Button for users who are neither owners nor members -->
+              <div>
+                   <!-- Button for users who are neither owners nor members -->
               <button
-                *ngIf="
-                  club.ownerId._id !== customer._id &&
-                  !club.members.includes(customer._id)
-                "
-                class="px-4 py-2 border bg-[#9333ea] rounded-xl text-white"
-                (click)="joinSquad(club._id)"
-              >
-                Join Squad
-              </button>
-
-              <!-- Button for the owner of the squad -->
-              <button
-                *ngIf="club.ownerId._id === customer._id||club.moderators.includes(customer._id)"
-                (click)="navigateToManagementSquad(club._id)"
-                class="px-4 py-2 border bg-purple-600 rounded-xl text-white cursor-not-allowed"
+              *ngIf="
                 
-              >
-                Manage
-              </button>
+                !club.members.includes(customer._id)
+              "
+              class="px-4 py-2 border bg-[#9333ea] rounded-xl text-white"
+              (click)="joinSquad(club._id)"
+            >
+              Join Squad
+            </button>
 
-              <!-- Button for users who are already in the squad -->
-              <button
-                *ngIf="
-                  club.members.includes(customer._id) ||
-                  club.ownerId._id !== customer._id
-                "
-                class="px-4 py-2 border bg-green-500 rounded-xl text-white cursor-not-allowed"
-                disabled
-              >
-                Already in Squad
-              </button>
+            <!-- Button for the owner of the squad -->
+            <button
+              *ngIf="club.ownerId._id === customer._id||club.moderators.includes(customer._id)"
+              (click)="navigateToManagementSquad(club._id)"
+              class="px-4 py-2 border bg-purple-600 rounded-xl text-white cursor-not-allowed"
+              
+            >
+              Manage
+            </button>
+
+            <!-- Button for users who are already in the squad -->
+            <button
+              *ngIf="
+                club.members.includes(customer._id) 
+              "
+              class="px-4 py-2 border bg-green-500 rounded-xl text-white cursor-not-allowed"
+              disabled
+            >
+              Already in Squad
+            </button>
+              </div>
             </div>
             <div class="flex flex-col mt-2">
               <span
