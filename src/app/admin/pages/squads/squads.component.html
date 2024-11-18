@@ -54,6 +54,7 @@
           <tr>
             <th scope="col" class="text-center p-4">Name</th>
             <th scope="col" class="text-center p-4">Owner</th>
+            <th scope="col" class="text-center p-4">Approved</th>
             <th scope="col" class="text-center p-4">Genre</th>
             <th scope="col" class="text-center p-4">Memebers</th>
             <th scope="col" class="text-center p-4">Memebers</th>
@@ -68,7 +69,7 @@
             class="bg-white border-b hover:bg-gray-50"
           >
             <td class="text-center p-4">{{ squad.name }}</td>
-            <td class="text-center p-4">
+            <td class="text-center p-4 flex items-center justify-center">
               <img
                 class="w-[35px] h-[35px] rounded-full"
                 [src]="
@@ -79,6 +80,14 @@
                 alt="user photo"
               />
               {{ squad.ownerId.firstName }} {{ squad.ownerId.lastName }}
+            </td>
+            <td class="text-center p-4">
+                <div *ngIf="squad.approved" class="flex items-center">
+                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Active
+                </div>
+                <div *ngIf="!squad.approved" class="flex items-center">
+                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> Inactive
+                </div>
             </td>
             <td class="text-center p-4">{{ squad.genre }}</td>
             <td class="text-center p-4">{{ squad.members.length }}</td>
