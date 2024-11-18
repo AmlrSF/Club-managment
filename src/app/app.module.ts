@@ -19,6 +19,7 @@ import { InterestComponent } from './auth/interest/interest.component';
 import { SiteSidebarComponent } from './shared/site-sidebar/site-sidebar.component';
 import { ProfileComponent } from './client/site-pages/profile/profile.component';
 import { SettingsComponent } from './client/site-pages/settings/settings.component';
+import { SquadsComponent } from './admin/pages/squads/squads.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SettingsComponent } from './client/site-pages/settings/settings.compone
     SiteSidebarComponent,
     ProfileComponent,
     SettingsComponent,
+    SquadsComponent,
   
   ],
   imports: [
