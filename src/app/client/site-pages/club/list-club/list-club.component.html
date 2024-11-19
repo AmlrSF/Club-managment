@@ -51,7 +51,7 @@
               <button
               *ngIf="
                 
-                !club.members.includes(customer._id)
+                !club.members.includes(customer._id) &&  !club.moderators.includes(customer._id)
               "
               class="px-4 py-2 border bg-[#9333ea] rounded-xl text-white"
               (click)="joinSquad(club._id)"
@@ -61,7 +61,7 @@
 
             <!-- Button for the owner of the squad -->
             <button
-              *ngIf="club.ownerId._id === customer._id||club.moderators.includes(customer._id)"
+              *ngIf="club.ownerId._id === customer._id || club.moderators.includes(customer._id)"
               (click)="navigateToManagementSquad(club._id)"
               class="px-4 py-2 border bg-purple-600 rounded-xl text-white cursor-not-allowed"
               

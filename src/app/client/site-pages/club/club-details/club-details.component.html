@@ -80,23 +80,39 @@
       </div>
       <div
         *ngFor="let moderator of squad.moderators"
-        class="flex flex-col items-center"
+        class="flex gap-3 rounded-xl items-center border border-purple-600 p-2"
       >
         <img
           class="w-12 h-12 rounded-full border-2 border-gray-700"
-          [src]="moderator.photoUrl"
+          [src]="
+          moderator?.profilePicture
+            ? moderator.profilePicture
+            : '../../assets/nogroupe.png'
+        "
           alt="Moderator Photo"
         />
-        <span class="text-sm font-medium">{{ moderator.name }}</span>
-        <span
-          class="text-xs text-gray-400"
-          [ngClass]="{
-            'text-red-500': moderator.role === 'Admin',
-            'text-blue-400': moderator.role === 'Moderator'
-          }"
-        >
-          {{ moderator.role }}
-        </span>
+        <div class="flex items-center flex-col">
+          <span class="text-sm font-medium"
+            >{{ moderator.firstName }} {{ moderator.lastName }}</span
+          >
+          <div class="flex gap-2 items-center">
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 pointer-events-none"
+            >
+              <path
+                d="M12.535 3.649c.146.087.267.209.355.354l2.301 3.825c.145.24.382.413.656.476l4.349 1.007a1.039 1.039 0 01.55 1.693l-2.927 3.37c-.184.213-.274.491-.25.771l.386 4.447a1.039 1.039 0 01-1.44 1.046l-4.11-1.741a1.039 1.039 0 00-.81 0l-4.11 1.741a1.039 1.039 0 01-1.44-1.046l.386-4.447a1.039 1.039 0 00-.25-.77l-2.927-3.371a1.039 1.039 0 01.55-1.693l4.349-1.007c.274-.063.51-.235.655-.476l2.302-3.825c.296-.491.934-.65 1.425-.354z"
+                fill="currentcolor"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            Moderator
+          </div>
+        </div>
+        
       </div>
       <div (click)="navigateToManage(squad)" class="bg-purple-600 flex justify-center items-center 
        font-bold text-white rounded-xl px-6 py-2 cursor-pointer" *ngIf="squad.ownerId._id==customer._id">
