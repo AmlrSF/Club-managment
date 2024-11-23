@@ -28,10 +28,46 @@
   </div>
   <div class="flex">
     <form [formGroup]="addClub" (ngSubmit)="onSubmit()">
-    <div class="squads flex flex-col gap-5 mt-10">
-      <p class="text-2xl font-bold">Squads Details</p>
+      <div class="squads flex flex-col gap-5 mt-10">
+        <p class="text-2xl font-bold">Squads Details</p>
 
-      
+        <div class=" flex items-center flex-col justify-center">
+          <div class="form-group">
+            <input
+              type="file"
+              id="image"
+              formControlName="profileImage"
+              (change)="onImageChange($event)"
+              accept="image/*"
+              class="bg-gray-50 hidden border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#321fdb] focus:border-[#321fdb] outline-none w-full p-3"
+            />
+          </div>
+          <div
+            (click)="openImage()"
+            class="cursor-pointer relativer rounded-full 
+            h-[150px] w-[150px] border-2
+             border-gray-300 shadow-sm bg-gray-50
+              text-gray-900 text-sm  focus:ring-blue-600
+               focus:border-blue-600 block p-2.5 
+               focus:outline-none overflow-hidden"
+          >
+            <ng-container *ngIf="imageUrl; else noImage">
+              <img
+                [src]="imageUrl"
+                [alt]="imageUrl"
+                class="w-full h-full object-contain"
+              />
+            </ng-container>
+            <ng-template #noImage>
+              <img
+                src="../../assets/nogroupe.png"
+                alt="preview"
+                class="w-full h-full object-contain opacity-40"
+              />
+            </ng-template>
+          </div>
+        </div>
+
         <!-- Squad Name Input -->
         <div class="relative">
           <div
@@ -102,67 +138,23 @@
         <div class="squad-type-section mt-8">
           <p class="text-xl font-semibold">Squad type</p>
 
-          <!-- Public Option -->
-          <div class="flex items-start mt-4">
-            <input
-              type="radio"
-              formControlName="type"
-              id="public-squad"
-              value="public"
-              class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
-              [checked]="addClub.get('type')?.value === 'public'" 
-            />
-            <label for="public-squad" class="ml-3 text-sm font-medium">
-              <span class="text-black">Public</span>
-              <p class="text-gray-400 font-normal">
-                Squad is searchable, publicly listed in our squad directory, and
-                open for everyone to join. It’s ideal for building a community
-                or for content creators.
-              </p>
-            </label>
-          </div>
+       
 
           <!-- Category Select for Public -->
-          <div class="ml-8 mt-4">
+          <div class=" mt-4">
             <select
               id="category-select"
               formControlName="genre"
               class="bg-white-900 border border-white-700 text-black rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5"
             >
               <option selected>Select category</option>
-              <option value="Languages">Languages</option>
-              <option value="Web">Web</option>
-              <option value="mobile">mobile</option>
-              <option value="Devops & Cloud">Devops & Cloud</option>
-              <option value="AI">AI</option>
-              <option value="Games">Games</option>
-              <option value="Sports">Sports</option>
-              <option value="devtools">DevTools</option>
-              <option value="Career">Career</option>
-              <option value="opensource">OpenSource</option>
-              <option value="Fun">Fun</option>
+              <option *ngFor="let genre of interests" [value]="genre.name">
+                {{ genre.name }}
+              </option>
             </select>
           </div>
 
-          <!-- Private Option -->
-          <div class="flex items-start mt-6">
-            <input
-              type="radio"
-              formControlName="type"
-              id="private-squad"
-              value="private"
-              class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
-              [checked]="addClub.get('type')?.value === 'private'" 
-            />
-            <label for="private-squad" class="ml-3">
-              <span class="text-black">Private</span>
-              <p class="text-gray-400 text-normal text-sm">
-                Squad is invite-only, hidden from the directory, and perfect for
-                teams and smaller groups of people who know each other and want
-                to collaborate privately.
-              </p>
-            </label>
-          </div>
+        
 
           <div
             class="permissions-section mt-8 p-4 border border-purple-600 rounded-lg"
@@ -208,43 +200,7 @@
                 </div>
               </div>
 
-              <!-- Invitation others permission -->
-              <div>
-                <p class="text-sm font-semibold text-black">
-                  Invitation others
-                </p>
-                <p class="text-gray-400 text-sm">
-                  Choose who is allowed to invite new members to this Squad.
-                </p>
-
-                <div class="mt-2">
-                  <input
-                    type="radio"
-                    id="invite-members"
-                    formControlName="invitePermission"
-                    name="invite-permission"
-                    class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
-                    checked
-                  />
-                  <label for="invite-members" class="ml-2 text-sm text-black"
-                    >All members
-                    <span class="text-gray-500">(recommended)</span></label
-                  >
-                </div>
-
-                <div class="mt-2">
-                  <input
-                    type="radio"
-                    id="invite-moderators"
-                    formControlName="invitePermission"
-                    name="invite-permission"
-                    class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
-                  />
-                  <label for="invite-moderators" class="ml-2 text-sm text-black"
-                    >Only moderators</label
-                  >
-                </div>
-              </div>
+            
             </div>
           </div>
         </div>
@@ -253,11 +209,10 @@
             type="submit"
             class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
           >
-            Create Squad
+           {{isEditMode ? ' Edit Squad ': ' Create Squad'}}
           </button>
         </div>
-      
-    </div>
-  </form>
+      </div>
+    </form>
   </div>
 </main>

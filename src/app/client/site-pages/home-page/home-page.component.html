@@ -18,13 +18,13 @@
     </div>
   </div>
 
-  
-    <div class="feed-container mt-10">
-      <div
-        *ngFor="let post of posts"
-        class="bg-[#fff] p-3 rounded-xl justify-between flex flex-col gap-3"
-      >
-        <div class="flex justify-between gap-2 items-center">
+  <div class="feed-container mt-10">
+    <div
+      *ngFor="let post of posts"
+      class="bg-[#fff] p-3 rounded-xl justify-between flex flex-col gap-3"
+    >
+      <div class="flex justify-between gap-2 items-center">
+        <div class="flex  gap-2 items-center">
           <img
             class="w-8 h-8 rounded-full"
             [src]="
@@ -34,63 +34,81 @@
             "
             alt="user photo"
           />
-          <span
-            class="cursor-pointer h-[25px] w-[25px] flex justify-center p-2 items-center rounded-full hover:bg-[#eee]"
-          >
-            <i class="fa-solid text-black fa-ellipsis-vertical"></i>
-          </span>
-        </div>
-        <div class="post-content">
-          <p (click)="navigateToPostDetail(post._id)" class="hover:underline text-xl font-bold">{{ truncateText(post.content) }}</p>
-          <p>Posted In {{ formatReadableDate(post.createdAt) }}</p>
-        </div>
-        <div class="post-image">
-          <img
-            [src]="post.imageUrl"
-            alt="image"
-            class="w-full h-[250px] rounded-xl object-cover"
+          <img *ngIf="post?.club"
+            class="w-8 h-8 rounded-full"
+            [src]="
+              post?.club?.profilePicture
+                ? post?.club?.profilePicture
+                : '../../assets/download.png'
+            "
+            alt="user photo"
           />
         </div>
-        <div class="flex items-center justify-between gap-2">
-          <div
-            class="cursor-pointer flex  items-center rounded-xl bg-[#eee]"
+
+        <span
+          class="cursor-pointer h-[25px] w-[25px] flex justify-center p-2 items-center rounded-full hover:bg-[#eee]"
+        >
+          <i class="fa-solid text-black fa-ellipsis-vertical"></i>
+        </span>
+      </div>
+      <div class="post-content">
+        <p
+          (click)="navigateToPostDetail(post._id)"
+          class="hover:underline text-xl font-bold"
+        >
+          {{ truncateText(post.content) }}
+        </p>
+        <p>Posted In {{ formatReadableDate(post.createdAt) }}</p>
+      </div>
+      <div class="post-image">
+        <img
+          [src]="post.imageUrl"
+          alt="image"
+          class="w-full h-[250px] rounded-xl object-cover"
+        />
+      </div>
+      <div class="flex items-center justify-between gap-2">
+        <div class="cursor-pointer flex items-center rounded-xl bg-[#eee]">
+          <span
+            (click)="upVote(post._id)"
+            class="rounded-s-xl hover:bg-[#1ddc6f3d] border-gray-500 p-2 flex items-center"
+            [ngClass]="{ 'gap-2': post.upvotes.length > 0 }"
+            [ngClass]="{
+              'bg-[#1ddc6f3d]': post.upvotes.includes(customer._id)
+            }"
           >
-            <span
-              (click)="upVote(post._id)"
-              class="rounded-s-xl hover:bg-[#1ddc6f3d]
-                border-gray-500 p-2 flex items-center"
-              [ngClass]="{ 'gap-2': post.upvotes.length > 0 } "
-              [ngClass]="{ 'bg-[#1ddc6f3d]': post.upvotes.includes(customer._id) } "
-            >
-              <i class="fa-solid mr-1 hover:text-[#15ce5c] text-gray-500 fa-up-long"></i>
-              <p class="hover:text-[#15ce5c] border-r-2  text-md font-bold">{{ post.upvotes.length > 0 ? post.upvotes.length : "" }}</p>
-            </span>
-            <span (click)="downVote(post._id)" class="p-2 hover:bg-[#d52b2014] ">
-              <i class="fa-solid fa-down-long text-gray-500 hover:text-[#c72017]"></i>
-            </span>
-          </div>
-          <div
-            class="cursor-pointer h-[35px] w-[35px] flex justify-center gap-2 p-2 items-center rounded-xl bg-[#eee]"
-          >
-         
-            <i class="fa-solid text-gray-500 fa-comment"></i>
-            <p class="hover:text-[#15ce5c] border-r-2  text-md font-bold" >
-              {{ post.comments.length > 0 ? post.comments.length : ""  }}
+            <i
+              class="fa-solid mr-1 hover:text-[#15ce5c] text-gray-500 fa-up-long"
+            ></i>
+            <p class="hover:text-[#15ce5c] border-r-2 text-md font-bold">
+              {{ post.upvotes.length > 0 ? post.upvotes.length : "" }}
             </p>
-          </div>
-          <div
-            class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
-          >
-            <i class="fa-solid text-gray-500 fa-bookmark"></i>
-          </div>
-          <div
-            class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
-          >
-            <i class="fa-solid text-gray-500 fa-share"></i>
-          </div>
+          </span>
+          <span (click)="downVote(post._id)" class="p-2 hover:bg-[#d52b2014]">
+            <i
+              class="fa-solid fa-down-long text-gray-500 hover:text-[#c72017]"
+            ></i>
+          </span>
+        </div>
+        <div
+          class="cursor-pointer h-[35px] w-[35px] flex justify-center gap-2 p-2 items-center rounded-xl bg-[#eee]"
+        >
+          <i class="fa-solid text-gray-500 fa-comment"></i>
+          <p class="hover:text-[#15ce5c] border-r-2 text-md font-bold">
+            {{ post.comments.length > 0 ? post.comments.length : "" }}
+          </p>
+        </div>
+        <div
+          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+        >
+          <i class="fa-solid text-gray-500 fa-bookmark"></i>
+        </div>
+        <div
+          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+        >
+          <i class="fa-solid text-gray-500 fa-share"></i>
         </div>
       </div>
     </div>
-  
-  
+  </div>
 </main>

@@ -1,7 +1,7 @@
 <main class="bg-gray-900 text-white p-6 rounded-lg shadow-lg">
   <div class="flex flex-col items-center">
     <!-- Squad Image -->
-    <div class="relative mb-4">
+    <div class="relative mb-4 gap-2 flex items-center flex-col">
       <img
         class="w-24 h-24 rounded-full border-4 border-gray-700"
         [src]="
@@ -11,6 +11,13 @@
         "
         alt="Squad Photo"
       />
+      <div
+        *ngIf="customer._id == squad.ownerId._id"
+        class="bg-purple-600 flex justify-center items-center font-bold text-white rounded-xl px-2 py-1 text-sm cursor-pointer"
+        (click)="navigateToEditSquad(squad)"
+      >
+        Edit Squad
+      </div>
     </div>
 
     <!-- Squad Information -->
@@ -28,15 +35,15 @@
     <!-- Squad Statistics -->
     <div class="mt-4 flex gap-4">
       <div class="flex items-center gap-1">
-        <span class="text-lg font-semibold">149</span>
+        <span class="text-lg font-semibold">{{ posts.length }}</span>
         <span class="text-sm text-gray-400">Posts</span>
       </div>
       <div class="flex items-center gap-1">
-        <span class="text-lg font-semibold">{{squad.members.length}}</span>
+        <span class="text-lg font-semibold">{{ squad.members.length }}</span>
         <span class="text-sm text-gray-400">members</span>
       </div>
       <div class="flex items-center gap-1">
-        <span class="text-lg font-semibold">1.9K</span>
+        <span class="text-lg font-semibold">{{ nbvotes }}</span>
         <span class="text-sm text-gray-400">Upvotes</span>
       </div>
     </div>
@@ -85,10 +92,10 @@
         <img
           class="w-12 h-12 rounded-full border-2 border-gray-700"
           [src]="
-          moderator?.profilePicture
-            ? moderator.profilePicture
-            : '../../assets/nogroupe.png'
-        "
+            moderator?.profilePicture
+              ? moderator.profilePicture
+              : '../../assets/nouser.png'
+          "
           alt="Moderator Photo"
         />
         <div class="flex items-center flex-col">
@@ -112,10 +119,13 @@
             Moderator
           </div>
         </div>
-        
       </div>
-      <div (click)="navigateToManage(squad)" class="bg-purple-600 flex justify-center items-center 
-       font-bold text-white rounded-xl px-6 py-2 cursor-pointer" *ngIf="squad.ownerId._id==customer._id">
+
+      <div
+        (click)="navigateToManage(squad)"
+        class="bg-purple-600 flex justify-center items-center font-bold text-white rounded-xl px-6 py-2 cursor-pointer"
+        *ngIf="canManageSquad(squad)"
+      >
         Manage Squad
       </div>
     </div>
@@ -123,8 +133,7 @@
   <div
     *ngIf="
       squad.permissions.postPermission == 'moderators' &&
-      squad.ownerId._id != customer._id &&
-      squad.moderators.includes(customer._id)
+      isMemeber(squad)
     "
     class="border-gray-400 border text-gray-400 flex gap-5 px-4 py-2 mt-7"
   >
@@ -143,9 +152,13 @@
     </svg>
     Only admins and moderators can post
   </div>
+
   <div
-    class="flex justify-between items-center mt-10 
-    border-t py-4 border-b gap-10 border-gray-400"
+    class="flex justify-between items-center mt-10 border-t py-4 border-b gap-10 border-gray-400"
+    *ngIf="
+      squad.permissions.postPermission == 'moderators' &&
+      (canManageSquad(squad))
+    "
   >
     <div class="flex flex-col gap-2">
       <h2 class="text-2xl font-bold">Create New Post</h2>
@@ -204,8 +217,9 @@
             (click)="upVote(post._id)"
             class="rounded-s-xl hover:bg-[#1ddc6f3d] border-gray-500 p-2 flex items-center"
             [ngClass]="{ 'gap-2': post.upvotes.length > 0 }"
-            [ngClass]="{ 'bg-[#1ddc6f3d]': post.upvotes.includes(customer._id) } "
-
+            [ngClass]="{
+              'bg-[#1ddc6f3d]': post.upvotes.includes(customer._id)
+            }"
           >
             <i
               class="fa-solid hover:text-[#15ce5c] text-gray-500 fa-up-long"

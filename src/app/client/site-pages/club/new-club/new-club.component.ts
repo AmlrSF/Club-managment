@@ -2,6 +2,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-club',
@@ -9,74 +10,152 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
   styleUrls: ['./new-club.component.css'],
 })
 export class NewClubComponent implements OnInit {
-  addClub!: FormGroup; // Form group to manage the club creation form
-  public customer:any = null;
-  constructor(private fb: FormBuilder, private http:HttpClient,private auth:AuthUserService) {} // Inject FormBuilder for form creation
+  addClub!: FormGroup;
+  public customer: any = null;
+  public club: any = null;
+  public isEditMode = false;
+  imageUrl: string | undefined;
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private auth: AuthUserService,
+    private router:Router
+  ) {}
+
+  interests: any[] = [];
+
+
+  getInterests(): void {
+    this.http.get<any[]>('http://localhost:3000/api/v1/interests').subscribe(
+      (response) => {
+        this.interests = response.map((interest) => ({
+          ...interest,
+          selected: false,
+        }));
+      },
+      (error) => {
+        console.error('Error fetching interests:', error);
+      }
+    );
+  }
+
 
   ngOnInit(): void {
-    let token = {
-      token: this.auth.getToken()
+    const token = {
+      token: this.auth.getToken(),
     };
 
-    console.log(token);
+    this.isEditMode = false;
 
-    try {
-      this.http.post(`http://localhost:3000/api/v1/customers/profile`, token).subscribe(
+    this.http
+      .post(`http://localhost:3000/api/v1/customers/profile`, token)
+      .subscribe(
         (res: any) => {
-          
-
-         
           this.customer = res.customer;
-          console.log(this.customer);
-          
-
-        }, (err: any) => {
-          console.log(err);
+          this.checkEditMode(); // Check if in edit mode after fetching customer
+        },
+        (err: any) => {
+          console.error(err);
         }
       );
-    } catch (error) {
-      console.log(error);
-    }
-    // Initialize the form group with controls and validators
+
+    // Initialize the form group
     this.addClub = this.fb.group({
-      name: ['', Validators.required], // Squad name
-      clubname: ['', Validators.required], // Squad handle
-      description: ['', Validators.required], // Squad description
-      genre: ['', Validators.required], // Category
-      type: ['', Validators.required], // Public or private
-      profilePicture: [''], // Optional profile picture
+      name: ['', Validators.required],
+      clubname: ['', Validators.required],
+      description: ['', Validators.required],
+      genre: ['', Validators.required],
       permissions: this.fb.group({
-        // Nested form group for permissions
-        postPermission: ['moderators', Validators.required], // Default post permission
-        invitePermission: ['all', Validators.required], // Default invite permission
+        postPermission: ['moderators', Validators.required],
+        invitePermission: ['all', Validators.required],
       }),
     });
   }
 
-  async onSubmit() {
-    console.log(this.addClub.value);
+  checkEditMode(): void {
+    const editSquadId = this.route.snapshot.queryParamMap.get('editSquad');
+    const ownerId = this.route.snapshot.queryParamMap.get('squadOwner');
 
+    if (editSquadId && this.customer && ownerId === this.customer._id) {
+      this.isEditMode = true;
+      this.fetchClubDetails(editSquadId);
+    }
+  }
+
+  fetchClubDetails(clubId: string): void {
+    this.http.get(`http://localhost:3000/api/v1/clubs/${clubId}`).subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.club = res.club;
+          this.addClub.patchValue(this.club); // Fill form with fetched data
+          if (this.club.profilePicture) {
+            this.imageUrl = this.club.profilePicture;
+          }
+        } else {
+          console.error('Failed to fetch club details');
+        }
+      },
+      (err: any) => {
+        console.error('Error fetching club details:', err);
+      }
+    );
+  }
+
+  onImageChange(event: any): void {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.imageUrl = reader.result as string;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  openImage(): void {
+    const inputElement = document.getElementById('image') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.click();
+    }
+  }
+
+  async onSubmit(): Promise<void> {
     if (this.addClub.valid) {
+      
       const formData = this.addClub.value;
-
+      
       try {
-        const response = await fetch('http://localhost:3000/api/v1/clubs', {
-          method: 'POST',
+        const url = this.isEditMode
+          ? `http://localhost:3000/api/v1/clubs/${this.club._id}`
+          : 'http://localhost:3000/api/v1/clubs';
+        const method = this.isEditMode ? 'PUT' : 'POST';
+
+        const response = await fetch(url, {
+          method: method,
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ ...formData, ownerId:this.customer._id  }),
+          body: JSON.stringify({ ...formData,profilePicture:this.imageUrl , ownerId: this.customer._id }),
         });
+
+        if(response.ok){
+          this.router.navigate(["/squads"])
+        }
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Club created successfully:', data);
+        console.log(this.isEditMode ? 'Club updated successfully' : 'Club created successfully', data);
         this.addClub.reset();
       } catch (error) {
-        console.error('Error creating club:', error);
+        console.error(this.isEditMode ? 'Error updating club' : 'Error creating club', error);
       }
     } else {
       console.log('Form is invalid');

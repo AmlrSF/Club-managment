@@ -21,6 +21,7 @@ import { ProfileComponent } from './client/site-pages/profile/profile.component'
 import { SettingsComponent } from './client/site-pages/settings/settings.component';
 import { SquadsComponent } from './admin/pages/squads/squads.component';
 import { FeedComponent } from './client/site-pages/feed/feed.component';
+import { ProfileDetailsComponent } from './client/site-pages/profile-details/profile-details.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FeedComponent } from './client/site-pages/feed/feed.component';
     SettingsComponent,
     SquadsComponent,
     FeedComponent,
-  
+    ProfileDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { FeedComponent } from './client/site-pages/feed/feed.component';
     ClientsModule,
     HttpClientModule,
     ReactiveFormsModule,
-  
+   
  
    
   ],

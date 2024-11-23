@@ -27,6 +27,15 @@ export class ListClubComponent implements OnInit {
     private router: Router
   ) {}
 
+  isInSquad(club: any, customer: any): boolean {
+    return (
+      club.members.includes(customer._id) ||
+      club.ownerId._id === customer._id ||
+      club.moderators.includes(customer._id)
+    );
+  }
+  
+
   ngOnInit(): void {
     let token = {
       token: this.auth.getToken(),

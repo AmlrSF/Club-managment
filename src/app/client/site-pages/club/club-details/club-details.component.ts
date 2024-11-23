@@ -13,11 +13,12 @@ export class ClubDetailsComponent implements OnInit {
   public squad: any; // Variable to store the squad details
   posts: any[] = [];
   id: any;
+  nbvotes: any;
 
   constructor(
     private auth: AuthUserService,
     private router: Router,
-    private route: ActivatedRoute, // Inject ActivatedRoute
+    private route: ActivatedRoute, 
     private http: HttpClient
   ) {}
 
@@ -46,6 +47,20 @@ export class ClubDetailsComponent implements OnInit {
     this.fetchPosts();
   }
 
+  canManageSquad(squad: any): boolean {
+    return (
+      squad.ownerId._id === this.customer._id ||
+      squad.moderators.some((mod: any) => mod._id === this.customer._id)
+    );
+  }
+  
+  isMemeber(squad: any): boolean {
+    return (
+      squad.members.some((mod: any) => mod._id === this.customer._id)
+    );
+  }
+  
+
   truncateText(text: string, maxLength: number = 100): string {
     return text.length > maxLength
       ? text.substring(0, maxLength) + '...'
@@ -63,6 +78,9 @@ export class ClubDetailsComponent implements OnInit {
             .filter((item: any) => {
               return item?.club._id == this.squad._id;
             });
+            console.log(this.posts)
+
+            this.nbvotes = this.posts.map((item:any)=>item.upvotes.length).reduce((a:any,b:any)=>a+b,0); 
         },
         (err: any) => {
           console.error(err);
@@ -154,4 +172,16 @@ export class ClubDetailsComponent implements OnInit {
   public navigateToManage(squad:any){
     this.router.navigate([`/squads/squad-details/${squad._id}`])
   }
+
+  public navigateToEditSquad(squad: any): void {
+    this.router.navigate(['/squads/new'], {
+      queryParams: {
+        editSquad: squad._id,
+        squadOwner: squad.ownerId._id,
+      },
+    });
+  }
+
+  
+  
 }
