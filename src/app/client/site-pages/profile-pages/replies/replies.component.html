@@ -1,0 +1,68 @@
+<div
+  *ngFor="let post of posts"
+  class="flex flex-col md:flex-row gap-4 p-4 border rounded-lg shadow-md"
+>
+  <!-- Post Image -->
+  <img
+    [src]="post.imageUrl"
+    alt="image"
+    class="h-[200px] w-full xs:w-[350px] rounded-xl object-cover"
+  />
+
+  <!-- Post Content -->
+  <div class="flex flex-col justify-between w-full">
+    <!-- Post Author Info -->
+    <div class="flex gap-2 items-center mb-3">
+      <img
+        (click)="navigateToProfileDetails(post.author?._id)"
+        class="w-10 h-10 cursor-pointer rounded-full"
+        [src]="
+          post?.author?.profileImage
+            ? post?.author?.profileImage
+            : '../../assets/download.png'
+        "
+        alt="user photo"
+      />
+      <p
+        (click)="navigateToProfileDetails(post.author?._id)"
+        class="text-lg font-medium text-gray-900 cursor-pointer hover:underline"
+      >
+        {{ post.author.lastName }} {{ post.author.firstName }}
+      </p>
+    </div>
+
+    <!-- Post Text -->
+    <h3 class="text-sm font-normal text-gray-800 mb-4">{{ post.content }}</h3>
+
+    <!-- Comments Section -->
+    <div class="space-y-3">
+      <p class="text-lg font-semibold text-gray-800">
+        People Replies on your comment in this post
+      </p>
+      <div *ngFor="let comment of post.comments">
+        <!-- Check for relevant replies -->
+        <div
+          *ngIf="comment.replyTo === customer._id"
+          class="flex items-start gap-3 bg-gray-50 p-3 rounded-lg"
+        >
+          <!-- Reply Author Info -->
+          <img
+            class="w-8 h-8 rounded-full"
+            [src]="
+              comment?.author?.profileImage
+                ? comment?.author?.profileImage
+                : '../../assets/download.png'
+            "
+            alt="user photo"
+          />
+          <div>
+            <p class="text-sm font-medium text-gray-900">
+              {{ comment.author.lastName }} {{ comment.author.firstName }}
+            </p>
+            <p class="text-sm text-gray-600">{{ comment.content }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
