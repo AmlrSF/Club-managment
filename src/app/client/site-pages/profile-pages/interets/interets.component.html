@@ -1,0 +1,7 @@
+<div class="feed-container mt-10">
+  <div *ngFor="let interest of interests" 
+  class="border border-black border-1 p-2  rounded-lg">
+    <h1 class="text-xl font-bold">{{ interest.name }}</h1>
+    <p class="text-gray-500 ">{{ interest.description }}</p>
+  </div>
+</div>
