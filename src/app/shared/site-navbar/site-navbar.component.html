@@ -69,9 +69,16 @@
         <li></li>
         <li>
           <a
-            routerLink="/editProfile"
+          (click)="navigateToProfileDetails(customer._id)"
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >Profile</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/editProfile"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >Edit Prodile</a
           >
         </li>
         <li>
