@@ -22,6 +22,10 @@ import { SettingsComponent } from './client/site-pages/settings/settings.compone
 import { SquadsComponent } from './admin/pages/squads/squads.component';
 import { FeedComponent } from './client/site-pages/feed/feed.component';
 import { ProfileDetailsComponent } from './client/site-pages/profile-details/profile-details.component';
+import { RepliesComponent } from './client/site-pages/profile-pages/replies/replies.component';
+import { PostsComponent } from './client/site-pages/profile-pages/posts/posts.component';
+import { InteretsComponent } from './client/site-pages/profile-pages/interets/interets.component';
+import { UpvotesComponent } from './client/site-pages/profile-pages/upvotes/upvotes.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { ProfileDetailsComponent } from './client/site-pages/profile-details/pro
     SquadsComponent,
     FeedComponent,
     ProfileDetailsComponent,
+    RepliesComponent,
+    PostsComponent,
+    InteretsComponent,
+    UpvotesComponent,
     
   ],
   imports: [

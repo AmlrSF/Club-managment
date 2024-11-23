@@ -5,6 +5,11 @@ import { HomePageComponent } from '../site-pages/home-page/home-page.component';
 import { ProfileComponent } from '../site-pages/profile/profile.component';
 import { SettingsComponent } from '../site-pages/settings/settings.component';
 import { FeedComponent } from '../site-pages/feed/feed.component';
+import { ProfileDetailsComponent } from '../site-pages/profile-details/profile-details.component';
+import { RepliesComponent } from '../site-pages/profile-pages/replies/replies.component';
+import { PostsComponent } from '../site-pages/profile-pages/posts/posts.component';
+import { InteretsComponent } from '../site-pages/profile-pages/interets/interets.component';
+import { UpvotesComponent } from '../site-pages/profile-pages/upvotes/upvotes.component';
 
 const routes: Routes = [
   { path: "", component:SiteLayoutComponent , children: [
@@ -13,8 +18,18 @@ const routes: Routes = [
     { path : 'posts', loadChildren : ()=>import("../site-pages/post/post.module").then(m=>m.PostModule) },
     { path: 'editProfile', component:ProfileComponent },
     { path: 'settings', component:SettingsComponent  },
-    { path: 'feed', component:FeedComponent  }
-
+    { path: 'feed', component:FeedComponent  },
+    
+    {
+      path: "profile/:id",
+      component: ProfileDetailsComponent,
+      children: [
+        { path: "replies", component: RepliesComponent },
+        { path: "posts", component: PostsComponent },
+        { path: "interests", component: InteretsComponent },
+        { path: "upvotes", component: UpvotesComponent },
+      ],
+    },
   ]}
 ];
 
