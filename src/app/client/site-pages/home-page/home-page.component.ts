@@ -9,6 +9,8 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit{
+
+
   posts: any[]=[];
   id:any;
   public customer: any;
@@ -110,5 +112,13 @@ export class HomePageComponent implements OnInit{
 
   public navigateToPostDetail(id:any){
     this.router.navigate([`/posts/post/${id}`])
+  }
+
+  navigateToProfileDetails(id: any) {
+    this.router.navigate([`/profile/${id}`])
+  }
+
+  navigetToClubDetails(id: any) {
+    this.router.navigate([`/squads/squad/${id}`])
   }
 }
