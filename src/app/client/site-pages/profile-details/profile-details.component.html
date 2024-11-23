@@ -1,1 +1,62 @@
+<main >
+  <div class="flex flex-col items-center bg-gray-900 text-white p-6 rounded-lg shadow-lg">
+    <!-- customer Image -->
+    <div class="relative  gap-2 flex items-center flex-col">
+      <img
+        class="w-24 h-24 rounded-full border-4 border-gray-700"
+        [src]="
+          customer?.profileImage
+            ? customer.profileImage
+            : '../../assets/nouser.png'
+        "
+        alt="customer Photo"
+      />
+    </div>
 
+    <!-- customer Information -->
+    <div class="text-center">
+      <h1 class="text-2xl font-bold">
+        {{ customer.firstName }} {{ customer.lastName }}
+      </h1>
+      <h1 class="text-1xl font-normal">{{ customer.bio }}</h1>
+      <p class="text-sm text-gray-400">
+        Registered At {{ customer.registrationDate | date : "MMM d, y" }}
+      </p>
+    </div>
+  </div>
+  <div class="flex gap-4 mt-2">
+    <a
+      class="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700"
+      [routerLink]="['/profile', customer._id, 'replies']"
+      routerLinkActive="bg-gray-700"
+    >
+      Replies
+    </a>
+    <a
+      class="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700"
+      [routerLink]="['/profile', customer._id, 'posts']"
+      routerLinkActive="bg-gray-700"
+    >
+      Posts
+    </a>
+    <a
+      class="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700"
+      [routerLink]="['/profile', customer._id, 'interests']"
+      routerLinkActive="bg-gray-700"
+    >
+      Interests
+    </a>
+    <a
+      class="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700"
+      [routerLink]="['/profile', customer._id, 'upvotes']"
+      routerLinkActive="bg-gray-700"
+    >
+      Upvotes
+    </a>
+  </div>
+
+  <!-- Router outlet for nested views -->
+  <div class="mt-6 w-full">
+    <router-outlet></router-outlet>
+  </div>
+</main>
