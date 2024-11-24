@@ -26,6 +26,7 @@ import { RepliesComponent } from './client/site-pages/profile-pages/replies/repl
 import { PostsComponent } from './client/site-pages/profile-pages/posts/posts.component';
 import { InteretsComponent } from './client/site-pages/profile-pages/interets/interets.component';
 import { UpvotesComponent } from './client/site-pages/profile-pages/upvotes/upvotes.component';
+import { NotificationsComponent } from './client/site-pages/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UpvotesComponent } from './client/site-pages/profile-pages/upvotes/upvo
     PostsComponent,
     InteretsComponent,
     UpvotesComponent,
+    NotificationsComponent,
     
   ],
   imports: [
