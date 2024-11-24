@@ -8,56 +8,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   public clients: any[] = [];
-  public domains: any[] = [];
+  public squads: any[] = [];
   public profit: number = 0;
   public monthlyData: any[] = [];
 
-  private apiUrl: string = "http://localhost:3000/api/v1/clients";
-  private baseUrl = 'http://localhost:3000/api/v1/domains';
-
-  constructor(private http: HttpClient) {};
-
-  private monthNames :any[] = [
-    'January', 'February', 'March', 'April',
-    'May', 'June', 'July', 'August',
-    'September', 'October', 'November', 'December'
-  ];
+  private apiUrl: string = "http://localhost:3000/api/v1/customers";
+  private baseUrl = 'http://localhost:3000/api/v1/clubs';
+  Posts: any[] = [];
 
   ngOnInit(): void {
     this.getClients();
     this.getDomains();
+    this.getPosts();
   }
 
-  public calculateMonthlyData(domains: any[]) {
-    this.monthlyData = Array.from({ length: 12 }, (_, i) => {
-      return {
-        month: this.monthNames[i],
-        numberOfDomains: 0,
-        profit: 0
-      };
-    });
 
-    domains.forEach((item: any) => {
-      const month = new Date(item.startDate).getMonth() + 1;
-      this.monthlyData[month - 1].numberOfDomains++;
-      this.monthlyData[month - 1].profit += item.buyingPrice - item.purchasePrice;
-    });
-  }
+  public constructor(private http : HttpClient){}
 
-  public calculateProfit() {
-    if (this.domains.length > 0) {
-      this.profit = this.domains
-        .map((item: any) => item.buyingPrice - item.purchasePrice)
-        .reduce((prev, item) => prev + item);
-    }
-  }
+
 
   public getDomains() {
     this.http.get(this.baseUrl).subscribe(
       (res: any) => {
-        this.domains = res.data;
-        this.calculateMonthlyData(res.data);
-        this.calculateProfit();
+        this.squads = res.clubs;
+        
+      },
+      (error: any) => {
+        console.error('Error fetching domains:', error);
+      }
+    );
+  }
+
+  public getPosts() {
+    this.http.get("http://localhost:3000/api/v1/posts").subscribe(
+      (res: any) => {
+        this.Posts = res.posts;
+        console.log(res);
+        
+        
       },
       (error: any) => {
         console.error('Error fetching domains:', error);
@@ -68,7 +56,8 @@ export class MainComponent implements OnInit {
   public getClients() {
     this.http.get(this.apiUrl).subscribe(
       (clients: any) => {
-        this.clients = clients.clients;
+        this.clients = clients.customers;
+        
       },
       (error: any) => {
         console.error('Error fetching clients:', error);

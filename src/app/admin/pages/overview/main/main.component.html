@@ -18,44 +18,24 @@
         <li>
             <i class='fa-solid fa-user bx bxs-calendar-check'></i>
             <span class="text">
-                <h3>{{ clients.length }}</h3>
-                <p>Clients</p>
+                <h3>{{ clients.length - 1 }}</h3>
+                <p>Total Clients </p>
             </span>
         </li>
         <li>
-            <i class='fa-solid fa-server bx bxs-group'></i>
+            <i class='fa-solid fa-users bx bxs-group'></i>
             <span class="text">
-                <h3>{{ domains.length }}</h3>
-                <p>Domains</p>
+                <h3>{{ squads.length }}</h3>
+                <p>Total Squads</p>
             </span>
         </li>
         <li>
-            <i class='bx bxs-dollar-circle fa-solid fa-dollar-sign'></i>
+            <i class='bx bxs-dollar-circle fa-solid fa-fire'></i>
             <span class="text">
-                <h3>${{ profit }}</h3>
-                <p>Total Sales</p>
+                <h3>{{ Posts.length }}</h3>
+                <p>Total Post</p>
             </span>
         </li>
     </ul>
-    <div class="bg-[#F9F9F9] p-[24px] rounded-[20px] mt-7">
-        <h2 class="text-2xl font-bold">Monthly Metrics Overview.</h2>
-        <table class="styled-table text-sm text-left rtl:text-right text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                    <th scope="col" class="text-center p-4" >Months</th>
-                    <th scope="col" class="text-center  p-4"  *ngFor="let data of monthlyData">{{ data.month }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="bg-white border-b 0 hover:bg-gray-50 ">
-                    <td scope="col" class="text-center p-4">Number of Domains</td>
-                    <td scope="col" class="text-center p-4" *ngFor="let data of monthlyData">{{ data.numberOfDomains }}</td>
-                </tr>
-                <tr class="bg-white border-b 0 hover:bg-gray-50 ">
-                    <td scope="col" class="text-center p-4">Profit</td>
-                    <td scope="col" class="text-center p-4" *ngFor="let data of monthlyData">{{ data.profit | currency:'USD':true }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
 </main>
