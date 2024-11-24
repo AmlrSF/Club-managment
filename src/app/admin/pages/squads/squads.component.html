@@ -98,17 +98,12 @@
             </td>
             <td class="text-center p-4 justify-center flex gap-3">
               <button
-                class="p-2 rounded-lg bg-[#3C91E6]"
-                (click)="viewSquad(squad)"
+                class="p-2 rounded-lg text-white font-bold bg-[#3C91E6]"
+                (click)="ApproveSquad(squad)"
               >
-                <i class="text-white font-bold fa-solid fa-eye"></i>
+              {{squad.approved ? "inActive" : "active" }}
               </button>
-              <button
-                class="p-2 rounded-lg bg-green-500"
-                (click)="editSquad(squad)"
-              >
-                <i class="text-white font-bold fa-solid fa-pen"></i>
-              </button>
+        
               <button
                 class="p-2 rounded-lg bg-[#DB504A]"
                 (click)="deleteSquad(squad)"
