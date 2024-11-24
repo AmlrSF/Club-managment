@@ -156,8 +156,8 @@
   <div
     class="flex justify-between items-center mt-10 border-t py-4 border-b gap-10 border-gray-400"
     *ngIf="
-      squad.permissions.postPermission == 'moderators' &&
-      (canManageSquad(squad))
+     ( squad.permissions.postPermission == 'moderators' &&
+      (canManageSquad(squad))) || squad.permissions.postPermission == 'all'
     "
   >
     <div class="flex flex-col gap-2">
