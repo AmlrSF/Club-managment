@@ -17,10 +17,47 @@
       </ul>
     </div>
   </div>
+  <!-- Filter Section -->
+  <div class="flex justify-between items-center my-5">
+    <!-- Search Input -->
+    <form (submit)="onSearch(); $event.preventDefault()">
+      <div class="form-input flex items-center gap-2">
+        <input
+          class="sm:w-[350px] w-[150px] px-4 py-2 rounded-lg border-2 border-purple-600 font-medium outline-none text-black"
+          type="search"
+          placeholder="Search..."
+          [(ngModel)]="searchTerm"
+          name="search"
+        />
+        <button
+          type="button"
+          class="search-btn rounded-lg py-2 px-4 border-2 border-purple-600 bg-purple-600 text-white"
+          (click)="onSearch()"
+        >
+          Search
+        </button>
+      </div>
+    </form>
 
-  <div class="feed-container mt-10">
+    <!-- Interest Select -->
+    <form>
+      <div class="form-input flex items-center gap-2">
+        <select
+          class="sm:w-[200px] w-[150px] px-4 py-2 outline-none border-2 rounded-lg border-purple-600"
+          (change)="onSelectInterest($event)"
+        >
+          <option value="">All Interests</option>
+          <option *ngFor="let interest of feeds" [value]="interest._id">
+            {{ interest.name }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <div class="feed-container m">
     <div
-      *ngFor="let post of posts"
+      *ngFor="let post of filteredPosts"
       class="bg-[#fff] p-3 rounded-xl justify-between flex flex-col gap-3"
     >
       <div class="flex justify-between gap-2 items-center">

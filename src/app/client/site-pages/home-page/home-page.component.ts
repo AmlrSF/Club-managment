@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
@@ -6,119 +6,135 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
 })
-export class HomePageComponent implements OnInit{
+export class HomePageComponent implements OnInit {
+  posts: any[] = [];
+  filteredPosts: any[] = [];
+  feeds: any[] = [];
+  selectedInterest: string = '';
+  searchTerm: string = '';
+  customer: any;
 
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private auth: AuthUserService
+  ) {}
 
-  posts: any[]=[];
-  id:any;
-  public customer: any;
+  ngOnInit(): void {
+    const token = { token: this.auth.getToken() };
 
-
- 
-  ngOnInit() {
-    let token = {
-      token: this.auth.getToken()
-    };
-
-    console.log(token);
-
-    try {
-      this.http.post(`http://localhost:3000/api/v1/customers/profile`, token).subscribe(
+    this.http
+      .post(`http://localhost:3000/api/v1/customers/profile`, token)
+      .subscribe(
         (res: any) => {
           if (!res.success) {
-            this.router.navigate(["Login"]);
+            this.router.navigate(['Login']);
           }
-
-     ;
-
           this.customer = res.customer;
-
-       
-        }, (err: any) => {
-          console.log(err);
-        }
+          this.fetchPosts();
+          this.getInterests();
+        },
+        (error) => console.error('Error fetching customer profile:', error)
       );
-    } catch (error) {
-      console.log(error);
-    }
-    // Simulate fetching data from an API or other source
-    this.id = this.auth.getId();
-    this.fetchPosts();
+  }
+
+  getInterests(): void {
+    this.http.get<any[]>('http://localhost:3000/api/v1/feeds').subscribe(
+      (response) => {
+        this.feeds = response.filter(
+          (item: any) => item.userId._id === this.customer._id
+        );
+        // console.log(this.feeds)
+      },
+      (error) => console.error('Error fetching interests:', error)
+    );
+  }
+
+  fetchPosts(): void {
+    this.http.get('http://localhost:3000/api/v1/posts').subscribe(
+      (res: any) => {
+        this.posts = res.posts;
+        this.filteredPosts = res.posts; // Initialize filteredPosts with all posts
+      },
+      (error) => console.error('Error fetching posts:', error)
+    );
+  }
+
+  filterPosts(): void {
+    this.filteredPosts = this.posts.filter((post) => {
+      const matchesSearchTerm = this.searchTerm
+        ? post.content.toLowerCase().includes(this.searchTerm.toLowerCase())
+        : true;
+
+      return matchesSearchTerm;
+    });
+  }
+
+  filterPostsBasedOnSelectForm(): void {
+    const selectedFeed =
+      this.feeds
+        .find((item) => item._id === this.selectedInterest)
+        ?.interests.map((item: any) => item.name) || []; // Safeguard to handle undefined
+
+    this.filteredPosts = this.posts.filter((post) => {
+      
+      let res =  selectedFeed.some((item: any) => item === post.genre);
     
+      return res
+    });
+  }
+
+  onSearch(): void {
+    this.filterPosts();
+  }
+
+  onSelectInterest(event: any): void {
+    this.selectedInterest = event.target.value;
+    this.filterPostsBasedOnSelectForm();
   }
 
   truncateText(text: string, maxLength: number = 100): string {
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + '...'
+      : text;
   }
-  
 
-  constructor(private http: HttpClient,private router:Router,private auth:AuthUserService) { }
-
-
-  fetchPosts(): void {
-    try {
-      // console.log(this.club)
-      this.http.get(`http://localhost:3000/api/v1/posts`)
-        .subscribe((res: any) => {
-          console.log(res);
-          this.posts = res.posts;
-
-        }, (err: any) => {
-          console.error(err);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  public formatReadableDate(dateString: any) {
-    const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
-
+  formatReadableDate(dateString: any): string {
     const date = new Date(dateString);
-
-    return date.toLocaleString('en-US', options);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
   }
 
+  navigateToPostDetail(id: any): void {
+    this.router.navigate([`/posts/post/${id}`]);
+  }
 
+  navigateToProfileDetails(id: any): void {
+    this.router.navigate([`/profile/${id}`]);
+  }
 
-  downVote(id:any) {
-    try {
-      this.http.patch(`http://localhost:3000/api/v1/posts/${id}/downvote`,{id:this.id})
-      .subscribe((res: any) => {
-        console.log(res);
-        this.fetchPosts();
-      }, (err: any) => {
-        console.log(err)
+  navigetToClubDetails(id: any): void {
+    this.router.navigate([`/squads/squad/${id}`]);
+  }
+
+  upVote(id: any): void {
+    this.http
+      .patch(`http://localhost:3000/api/v1/posts/${id}/upvote`, {
+        id: this.customer._id,
       })
-    } catch (error) {
-      
-    }
+      .subscribe(() => this.fetchPosts());
   }
-  upVote(id:any) {
-    try {
-      this.http.patch(`http://localhost:3000/api/v1/posts/${id}/upvote`,{id:this.id})
-      .subscribe((res: any) => {
-        console.log(res);
-        this.fetchPosts();
-      }, (err: any) => {
-        console.log(err)
+
+  downVote(id: any): void {
+    this.http
+      .patch(`http://localhost:3000/api/v1/posts/${id}/downvote`, {
+        id: this.customer._id,
       })
-    } catch (error) {
-      console.log(error);
-      
-    }
-  }
-
-  public navigateToPostDetail(id:any){
-    this.router.navigate([`/posts/post/${id}`])
-  }
-
-  navigateToProfileDetails(id: any) {
-    this.router.navigate([`/profile/${id}`])
-  }
-
-  navigetToClubDetails(id: any) {
-    this.router.navigate([`/squads/squad/${id}`])
+      .subscribe(() => this.fetchPosts());
   }
 }
