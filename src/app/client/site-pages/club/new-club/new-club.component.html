@@ -31,7 +31,7 @@
       <div class="squads flex flex-col gap-5 mt-10">
         <p class="text-2xl font-bold">Squads Details</p>
 
-        <div class=" flex items-center flex-col justify-center">
+        <div class="flex items-center flex-col justify-center">
           <div class="form-group">
             <input
               type="file"
@@ -44,12 +44,7 @@
           </div>
           <div
             (click)="openImage()"
-            class="cursor-pointer relativer rounded-full 
-            h-[150px] w-[150px] border-2
-             border-gray-300 shadow-sm bg-gray-50
-              text-gray-900 text-sm  focus:ring-blue-600
-               focus:border-blue-600 block p-2.5 
-               focus:outline-none overflow-hidden"
+            class="cursor-pointer relativer rounded-full h-[150px] w-[150px] border-2 border-gray-300 shadow-sm bg-gray-50 text-gray-900 text-sm focus:ring-blue-600 focus:border-blue-600 block p-2.5 focus:outline-none overflow-hidden"
           >
             <ng-container *ngIf="imageUrl; else noImage">
               <img
@@ -138,10 +133,8 @@
         <div class="squad-type-section mt-8">
           <p class="text-xl font-semibold">Squad type</p>
 
-       
-
           <!-- Category Select for Public -->
-          <div class=" mt-4">
+          <div class="mt-4">
             <select
               id="category-select"
               formControlName="genre"
@@ -153,8 +146,6 @@
               </option>
             </select>
           </div>
-
-        
 
           <div
             class="permissions-section mt-8 p-4 border border-purple-600 rounded-lg"
@@ -175,14 +166,15 @@
                   <input
                     type="radio"
                     id="post-members"
-                    name="post-permission"
                     formControlName="postPermission"
                     class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
+                    value="all"
+                    checked
                   />
-                  <label for="post-members" class="ml-2 text-sm text-black"
-                    >All members
-                    <span class="text-gray-500">(recommended)</span></label
-                  >
+                  <label for="post-members" class="ml-2 text-sm text-black">
+                    All members
+                    <span class="text-gray-500">(recommended)</span>
+                  </label>
                 </div>
 
                 <div class="mt-2">
@@ -190,17 +182,14 @@
                     type="radio"
                     id="post-moderators"
                     formControlName="postPermission"
-                    name="post-permission"
                     class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300"
-                    checked
+                    value="moderators"
                   />
-                  <label for="post-moderators" class="ml-2 text-sm text-black"
-                    >Only moderators</label
-                  >
+                  <label for="post-moderators" class="ml-2 text-sm text-black">
+                    Only moderators
+                  </label>
                 </div>
               </div>
-
-            
             </div>
           </div>
         </div>
@@ -209,7 +198,7 @@
             type="submit"
             class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg"
           >
-           {{isEditMode ? ' Edit Squad ': ' Create Squad'}}
+            {{ isEditMode ? " Edit Squad " : " Create Squad" }}
           </button>
         </div>
       </div>

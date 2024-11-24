@@ -15,32 +15,27 @@ export class NewClubComponent implements OnInit {
   public club: any = null;
   public isEditMode = false;
   imageUrl: string | undefined;
-
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private http: HttpClient,
     private auth: AuthUserService,
-    private router:Router
+    private router: Router
   ) {}
 
   interests: any[] = [];
 
-
   getInterests(): void {
     this.http.get<any[]>('http://localhost:3000/api/v1/interests').subscribe(
       (response) => {
-        this.interests = response.map((interest) => ({
-          ...interest,
-          selected: false,
-        }));
+        this.interests = response;
+        //console.log(this.interests);
       },
       (error) => {
         console.error('Error fetching interests:', error);
       }
     );
   }
-
 
   ngOnInit(): void {
     const token = {
@@ -67,11 +62,13 @@ export class NewClubComponent implements OnInit {
       clubname: ['', Validators.required],
       description: ['', Validators.required],
       genre: ['', Validators.required],
-      permissions: this.fb.group({
-        postPermission: ['moderators', Validators.required],
-        invitePermission: ['all', Validators.required],
-      }),
+      
+      postPermission: ['all', Validators.required],
+      invitePermission: ['all', Validators.required]
+      
     });
+
+    this.getInterests();
   }
 
   checkEditMode(): void {
@@ -125,10 +122,21 @@ export class NewClubComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
+    console.log(this.addClub.value);
+   
+    
     if (this.addClub.valid) {
+
       
-      const formData = this.addClub.value;
-      
+      let permissions = {
+        postPermission: this.addClub.value["postPermission"],
+        invitePermission: this.addClub.value["invitePermission"]
+      }
+  
+      delete this.addClub.value["postPermission"]
+      delete this.addClub.value["invitePermission"]
+  
+   
       try {
         const url = this.isEditMode
           ? `http://localhost:3000/api/v1/clubs/${this.club._id}`
@@ -140,7 +148,7 @@ export class NewClubComponent implements OnInit {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ ...formData,profilePicture:this.imageUrl , ownerId: this.customer._id }),
+          body: JSON.stringify({ ...this.addClub.value,permissions ,profilePicture:this.imageUrl , ownerId: this.customer._id }),
         });
 
         if(response.ok){
