@@ -34,8 +34,17 @@
     <div *ngFor="let genre of getGenres()">
       <h3 class="text-2xl font-semibold mb-2">{{ genre }}</h3>
       <div class="container-squads">
-        <div *ngFor="let club of getClubsByGenre(genre)">
-          <div class="club-card bg-white p-2 shadow-sm rounded-xl">
+        <div
+          *ngFor="let club of getClubsByGenre(genre)"
+          class="m-2 shadow-xl relative"
+          [ngClass]="{
+            'isApproved overlayer':
+              !club.approved && club.ownerId._id != customer._id
+          }"
+        >
+          <div
+            class="club-card bg-white p-2 border-2 border-purple-600 shadow-sm rounded-xl"
+          >
             <div class="flex items-center justify-between">
               <img
                 class="w-[50px] h-[50px] rounded-full"
@@ -50,30 +59,36 @@
                 <!-- Single button with *ngIf and else -->
                 <button
                   *ngIf="!isInSquad(club, customer); else alreadyInSquad"
-                  class="px-4 py-2 border bg-[#9333ea] rounded-xl text-white"
+                  class="px-4 py-2 border bg-[#9333ea] cursor-pointer rounded-xl text-white"
                   (click)="joinSquad(club._id)"
+                  [disabled]="
+                    !club.approved && club.ownerId._id != customer._id
+                  "
+                  [ngClass]="{ 'cursor-not-allowed': !club.approved && club.ownerId._id != customer._id}"
                 >
                   Join Squad
                 </button>
-              
+
                 <ng-template #alreadyInSquad>
                   <button
-                    class="px-4 py-2 border bg-green-500 rounded-xl text-white cursor-not-allowed"
-                    disabled
+                    class="px-4 py-2 border bg-green-500 rounded-xl text-white cursor-pointer"
                   >
                     Already in Squad
                   </button>
                 </ng-template>
               </div>
-              
             </div>
-            <div class="flex flex-col mt-2">
+            <div class="flex flex-col mt-2" >
               <span
                 class="text-xl font-bold hover:underline"
-                (click)="navigateto(club._id)"
-                >{{ club.name }}</span
+                (click)="navigateto(club)"
+                
               >
-              <p class="text-md text-gray-500">{{ club.description }}</p>
+                {{ club.name }}
+              </span>
+              <p class="text-md text-gray-500">
+                {{ truncateText(club.description) }}
+              </p>
               <div class="flex items-center justify-between mt-2">
                 <span>&#64;{{ club.clubname }}</span>
 

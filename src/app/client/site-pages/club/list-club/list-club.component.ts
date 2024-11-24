@@ -9,8 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-club.component.css'],
 })
 export class ListClubComponent implements OnInit {
-  navigateto(id: any) {
-    this.router.navigate([`/squads/squad/${id}`]);
+  navigateto(club: any) {
+    if(club.approved || club.ownerId._id == this.customer._id)
+      this.router.navigate([`/squads/squad/${club._id}`]);
+
+
   }
 
   public navigateToManagementSquad(id:any){
@@ -26,6 +29,12 @@ export class ListClubComponent implements OnInit {
     private auth: AuthUserService,
     private router: Router
   ) {}
+
+  truncateText(text: string, maxLength: number = 100): string {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  }
+  
+
 
   isInSquad(club: any, customer: any): boolean {
     return (
