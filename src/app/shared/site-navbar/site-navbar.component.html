@@ -1,48 +1,32 @@
-<nav>
+<nav class="flex justify-between">
   <i (click)="addToggle()" class="bx bx-menu"
     ><i class="bx bxs-group fa-solid fa-bars"></i
   ></i>
-  <form>
-    <div class="form-input">
-      <input class="sm:w-[350px] w-[150px]" type="search" placeholder="Search..." />
-      <button type="button" class="search-btn">
-        <i class="bx bxs-group fa-solid fa-magnifying-glass"></i>
-      </button>
-    </div>
-  </form>
 
+      <div></div>
   <div *ngIf="customer; else notLoggedInMessage">
-    <div class="flex justify-between items-center 
-     gap-5">
+    <div class="flex justify-between items-center gap-5">
       <button
         (click)="navigateToGroupe()"
-       
-        class="w-full bg-purple-600
-         hover:bg-purple-700 text-center 
-          text-white font-bold py-2 px-4 rounded-lg"
+        class="w-full bg-purple-600 hover:bg-purple-700 text-center text-white font-bold py-2 px-4 rounded-lg"
       >
-      New
+        New
       </button>
-      <a class="notification">
+      <a class="notification cursor-pointer" routerLink="notifcations">
         <i class="fa-solid fa-bell bx bxs-group"></i>
         <span class="num">8</span>
       </a>
       <div
         (click)="toggleDropdown()"
         type="button"
-        class="  bg-[#9333ea] p-[3px]
-        flex items-center h-[45px] w-[100px]
-         justify-between
-        rounded-full focus:ring-4
-         focus:ring-gray-300"
+        class="bg-[#9333ea] p-[3px] flex items-center h-[45px] w-[100px] justify-between rounded-full focus:ring-4 focus:ring-gray-300"
         id="user-menu-button"
         aria-expanded="false"
         data-dropdown-toggle="user-dropdown"
         data-dropdown-placement="bottom"
       >
-        
         <img
-          class=" w-full h-full rounded-full"
+          class="w-full h-full rounded-full"
           [src]="
             customer?.profileImage
               ? customer.profileImage
@@ -69,7 +53,7 @@
         <li></li>
         <li>
           <a
-          (click)="navigateToProfileDetails(customer._id)"
+            (click)="navigateToProfileDetails(customer._id)"
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >Profile</a
           >
