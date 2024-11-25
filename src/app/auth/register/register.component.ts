@@ -68,6 +68,9 @@ export class RegisterComponent implements OnInit {
       }
 
 
+    } else {
+      // Handle form validation errors
+      alert('Form is invalid. Please check the fields.');
     }
   }
 }

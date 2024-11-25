@@ -165,8 +165,9 @@ export class NewClubComponent implements OnInit {
       } catch (error) {
         console.error(this.isEditMode ? 'Error updating club' : 'Error creating club', error);
       }
-    } else {
-      console.log('Form is invalid');
+    }  else {
+      // Handle form validation errors
+      alert('Form is invalid. Please check the fields.');
     }
   }
 }

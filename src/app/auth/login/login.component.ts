@@ -66,7 +66,9 @@ export class LoginComponent implements OnInit{
       this.http.post(this.apiUrl, loginData).subscribe(
         (response: any) => {
           // Handle successful response
-          console.log('Login successful:', response);
+          if(!response?.success){
+            alert(response?.error)
+          }
 
           if (response.token && response.message == "Login successful") {
 
@@ -88,7 +90,7 @@ export class LoginComponent implements OnInit{
       );
     } else {
       // Handle form validation errors
-      console.log('Form is invalid. Please check the fields.');
+      alert('Form is invalid. Please check the fields.');
     }
   }
 }

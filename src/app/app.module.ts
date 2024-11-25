@@ -28,6 +28,7 @@ import { InteretsComponent } from './client/site-pages/profile-pages/interets/in
 import { UpvotesComponent } from './client/site-pages/profile-pages/upvotes/upvotes.component';
 import { NotificationsComponent } from './client/site-pages/notifications/notifications.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,8 +60,7 @@ import { NotificationsComponent } from './client/site-pages/notifications/notifi
     ClientsModule,
     HttpClientModule,
     ReactiveFormsModule,
-   
- 
+
    
   ],
   providers: [],

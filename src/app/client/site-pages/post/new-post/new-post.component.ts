@@ -122,6 +122,9 @@ export class NewPostComponent implements OnInit {
             console.error('Error creating post:', error);
           }
         );
+    } else {
+      // Handle form validation errors
+      alert('Form is invalid. Please check the fields.');
     }
   }
 }
