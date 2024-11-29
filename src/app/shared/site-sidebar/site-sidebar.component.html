@@ -45,14 +45,7 @@
           </span>
           <p class="font-bold">Public Squads</p>
         </div>
-        <div *ngFor="let item of squads" class="flex items-center gap-2">
-          <span
-            class="h-[25px] w-[25px] rounded-full flex items-center justify-center"
-          >
-            <i class="fa-solid fa-hashtag text-[#342E37]"></i>
-          </span>
-          <p class="font-medium">{{item.name}}</p>
-        </div>
+      
         <div class="flex items-center gap-2" (click)="navigateToSquads()">
           <span
             class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
@@ -63,7 +56,37 @@
         </div>
       </div>
     </li>
-    <li class="flex mb-5 flex-col gap-2">
+    <li class="flex mb-5 flex-col gap-2 ">
+      <div>
+        <span class="pl-2 text-xl mb-10">Posts</span>
+   
+      
+        <div class="flex items-center gap-2" routerLink="/posts/new">
+          <span
+            class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid text-black fa-plus"></i>
+          </span>
+          <p class="font-medium">New Post</p>
+        </div>
+      </div>
+    </li>
+    <li class="flex mb-5 flex-col gap-2 ">
+      <div>
+        <span class="pl-2 text-xl mb-10">Saved Posts</span>
+   
+      
+        <div class="flex items-center gap-2" routerLink="/Saved">
+          <span
+            class="bg-[#eee] h-[25px] w-[25px] rounded-full flex items-center justify-center"
+          >
+            <i class="fa-solid text-black fa-bookmark"></i>
+          </span>
+          <p class="font-medium">Manage Saved</p>
+        </div>
+      </div>
+    </li>
+    <!-- <li class="flex mb-5 flex-col gap-2">
       <div>
         <span class="pl-2 text-xl mb-10">Discover</span>
         <div class="flex items-center gap-2">
@@ -112,7 +135,7 @@
           <p class="font-medium">Bookmarks</p>
         </div>
       </div>
-    </li>
+    </li> -->
   </ul>
   <div  [ngClass]="functionsS.status ? 'hide': ' hidden'"  class="top site-sidebar ">
     <ul class="flex flex-col gap-10 justify-center items-center w-full">
@@ -120,19 +143,20 @@
         <span><i class="fa-solid fa-house-fire"></i></span>
         <p>Home</p>
       </li>
-      <li class="flex flex-col items-center gap-2 cursor-pointer">
-        <span><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-        <p>Explore</p>
-      </li>
+      
       <li routerLink="/squads" class="flex flex-col items-center gap-2 cursor-pointer">
         <span><i class="fa-solid fa-users"></i></span>
         <p>Squads</p>
       </li>
-      <li class="flex flex-col items-center gap-2 cursor-pointer">
+      <li routerLink="/Saved" class="flex flex-col items-center gap-2 cursor-pointer">
+        <span><i class="fa-solid fa-bookmark"></i></span>
+        <p>Squads</p>
+      </li>
+      <li  (click)="navigateToMyprofile(customer._id)" class="flex flex-col items-center gap-2 cursor-pointer">
         <span><i class="fa-solid fa-user"></i></span>
         <p>Profile</p>
       </li>
-      <li class="flex flex-col items-center gap-2 cursor-pointer">
+      <li routerLink="/posts/new" class="flex flex-col items-center gap-2 cursor-pointer">
         <a
           class="h-12 w-12 rounded-full bg-[#eee]
            cursor-pointer flex justify-center items-center"

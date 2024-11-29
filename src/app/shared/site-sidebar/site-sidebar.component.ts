@@ -59,40 +59,10 @@ export class SiteSidebarComponent {
       console.log(error);
     }
 
-    this.getClubs();
-    this.getInterests();
+   
   }
 
 
-  getInterests(): void {
-    this.http.get<any[]>('http://localhost:3000/api/v1/feeds').subscribe(
-      (response) => {
-        
-        this.feeds = response.filter((item:any)=>item.userId._id == this.customer._id)
-      
-      }, (error) => {
-        console.error('Error fetching interests:', error);
-      }
-    );
-  }
-
-  getClubs(): void {
-    this.http.get<any[]>('http://localhost:3000/api/v1/clubs').subscribe(
-      (response:any) => {
-        
-        this.squads = response.clubs.filter((item:any)=>{
-          return  item.members.includes(this.customer._id) ||
-          item.moderators.includes(this.customer._id) ||
-          item.ownerId._id == this.customer._id
-        });
-       
-
-      },
-      (error) => {
-        console.error('Error fetching interests:', error);
-      }
-    );
-  }
 
 
   // Add this to your component class
@@ -125,4 +95,14 @@ export class SiteSidebarComponent {
   public navigateToPublicSquads(){
     this.router.navigate(['/squads'])
   }
+
+  navigateToMyprofile(id:string){
+    this.router.navigate([`/profile/${id}`])
+  }
+
+  public navigateToSingleSquad(id:any){
+    this.router.navigate([`/squads/squad/${id}`])
+  }
+
+
 }
