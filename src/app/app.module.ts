@@ -27,6 +27,7 @@ import { PostsComponent } from './client/site-pages/profile-pages/posts/posts.co
 import { InteretsComponent } from './client/site-pages/profile-pages/interets/interets.component';
 import { UpvotesComponent } from './client/site-pages/profile-pages/upvotes/upvotes.component';
 import { NotificationsComponent } from './client/site-pages/notifications/notifications.component';
+import { SavedComponent } from './client/site-pages/saved/saved.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { NotificationsComponent } from './client/site-pages/notifications/notifi
     InteretsComponent,
     UpvotesComponent,
     NotificationsComponent,
+    SavedComponent,
     
   ],
   imports: [

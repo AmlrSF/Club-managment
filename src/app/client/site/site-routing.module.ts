@@ -11,6 +11,7 @@ import { PostsComponent } from '../site-pages/profile-pages/posts/posts.componen
 import { InteretsComponent } from '../site-pages/profile-pages/interets/interets.component';
 import { UpvotesComponent } from '../site-pages/profile-pages/upvotes/upvotes.component';
 import { NotificationsComponent } from '../site-pages/notifications/notifications.component';
+import { SavedComponent } from '../site-pages/saved/saved.component';
 
 const routes: Routes = [
   { path: "", component:SiteLayoutComponent , children: [
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'settings', component:SettingsComponent  },
     { path: 'feed', component:FeedComponent  },
     { path: 'notifcations', component:NotificationsComponent  },
+    { path: 'Saved', component:SavedComponent  },
     {
       path: "profile/:id",
       component: ProfileDetailsComponent,
