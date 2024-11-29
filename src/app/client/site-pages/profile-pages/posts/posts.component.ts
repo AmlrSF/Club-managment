@@ -51,6 +51,7 @@ export class PostsComponent implements OnInit{
     // Simulate fetching data from an API or other source
     this.id = this.auth.getId();
     this.fetchPosts();
+    this.getSavedPosts();
     
   }
 
@@ -73,8 +74,8 @@ export class PostsComponent implements OnInit{
       this.http.get(`http://localhost:3000/api/v1/posts`)
         .subscribe((res: any) => {
           console.log(res);
-          this.posts = res.posts.filter((item:any)=>item.author._id == this.customer._id);
-
+          this.posts = res.posts
+          this.posts = this.posts.filter((item:any)=>item.author._id === this.customer._id);
         }, (err: any) => {
           console.error(err);
         });
@@ -108,6 +109,43 @@ export class PostsComponent implements OnInit{
     } catch (error) {
       console.log(error);
       
+    }
+  }
+
+  public savePosts(postId: string): void {
+    try {
+
+      this.http
+        .post(`http://localhost:3000/api/v1/savePosts`, {
+          author: this.customer._id,
+          post: postId,
+        })
+        .subscribe((res: any) => {
+          console.log('Post saved:', res);
+ 
+          this.getSavedPosts();
+          
+        });
+    } catch (error) {
+      console.error('Error saving post:', error);
+    }
+  }
+
+  _savedPosts:any[] = [];
+  toggledSavedStatus:any;
+
+  public getSavedPosts(): void {
+    try {
+    
+      this.http
+        .get(`http://localhost:3000/api/v1/savePosts`)
+        .subscribe((res: any) => {
+          this._savedPosts =  res.data.map((item:any)=>item.post._id);
+          
+           console.log(this._savedPosts)
+        });
+    } catch (error) {
+      console.error('Error saving post:', error);
     }
   }
 

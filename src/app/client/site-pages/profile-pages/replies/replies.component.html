@@ -1,12 +1,12 @@
 <div
   *ngFor="let post of posts"
-  class="flex flex-col md:flex-row gap-4 p-4 border rounded-lg shadow-md"
+  class="flex flex-col md:flex-row gap-4 p-4 border items-center rounded-lg shadow-md"
 >
   <!-- Post Image -->
   <img
     [src]="post.imageUrl"
     alt="image"
-    class="h-[200px] w-full xs:w-[350px] rounded-xl object-cover"
+    class="h-[200px] w-full xs:h-full xs:w-[350px] rounded-xl object-cover"
   />
 
   <!-- Post Content -->
@@ -35,7 +35,7 @@
     <h3 class="text-sm font-normal text-gray-800 mb-4">{{ post.content }}</h3>
 
     <!-- Comments Section -->
-    <div class="space-y-3">
+    <div class="space-y-3 scrolling overflow-scroll h-[250px]" >
       <p class="text-lg font-semibold text-gray-800">
         People Replies on your comment in this post
       </p>
@@ -65,4 +65,5 @@
       </div>
     </div>
   </div>
+
 </div>

@@ -8,16 +8,16 @@
         </li>
         <li>/</li>
         <li>
-          <a href="#">Clubs</a>
+          <a href="#">Posts</a>
         </li>
         <li>/</li>
         <li>
-          <a class="active">Posts</a>
+          <a class="active">Saved</a>
         </li>
       </ul>
     </div>
   </div>
-  <!-- Filter Section -->
+
   <div class="flex justify-between items-center my-5">
     <!-- Search Input -->
     <form (submit)="onSearch(); $event.preventDefault()">
@@ -36,21 +36,6 @@
         >
           Search
         </button>
-      </div>
-    </form>
-
-    <!-- Interest Select -->
-    <form>
-      <div class="form-input flex items-center gap-2">
-        <select
-          class="sm:w-[200px] w-[150px] px-4 py-2 outline-none border-2 rounded-lg border-purple-600"
-          (change)="onSelectInterest($event)"
-        >
-          <option value="">All Interests</option>
-          <option *ngFor="let interest of feeds" [value]="interest._id">
-            {{ interest.name }}
-          </option>
-        </select>
       </div>
     </form>
   </div>
@@ -151,19 +136,17 @@
           (click)="savePosts(post._id)"
           [ngClass]="{
             'bg-yellow-200': _savedPosts.includes(post._id)
-           
           }"
           class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
         >
           <i
             [ngClass]="{
-               
               'text-yellow-600': _savedPosts.includes(post._id)
-            
             }"
             class="fa-solid text-gray-500 text-xl fa-bookmark"
           ></i>
         </div>
+
 
       </div>
     </div>

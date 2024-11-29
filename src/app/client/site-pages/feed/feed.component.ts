@@ -91,7 +91,8 @@ export class FeedComponent implements OnInit {
 
     this.http.post(`http://localhost:3000/api/v1/feeds`, feed).subscribe(
       (response) => {
-        console.log('Feed created successfully:', response);
+        alert('Feed created successfully:');
+        
       },
       (error) => {
         console.error('Error creating feed:', error);

@@ -18,7 +18,7 @@
       <div class="post-content">
         <p
           (click)="navigateToPostDetail(post._id)"
-          class="hover:underline text-xl font-bold"
+          class="hover:underline text-xl text-black font-bold"
         >
           {{ truncateText(post.content) }}
         </p>
@@ -63,15 +63,21 @@
           </p>
         </div>
         <div
-          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
-        >
-          <i class="fa-solid text-gray-500 fa-bookmark"></i>
-        </div>
-        <div
-          class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
-        >
-          <i class="fa-solid text-gray-500 fa-share"></i>
-        </div>
+        (click)="savePosts(post._id)"
+        [ngClass]="{
+          'bg-yellow-200': _savedPosts.includes(post._id)
+        }"
+        class="cursor-pointer h-[35px] w-[35px] flex justify-center p-2 items-center rounded-xl bg-[#eee]"
+      >
+        <i
+          [ngClass]="{
+            'text-yellow-600': _savedPosts.includes(post._id)
+          }"
+          class="fa-solid text-gray-500 text-xl fa-bookmark"
+        ></i>
+      </div>
+
+  
       </div>
     </div>
   </div>

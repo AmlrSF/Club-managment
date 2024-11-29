@@ -9,6 +9,7 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
   styleUrls: ['./club-details.component.css'],
 })
 export class ClubDetailsComponent implements OnInit {
+
   public customer: any;
   public squad: any; // Variable to store the squad details
   posts: any[] = [];
@@ -182,6 +183,8 @@ export class ClubDetailsComponent implements OnInit {
     });
   }
 
-  
+  navigateToPostDetail(id: any) {
+    this.router.navigate([`/posts/post/${id}`])
+  }
   
 }

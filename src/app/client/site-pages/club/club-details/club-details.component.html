@@ -197,7 +197,10 @@
         </span>
       </div>
       <div class="post-content">
-        <p class="text-xl font-bold text-black">
+        <p
+          (click)="navigateToPostDetail(post._id)"
+          class="hover:underline text-xl font-bold text-black"
+        >
           {{ truncateText(post.content) }}
         </p>
         <p class="text-gray-500">

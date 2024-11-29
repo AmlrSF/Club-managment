@@ -59,9 +59,7 @@
                     <td class="text-center p-4">{{ client.role === 0 ? 'User' : 'Admin' }}</td>
                     <td class="text-center p-4">{{ formatReadableDate(client.registrationDate) }}</td>
                     <td class="text-center p-4 justify-center flex gap-3">
-                        <button class="p-2 rounded-lg bg-[#3C91E6]" (click)="viewClient(client)">
-                            <i class="text-white font-bold fa-solid fa-eye"></i>
-                        </button>
+                     
                         <button class="p-2 rounded-lg bg-green-500" (click)="editClient(client)">
                             <i class="text-white font-bold fa-solid fa-pen"></i>
                         </button>

@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  selector: 'app-saved',
+  templateUrl: './saved.component.html',
+  styleUrls: ['./saved.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class SavedComponent implements OnInit {
   posts: any[] = [];
   filteredPosts: any[] = [];
   feeds: any[] = [];
@@ -33,32 +33,33 @@ export class HomePageComponent implements OnInit {
             this.router.navigate(['Login']);
           }
           this.customer = res.customer;
+    
         },
         (error) => console.error('Error fetching customer profile:', error)
       );
-
-    this.fetchPosts();
-    this.getInterests();
-    this.getSavedPosts();
+      
+      this.fetchPosts();
+      this.getInterests();
+      this.getSavedPosts();
   }
 
   getInterests(): void {
-    this.http.get<any[]>('http://localhost:3000/api/v1/feeds').subscribe(
-      (response: any) => {
+    this.http.get<any[]>('http://localhost:3000/api/v1/feeds')
+    .subscribe(
+      (response:any) => {
         this.feeds = response;
-        this.feeds = this.feeds.filter(
-          (item: any) => item.userId._id == this.customer._id
-        );
+        this.feeds = this.feeds.filter((item:any)=>item.userId._id == this.customer._id);
+        
       },
       (error) => console.error('Error fetching interests:', error)
     );
   }
 
   fetchPosts(): void {
-    this.http.get('http://localhost:3000/api/v1/posts').subscribe(
+    this.http.get('http://localhost:3000/api/v1/savePosts').subscribe(
       (res: any) => {
-        this.posts = res.posts;
-        this.filteredPosts = res.posts; // Initialize filteredPosts with all posts
+        
+        this.filteredPosts = res.data.map((item:any)=>item.post)
       },
       (error) => console.error('Error fetching posts:', error)
     );
@@ -81,9 +82,10 @@ export class HomePageComponent implements OnInit {
         ?.interests.map((item: any) => item.name) || []; // Safeguard to handle undefined
 
     this.filteredPosts = this.posts.filter((post) => {
-      let res = selectedFeed.some((item: any) => item === post.genre);
-
-      return res;
+      
+      let res =  selectedFeed.some((item: any) => item === post.genre);
+    
+      return res
     });
   }
 
@@ -151,6 +153,7 @@ export class HomePageComponent implements OnInit {
           console.log('Post saved:', res);
  
           this.getSavedPosts();
+          this.fetchPosts();
           
         });
     } catch (error) {
@@ -175,5 +178,4 @@ export class HomePageComponent implements OnInit {
       console.error('Error saving post:', error);
     }
   }
-  
 }
