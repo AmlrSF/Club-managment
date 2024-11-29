@@ -167,7 +167,8 @@ export class HomePageComponent implements OnInit {
       this.http
         .get(`http://localhost:3000/api/v1/savePosts`)
         .subscribe((res: any) => {
-          this._savedPosts =  res.data.map((item:any)=>item.post._id);
+          
+          this._savedPosts =  res.data.filter((item:any)=>item.author._id == this.customer._id).map((item:any)=>item.post._id);
           
            console.log(this._savedPosts)
         });

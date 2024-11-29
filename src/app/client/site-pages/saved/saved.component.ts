@@ -6,7 +6,7 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 @Component({
   selector: 'app-saved',
   templateUrl: './saved.component.html',
-  styleUrls: ['./saved.component.css']
+  styleUrls: ['./saved.component.css'],
 })
 export class SavedComponent implements OnInit {
   posts: any[] = [];
@@ -33,23 +33,22 @@ export class SavedComponent implements OnInit {
             this.router.navigate(['Login']);
           }
           this.customer = res.customer;
-    
         },
         (error) => console.error('Error fetching customer profile:', error)
       );
-      
-      this.fetchPosts();
-      this.getInterests();
-      this.getSavedPosts();
+    this.getSavedPosts();
+    this.fetchPosts();
+    this.getInterests();
   }
 
   getInterests(): void {
-    this.http.get<any[]>('http://localhost:3000/api/v1/feeds')
-    .subscribe(
-      (response:any) => {
+    this.http.get<any[]>('http://localhost:3000/api/v1/feeds').subscribe(
+      (response: any) => {
         this.feeds = response;
-        this.feeds = this.feeds.filter((item:any)=>item.userId._id == this.customer._id);
-        
+
+        this.feeds = this.feeds.filter(
+          (item: any) => item.userId._id == this.customer._id
+        );
       },
       (error) => console.error('Error fetching interests:', error)
     );
@@ -58,8 +57,11 @@ export class SavedComponent implements OnInit {
   fetchPosts(): void {
     this.http.get('http://localhost:3000/api/v1/savePosts').subscribe(
       (res: any) => {
-        
-        this.filteredPosts = res.data.map((item:any)=>item.post)
+        console.log(res.data);
+
+        this.filteredPosts = res.data
+          .filter((item: any) => item.author._id == this.customer._id)
+          .map((item: any) => item.post);
       },
       (error) => console.error('Error fetching posts:', error)
     );
@@ -82,10 +84,9 @@ export class SavedComponent implements OnInit {
         ?.interests.map((item: any) => item.name) || []; // Safeguard to handle undefined
 
     this.filteredPosts = this.posts.filter((post) => {
-      
-      let res =  selectedFeed.some((item: any) => item === post.genre);
-    
-      return res
+      let res = selectedFeed.some((item: any) => item === post.genre);
+
+      return res;
     });
   }
 
@@ -143,7 +144,6 @@ export class SavedComponent implements OnInit {
 
   public savePosts(postId: string): void {
     try {
-
       this.http
         .post(`http://localhost:3000/api/v1/savePosts`, {
           author: this.customer._id,
@@ -151,28 +151,26 @@ export class SavedComponent implements OnInit {
         })
         .subscribe((res: any) => {
           console.log('Post saved:', res);
- 
+
           this.getSavedPosts();
           this.fetchPosts();
-          
         });
     } catch (error) {
       console.error('Error saving post:', error);
     }
   }
 
-  _savedPosts:any[] = [];
-  toggledSavedStatus:any;
+  _savedPosts: any[] = [];
+  toggledSavedStatus: any;
 
   public getSavedPosts(): void {
     try {
-    
       this.http
         .get(`http://localhost:3000/api/v1/savePosts`)
         .subscribe((res: any) => {
-          this._savedPosts =  res.data.map((item:any)=>item.post._id);
-          
-           console.log(this._savedPosts)
+          this._savedPosts = res.data.map((item: any) => item.post._id);
+
+          console.log(this._savedPosts);
         });
     } catch (error) {
       console.error('Error saving post:', error);
